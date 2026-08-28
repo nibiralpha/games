@@ -12,3 +12,36 @@ body {
 .container {
   padding: 0 80px;
 }
+
+.section{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.weight-100 { font-weight: 100; }
+.weight-200 { font-weight: 200; }
+.weight-300 { font-weight: 300; }
+.weight-400 { font-weight: 400; }
+.weight-500 { font-weight: 500; }
+.weight-600 { font-weight: 600; }
+.weight-700 { font-weight: 700; }
+.weight-800 { font-weight: 800; }
+.weight-900 { font-weight: 900; }
+
+.section_title{
+  font-size: 1.3em;
+}
+
+/* Mobile */
+
+@media screen and (max-width: 440px) {
+  .container {
+    padding: 0 15px;
+  }
+}
+
+/* DESKTOP */
+/* @media (min-width: 1440px) {
+ 
+} */
