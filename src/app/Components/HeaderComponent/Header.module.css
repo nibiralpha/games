@@ -1,0 +1,11 @@
+.header_area{
+    background-color: black;
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.app_name{
+
+}
