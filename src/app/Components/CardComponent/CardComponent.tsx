@@ -8,48 +8,40 @@ import "keen-slider/keen-slider.min.css";
 export default function CardComponent() {
   const [ref] = useKeenSlider<HTMLDivElement>({
     slides: {
-      perView: 5,
-      spacing: 15,
+      perView: 1,
+      spacing: 10,
+    },
+    breakpoints: {
+      // Tablets
+      "(min-width: 640px)": {
+        slides: { perView: 2, spacing: 12 },
+      },
+      // Medium screens
+      "(min-width: 768px)": {
+        slides: { perView: 3, spacing: 15 },
+      },
+      // Large screens/Desktops
+      "(min-width: 1024px)": {
+        slides: { perView: 4, spacing: 15 },
+      },
     },
   });
+
+  const imageUrls = Array(6).fill(
+    "https://images.unsplash.com/photo-1718579044120-34c8a70e8e5a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0"
+  );
+
   return (
     <div ref={ref} className="keen-slider">
-      <div className="keen-slider__slide number-slide1">
-        <img
-          src={"https://images.unsplash.com/photo-1718579044120-34c8a70e8e5a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
-          className={`${styles.cardImage} h-48 w-full object-cover`}
-
-        />
-      </div>
-      <div className="keen-slider__slide number-slide2">
-        <img
-          src={"https://images.unsplash.com/photo-1718579044120-34c8a70e8e5a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
-          className={`${styles.cardImage} h-48 w-full object-cover`}
-
-        />
-      </div>
-      <div className="keen-slider__slide number-slide2">
-        <img
-          src={"https://images.unsplash.com/photo-1718579044120-34c8a70e8e5a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
-          className={`${styles.cardImage} h-48 w-full object-cover`}
-
-        />
-      </div>
-      <div className="keen-slider__slide number-slide2">
-        <img
-          src={"https://images.unsplash.com/photo-1718579044120-34c8a70e8e5a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
-         className={`${styles.cardImage} h-48 w-full object-cover`}
-
-        />
-      </div>
-      <div className="keen-slider__slide number-slide2">
-        <img
-          src={"https://images.unsplash.com/photo-1718579044120-34c8a70e8e5a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
-        //   alt={`Slide ${index + 1}`}
-          className={`${styles.cardImage} h-48 w-full object-cover`}
-
-        />
-      </div>
+      {imageUrls.map((url, index) => (
+        <div key={index} className="keen-slider__slide">
+          <img
+            src={url}
+            alt={`Slide ${index + 1}`}
+            className={`${styles.cardImage} h-48 w-full object-cover`}
+          />
+        </div>
+      ))}
     </div>
   );
 }
