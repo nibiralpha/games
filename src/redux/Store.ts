@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-// import MusicSlice from "./MusicSlice";
+import { GameSlice } from "./GameSlice";
 
 const rootReducer = combineReducers({
-  // songs: MusicSlice,
+  games: GameSlice,
 });
 
 export const store = configureStore({
