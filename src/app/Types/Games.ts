@@ -1,7 +1,11 @@
 export interface TrendingGameResponse {
   data: Game[];
 }
-
+export interface TrendingGameInterface {
+  id: number;
+  name: string;
+  background_image: string;
+}
 export interface Game {
   id: number;
   slug: string;

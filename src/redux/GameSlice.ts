@@ -1,14 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import { SearchTrack, TrackData } from "@app-types/PopulerSongs";
-// import { MusicInterface } from "@app-types/MusicState";
+import { GameStateInterface } from "@app-types/GamesState";
+import { TrendingGameInterface } from "@app-types/Games";
 
-// const initialState: MusicInterface = {
-const initialState = {
+const initialState: GameStateInterface = {
   trendingGames: {
     list: [],
     loading: true,
-    // error: false,
-    // errorResponse: {},
   },
 };
 
@@ -16,8 +13,7 @@ export const GameSlice = createSlice({
   name: "games",
   initialState,
   reducers: {
-    // setTrendingGames: (state, action: PayloadAction<TrackData[]>) => {
-    setTrendingGames: (state, action) => {
+    setTrendingGames: (state, action: PayloadAction<TrendingGameInterface[]>) => {
       return {
         ...state,
         trendingGames: { ...state.trendingGames, list: action.payload },
