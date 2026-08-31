@@ -7,16 +7,17 @@ import { AppDispatch } from "@redux/Store";
 import { useDispatch } from "react-redux";
 import useGames from "@Hooks/useGames";
 import { useEffect } from "react";
-import { fetchTrendingGames } from "@Services/Games";
-import { getCurrentMonthObject } from "@Helper/Functions";
+import { fetchMonthlyGames, fetchTrendingGames } from "@Services/Games";
+import { getCurrentMonthDateRange } from "@Helper/Functions";
 
 export default function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { trendingGames } = useGames();  
+  const { trendingGames, monthlyGames } = useGames();  
 
   const fetchData = () => {
     dispatch(fetchTrendingGames())
+    dispatch(fetchMonthlyGames())
   }
 
   useEffect(() => {
@@ -39,11 +40,11 @@ export default function HomePage() {
         </div>
         <div className="mt-10">
           <div className="section">
-            <div className="section_title weight-600 capitalize">Out in {getCurrentMonthObject().name}</div>
+            <div className="section_title weight-600 capitalize">Out in {getCurrentMonthDateRange().fromDateName}</div>
             <div className="text-sm">See more</div>
           </div>
           <div className="section mt-5">
-            <CardComponent data={trendingGames?.list} loading={trendingGames?.loading}/>
+            <CardComponent data={monthlyGames?.list} loading={monthlyGames?.loading}/>
           </div>
         </div>
         <div className="mt-10">

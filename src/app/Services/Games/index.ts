@@ -1,11 +1,14 @@
 // import { startLoading } from "@redux/celebritySlice";
 import { Dispatch } from "@reduxjs/toolkit";
 import {
+  setMonthlyGames,
+  setMonthlyGamesLoading,
   setTrendingGames,
   setTrendingGamesLoading,
 } from "@/src/redux/GameSlice";
-import { getTrendingGames } from "@Api/Games";
+import { getMonthlyGames, getTrendingGames } from "@Api/Games";
 import { Game, TrendingGameInterface } from "@app-types/Games";
+import { getCurrentMonthDateRange } from "@Helper/Functions";
 
 const fetchTrendingGames = () => {
   return async (dispatch: Dispatch) => {
@@ -33,5 +36,32 @@ const fetchTrendingGames = () => {
     }
   };
 };
+const fetchMonthlyGames = () => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(setMonthlyGamesLoading(true));
 
-export { fetchTrendingGames };
+      const { fromDate, endDate } = getCurrentMonthDateRange();
+
+      const gamesRes = await getMonthlyGames(fromDate, endDate);
+
+      const gamesData: TrendingGameInterface[] = gamesRes?.data?.data?.map(
+        (game: Game) => ({
+          id: game.id,
+          name: game.name,
+          background_image: game.background_image,
+        }),
+      );
+
+      dispatch(setMonthlyGames(gamesData));
+
+      dispatch(setMonthlyGamesLoading(false));
+    } catch (error: unknown) {
+      console.log(error);
+      dispatch(setMonthlyGamesLoading(false));
+      throw error;
+    }
+  };
+};
+
+export { fetchTrendingGames, fetchMonthlyGames };

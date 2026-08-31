@@ -1,15 +1,36 @@
 import { MonthObject } from "@app-types/Games";
 
-export function getCurrentMonthObject(): MonthObject {
+interface MonthDateRange {
+  fromDate: string;
+  endDate: string;
+  fromDateName: string;
+  endDateName: string;
+}
+
+export function getCurrentMonthDateRange(): MonthDateRange {
   const today = new Date();
 
-  const monthNumber = today.getMonth() + 1;
+  const year = today.getFullYear();
+  const month = today.getMonth();
 
-  const formatter = new Intl.DateTimeFormat("en-US", { month: "long" });
+  const monthNumber = String(month + 1).padStart(2, "0");
+
+  const fromDate = `${year}-${monthNumber}-01`;
+
+  const lastDay = new Date(year, month + 1, 0).getDate();
+
+  const endDate = `${year}-${monthNumber}-${String(lastDay).padStart(2, "0")}`;
+
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    month: "long",
+  });
+
   const monthName = formatter.format(today).toLowerCase();
 
   return {
-    month: monthNumber,
-    name: monthName,
+    fromDate,
+    endDate,
+    fromDateName: monthName,
+    endDateName: monthName,
   };
 }

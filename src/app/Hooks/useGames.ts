@@ -6,8 +6,13 @@ const useGames = () => {
     (state: RootState) => state.games.trendingGames,
   );
 
+   const monthlyGames = useSelector(
+    (state: RootState) => state.games.monthlyGames,
+  );
+
   return {
     trendingGames,
+    monthlyGames
   };
 };
 
