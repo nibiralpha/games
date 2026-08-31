@@ -128,3 +128,8 @@ export interface ShortScreenshot {
   id: number;
   image: string;
 }
+
+export interface MonthObject {
+  month: number;
+  name: string;
+}

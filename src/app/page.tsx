@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import useGames from "@Hooks/useGames";
 import { useEffect } from "react";
 import { fetchTrendingGames } from "@Services/Games";
+import { getCurrentMonthObject } from "@Helper/Functions";
 
 export default function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -38,7 +39,7 @@ export default function HomePage() {
         </div>
         <div className="mt-10">
           <div className="section">
-            <div className="section_title weight-600">Out in August</div>
+            <div className="section_title weight-600 capitalize">Out in {getCurrentMonthObject().name}</div>
             <div className="text-sm">See more</div>
           </div>
           <div className="section mt-5">
