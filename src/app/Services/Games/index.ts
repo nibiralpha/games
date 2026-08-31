@@ -7,7 +7,7 @@ import {
 import { getTrendingGames } from "@Api/Games";
 import { Game, TrendingGameInterface } from "@app-types/Games";
 
-const fetchTrendingGames = (id: number) => {
+const fetchTrendingGames = () => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(setTrendingGamesLoading(true));

@@ -1,8 +1,27 @@
+"use client";
+
 import HeaderComponent from "@Components/HeaderComponent/HeaderComponent";
 import CardComponent from "@Components/CardComponent/CardComponent";
 import ReleaseCalenderComponent from "@Components/ReleaseCalenderComponent/ReleaseCalenderComponent";
+import { AppDispatch } from "@redux/Store";
+import { useDispatch } from "react-redux";
+import useGames from "@Hooks/useGames";
+import { useEffect } from "react";
+import { fetchTrendingGames } from "@Services/Games";
 
-export default function Home() {
+export default function HomePage() {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { trendingGames } = useGames();  
+
+  const fetchData = () => {
+    dispatch(fetchTrendingGames())
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [])
+
   return (
     <div className="">
       <HeaderComponent />
@@ -14,7 +33,7 @@ export default function Home() {
             <div className="text-sm">See more</div>
           </div>
           <div className="section mt-5">
-            <CardComponent />
+            <CardComponent data={trendingGames?.list} loading={trendingGames?.loading}/>
           </div>
         </div>
         <div className="mt-10">
@@ -23,13 +42,15 @@ export default function Home() {
             <div className="text-sm">See more</div>
           </div>
           <div className="section mt-5">
-            <CardComponent />
+            <CardComponent data={trendingGames?.list} loading={trendingGames?.loading}/>
           </div>
         </div>
         <div className="mt-10">
           <div className="release_section">
             <div className="section_title weight-600">Release Calendar</div>
-            <div className="section_detail">Whats new, coming soon, and most anticipated</div>
+            <div className="section_detail">
+              Whats new, coming soon, and most anticipated
+            </div>
           </div>
           <div className="section mt-5">
             <ReleaseCalenderComponent />

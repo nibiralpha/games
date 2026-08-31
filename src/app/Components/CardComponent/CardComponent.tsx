@@ -5,9 +5,15 @@ import styles from "./Card.module.css";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import Image from "next/image";
+import { TrendingGameInterface } from "@app-types//Games";
+interface Props {
+  data: TrendingGameInterface[];
+  loading: boolean;
+}
 
-export default function CardComponent() {
+export default function CardComponent({ data, loading }: Readonly<Props>) {
   const [ref] = useKeenSlider<HTMLDivElement>({
+    //mobile
     slides: {
       perView: 1,
       spacing: 10,
@@ -28,19 +34,19 @@ export default function CardComponent() {
     },
   });
 
-  const imageUrls = Array(6).fill(
-    "https://images.unsplash.com/photo-1718579044120-34c8a70e8e5a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0",
-  );
+  if (loading) {
+    return null;
+  }
 
   return (
     <div ref={ref} className="keen-slider">
-      {imageUrls.map((url, index) => (
+      {data?.map((game, index) => (
         <div
           key={index}
           className={`keen-slider__slide relative h-48 w-full ${styles.cardImage}`}
         >
           <Image
-            src={url}
+            src={game?.background_image}
             alt={`Slide ${index + 1}`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
