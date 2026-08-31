@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from "axios";
 import { BASEURL } from "@Constant/Api";
-import { AlbumDetailsResponse } from "@app-types/Album";
+import { TrendingGameResponse } from "@app-types/Games";
 
-const getAlbum = async (id: number): Promise<AxiosResponse<AlbumDetailsResponse>> => {
-  const response = await axios.get<AlbumDetailsResponse>(`${BASEURL}/api/album/${id}`);
+const getAlbum = async (id: number): Promise<AxiosResponse<TrendingGameResponse>> => {
+  const response = await axios.get<TrendingGameResponse>(`${BASEURL}/api/album/${id}`);
   return response;
 };
 
