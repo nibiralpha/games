@@ -33,7 +33,7 @@ export default function HomePage() {
         <div className="mt-10">
           <div className="section">
             <div className="section_title weight-600">Trending Games</div>
-            <div className="text-sm">See more</div>
+            <div className="text-sm cursor-pointer">See more</div>
           </div>
           <div className="section mt-5">
             <CardComponent data={trendingGames?.list} loading={trendingGames?.loading}/>
@@ -42,7 +42,7 @@ export default function HomePage() {
         <div className="mt-10">
           <div className="section">
             <div className="section_title weight-600 capitalize">Out in {getCurrentMonthDateRange().fromDateName}</div>
-            <div className="text-sm">See more</div>
+            <div className="text-sm cursor-pointer">See more</div>
           </div>
           <div className="section mt-5">
             <CardComponent data={monthlyGames?.list} loading={monthlyGames?.loading}/>
