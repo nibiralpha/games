@@ -6,7 +6,7 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import Image from "next/image";
 import { TrendingGameInterface } from "@app-types//Games";
-import CardSkeletonComponent from "@Components/CardSkeletonComponent/CardSkeletonComponent";
+import CardSkeletonComponent from "@/src/app/Components/SkeletonComponent/CardSkeletonComponent";
 
 interface Props {
   data: TrendingGameInterface[];
@@ -32,7 +32,7 @@ export default function CardComponent({ data, loading }: Readonly<Props>) {
     },
   });
 
-  if (loading || !data || data.length === 0) {
+  if (loading || !data) {
     return <CardSkeletonComponent />;
   }
 

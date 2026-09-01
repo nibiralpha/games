@@ -5,6 +5,7 @@ import "keen-slider/keen-slider.min.css";
 import Image from "next/image";
 import { GameSectionsState } from "@app-types/Games";
 import { formatGameReleaseDate } from "@Helper/Functions";
+import ReleaseCalendarSkeleton from "@Components/SkeletonComponent/ReleaseCalendarSkeleton";
 
 interface Props {
   data: GameSectionsState;
@@ -15,8 +16,9 @@ export default function ReleaseCalenderComponent({
   data,
   loading,
 }: Readonly<Props>) {
+  
   if (loading || !data) {
-    return null;
+    return <ReleaseCalendarSkeleton />
   }
 
   return (
