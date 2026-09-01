@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GameStateInterface } from "@app-types/GamesState";
-import { TrendingGameInterface } from "@app-types/Games";
-import { RecentGameInterface } from "../app/Types/GameByMonth";
+import {
+  GameSectionsState,
+  TrendingGameInterface,
+} from "@app-types/Games";
 
 const initialState: GameStateInterface = {
   trendingGames: {
@@ -11,14 +13,25 @@ const initialState: GameStateInterface = {
   monthlyGames: {
     list: [],
     loading: true,
-  }
+  },
+  lastRecentAnticipetdGames: {
+    data: {
+      last60Days: [],
+      next60Days: [],
+      mostAnticipated: []
+    },
+    loading: true,
+  },
 };
 
 export const GameSlice = createSlice({
   name: "games",
   initialState,
   reducers: {
-    setTrendingGames: (state, action: PayloadAction<TrendingGameInterface[]>) => {
+    setTrendingGames: (
+      state,
+      action: PayloadAction<TrendingGameInterface[]>,
+    ) => {
       return {
         ...state,
         trendingGames: { ...state.trendingGames, list: action.payload },
@@ -30,7 +43,10 @@ export const GameSlice = createSlice({
         trendingGames: { ...state.trendingGames, loading: action.payload },
       };
     },
-    setMonthlyGames: (state, action: PayloadAction<TrendingGameInterface[]>) => {
+    setMonthlyGames: (
+      state,
+      action: PayloadAction<TrendingGameInterface[]>,
+    ) => {
       return {
         ...state,
         monthlyGames: { ...state.monthlyGames, list: action.payload },
@@ -42,6 +58,30 @@ export const GameSlice = createSlice({
         monthlyGames: { ...state.monthlyGames, loading: action.payload },
       };
     },
+    setlastRecentAnticipetdGames: (
+      state,
+      action: PayloadAction<GameSectionsState>,
+    ) => {
+      return {
+        ...state,
+        lastRecentAnticipetdGames: {
+          ...state.lastRecentAnticipetdGames,
+          data: action.payload,
+        },
+      };
+    },
+    setlastRecentAnticipetdGamesLoading: (
+      state,
+      action: PayloadAction<boolean>,
+    ) => {
+      return {
+        ...state,
+        lastRecentAnticipetdGames: {
+          ...state.lastRecentAnticipetdGames,
+          loading: action.payload,
+        },
+      };
+    },
   },
 });
 
@@ -49,6 +89,8 @@ export const {
   setTrendingGames,
   setTrendingGamesLoading,
   setMonthlyGames,
-  setMonthlyGamesLoading
+  setMonthlyGamesLoading,
+  setlastRecentAnticipetdGames,
+  setlastRecentAnticipetdGamesLoading,
 } = GameSlice.actions;
 export default GameSlice.reducer;

@@ -7,17 +7,18 @@ import { AppDispatch } from "@redux/Store";
 import { useDispatch } from "react-redux";
 import useGames from "@Hooks/useGames";
 import { useEffect } from "react";
-import { fetchMonthlyGames, fetchTrendingGames } from "@Services/Games";
+import { fetchLastRecentAnicipetedGames, fetchMonthlyGames, fetchTrendingGames } from "@Services/Games";
 import { getCurrentMonthDateRange } from "@Helper/Functions";
 
 export default function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { trendingGames, monthlyGames } = useGames();  
+  const { trendingGames, monthlyGames, lastComingAnticipatedGames } = useGames();  
 
   const fetchData = () => {
     dispatch(fetchTrendingGames())
     dispatch(fetchMonthlyGames())
+    dispatch(fetchLastRecentAnicipetedGames())
   }
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="section mt-5">
-            <ReleaseCalenderComponent />
+            <ReleaseCalenderComponent data={lastComingAnticipatedGames?.data} loading={lastComingAnticipatedGames?.loading}/>
           </div>
         </div>
       </div>

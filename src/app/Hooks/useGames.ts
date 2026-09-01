@@ -9,10 +9,15 @@ const useGames = () => {
    const monthlyGames = useSelector(
     (state: RootState) => state.games.monthlyGames,
   );
+  
+  const lastComingAnticipatedGames = useSelector(
+    (state: RootState) => state.games.lastRecentAnticipetdGames,
+  );
 
   return {
     trendingGames,
-    monthlyGames
+    monthlyGames,
+    lastComingAnticipatedGames
   };
 };
 

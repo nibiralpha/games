@@ -34,3 +34,16 @@ export function getCurrentMonthDateRange(): MonthDateRange {
     endDateName: monthName,
   };
 }
+
+export function formatGameReleaseDate(dateString: string): string {
+  if (!dateString) return "";
+
+  const date = new Date(`${dateString}T00:00:00`);
+
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+  });
+
+  return formatter.format(date);
+}

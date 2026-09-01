@@ -6,6 +6,12 @@ export interface TrendingGameInterface {
   name: string;
   background_image: string;
 }
+export interface LastNextAnticipatedInterface {
+  id: number;
+  name: string;
+  background_image: string;
+  date: string;
+}
 export interface Game {
   id: number;
   slug: string;
@@ -144,4 +150,10 @@ export interface ReleaseGameSection {
   fromDate: string;
   endDate: string;
   data: Game[];
+}
+
+export interface GameSectionsState {
+  last60Days: LastNextAnticipatedInterface[];
+  next60Days: LastNextAnticipatedInterface[];
+  mostAnticipated: LastNextAnticipatedInterface[];
 }

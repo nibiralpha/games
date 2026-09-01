@@ -1,13 +1,24 @@
 // import { startLoading } from "@redux/celebritySlice";
 import { Dispatch } from "@reduxjs/toolkit";
 import {
+  setlastRecentAnticipetdGames,
+  setlastRecentAnticipetdGamesLoading,
   setMonthlyGames,
   setMonthlyGamesLoading,
   setTrendingGames,
   setTrendingGamesLoading,
 } from "@/src/redux/GameSlice";
-import { getMonthlyGames, getTrendingGames } from "@Api/Games";
-import { Game, TrendingGameInterface } from "@app-types/Games";
+import {
+  getGamesLastRecentAnicipeted,
+  getMonthlyGames,
+  getTrendingGames,
+} from "@Api/Games";
+import {
+  Game,
+  GameSectionsState,
+  LastNextAnticipatedInterface,
+  TrendingGameInterface,
+} from "@app-types/Games";
 import { getCurrentMonthDateRange } from "@Helper/Functions";
 
 const fetchTrendingGames = () => {
@@ -64,4 +75,71 @@ const fetchMonthlyGames = () => {
   };
 };
 
-export { fetchTrendingGames, fetchMonthlyGames };
+const fetchLastRecentAnicipetedGames = () => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(setlastRecentAnticipetdGamesLoading(true));
+
+      const gamesRes = await getGamesLastRecentAnicipeted();
+
+      // const gamesData: LastRecentAnticipatedInterface[] = gamesRes?.data?.map(
+      //   (game: Game) => ({
+      //     id: game.id,
+      //     name: game.name,
+      //     background_image: game.background_image,
+      //     date: game.released
+      //   }),
+      // );
+
+      const gameData: GameSectionsState = {
+        last60Days: [],
+        next60Days: [],
+        mostAnticipated: [],
+      };
+
+      const last60Days: LastNextAnticipatedInterface[] =
+        gamesRes?.data?.last60Days?.data?.map((game: Game) => ({
+          id: game.id,
+          name: game.name,
+          background_image: game.background_image,
+          date: game.released,
+        }));
+
+      const next60Days: LastNextAnticipatedInterface[] =
+        gamesRes?.data?.next60Days?.data?.map((game: Game) => ({
+          id: game.id,
+          name: game.name,
+          background_image: game.background_image,
+          date: game.released,
+        }));
+
+      const mostAnticipated: LastNextAnticipatedInterface[] =
+        gamesRes?.data?.mostAnticipated?.data?.map((game: Game) => ({
+          id: game.id,
+          name: game.name,
+          background_image: game.background_image,
+          date: game.released,
+        }));
+
+      gameData.last60Days = last60Days;
+      gameData.next60Days = next60Days;
+      gameData.mostAnticipated = mostAnticipated;
+
+      // console.log("gameDatagameData", gameData);
+
+      dispatch(setlastRecentAnticipetdGames(gameData));
+
+      dispatch(setlastRecentAnticipetdGamesLoading(false));
+    } catch (error: unknown) {
+      console.log(error);
+      dispatch(setlastRecentAnticipetdGamesLoading(false));
+      throw error;
+    }
+  };
+};
+
+export {
+  fetchTrendingGames,
+  fetchMonthlyGames,
+  fetchLastRecentAnicipetedGames,
+};
