@@ -22,7 +22,7 @@ export default function ReleaseCalenderComponent({
   }
 
   return (
-    <div className="w-full max-w-6xl mx-auto mb-30">
+    <div className="w-full max-w-6xl mb-30">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* New release */}
         <div>

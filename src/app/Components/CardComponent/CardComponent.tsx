@@ -29,6 +29,9 @@ export default function CardComponent({ data, loading }: Readonly<Props>) {
       "(min-width: 1024px)": {
         slides: { perView: 4, spacing: 15 },
       },
+      "(min-width: 1440px)": {
+        slides: { perView: 5, spacing: 15 },
+      },
     },
   });
 

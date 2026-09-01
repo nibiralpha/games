@@ -3,11 +3,10 @@
 import * as React from "react";
 
 export default function ReleaseCalendarSkeleton() {
-  // Create an array list containing 10 slots to mimic the sliced payload rows
   const skeletonRows = Array.from({ length: 10 });
 
   return (
-    <div className="w-full max-w-6xl mx-auto mb-30 select-none pointer-events-none">
+    <div className="w-full max-w-6xl mb-30 select-none pointer-events-none">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         <div>
