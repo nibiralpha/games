@@ -1,4 +1,3 @@
-// import { startLoading } from "@redux/celebritySlice";
 import { Dispatch } from "@reduxjs/toolkit";
 import {
   setlastRecentAnticipetdGames,
@@ -28,7 +27,7 @@ const fetchTrendingGames = () => {
 
       const gamesRes = await getTrendingGames();
 
-      const gamesData: TrendingGameInterface[] = gamesRes?.data?.data?.map(
+      const gamesData: TrendingGameInterface[] = gamesRes?.data?.map(
         (game: Game) => ({
           id: game.id,
           name: game.name,
@@ -55,7 +54,7 @@ const fetchMonthlyGames = () => {
 
       const gamesRes = await getMonthlyGames(fromDate, endDate);
 
-      const gamesData: TrendingGameInterface[] = gamesRes?.data?.data?.map(
+      const gamesData: TrendingGameInterface[] = gamesRes?.data?.map(
         (game: Game) => ({
           id: game.id,
           name: game.name,
@@ -88,7 +87,7 @@ const fetchLastRecentAnicipetedGames = () => {
       };
 
       const last60Days: LastNextAnticipatedInterface[] =
-        gamesRes?.data?.last60Days?.data?.map(
+        gamesRes?.last60Days?.data?.map(
           (game: Game): LastNextAnticipatedInterface => ({
             id: game.id,
             name: game.name,
@@ -98,7 +97,7 @@ const fetchLastRecentAnicipetedGames = () => {
         );
 
       const next60Days: LastNextAnticipatedInterface[] =
-        gamesRes?.data?.next60Days?.data?.map(
+        gamesRes?.next60Days?.data?.map(
           (game: Game): LastNextAnticipatedInterface => ({
             id: game.id,
             name: game.name,
@@ -108,7 +107,7 @@ const fetchLastRecentAnicipetedGames = () => {
         );
 
       const mostAnticipated: LastNextAnticipatedInterface[] =
-        gamesRes?.data?.mostAnticipated?.data?.map(
+        gamesRes?.mostAnticipated?.data?.map(
           (game: Game): LastNextAnticipatedInterface => ({
             id: game.id,
             name: game.name,

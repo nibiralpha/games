@@ -1,37 +1,40 @@
 import axios from "axios";
-import type { AxiosResponse } from "axios";
 import { BASEURL } from "@Constant/Api";
 import {
   ReleaseCalendarResponse,
   TrendingGameResponse,
 } from "@app-types/Games";
 
-const getTrendingGames = async (): Promise<
-  AxiosResponse<TrendingGameResponse>
-> => {
+const getTrendingGames = async (): Promise<TrendingGameResponse> => {
   const response = await axios.get<TrendingGameResponse>(
     `${BASEURL}/api/trending`,
   );
-  return response;
+
+  return response.data;
 };
 
 const getMonthlyGames = async (
   fromDate: string,
   toDate: string,
-): Promise<AxiosResponse<TrendingGameResponse>> => {
+): Promise<TrendingGameResponse> => {
   const response = await axios.get<TrendingGameResponse>(
     `${BASEURL}/api/recent-games?start=${fromDate}&end=${toDate}`,
   );
-  return response;
+
+  return response.data;
 };
 
-const getGamesLastRecentAnicipeted = async (): Promise<
-  AxiosResponse<ReleaseCalendarResponse>
-> => {
-  const response = await axios.get<ReleaseCalendarResponse>(
-    `${BASEURL}/api/release-calendar`,
-  );
-  return response;
-};
+const getGamesLastRecentAnicipeted =
+  async (): Promise<ReleaseCalendarResponse> => {
+    const response = await axios.get<ReleaseCalendarResponse>(
+      `${BASEURL}/api/release-calendar`,
+    );
 
-export { getTrendingGames, getMonthlyGames, getGamesLastRecentAnicipeted };
+    return response.data;
+  };
+
+export {
+  getTrendingGames,
+  getMonthlyGames,
+  getGamesLastRecentAnicipeted,
+};
