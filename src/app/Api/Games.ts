@@ -1,6 +1,10 @@
-import axios, { type AxiosResponse } from "axios";
+import axios from "axios";
+import type { AxiosResponse } from "axios";
 import { BASEURL } from "@Constant/Api";
-import { ReleaseCalendarResponse, TrendingGameResponse } from "@app-types/Games";
+import {
+  ReleaseCalendarResponse,
+  TrendingGameResponse,
+} from "@app-types/Games";
 
 const getTrendingGames = async (): Promise<
   AxiosResponse<TrendingGameResponse>
