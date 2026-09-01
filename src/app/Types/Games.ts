@@ -133,3 +133,15 @@ export interface MonthObject {
   month: number;
   name: string;
 }
+
+export interface ReleaseCalendarResponse {
+  last60Days: ReleaseGameSection;
+  next60Days: ReleaseGameSection;
+  mostAnticipated: ReleaseGameSection;
+}
+
+export interface ReleaseGameSection {
+  fromDate: string;
+  endDate: string;
+  data: Game[];
+}
