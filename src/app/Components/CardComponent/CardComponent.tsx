@@ -6,6 +6,7 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import Image from "next/image";
 import { TrendingGameInterface } from "@app-types//Games";
+
 interface Props {
   data: TrendingGameInterface[];
   loading: boolean;
@@ -13,44 +14,46 @@ interface Props {
 
 export default function CardComponent({ data, loading }: Readonly<Props>) {
   const [ref] = useKeenSlider<HTMLDivElement>({
-    //mobile
     slides: {
       perView: 1,
       spacing: 10,
     },
     breakpoints: {
-      // Tablets
       "(min-width: 640px)": {
         slides: { perView: 2, spacing: 12 },
       },
-      // Medium screens
       "(min-width: 768px)": {
         slides: { perView: 3, spacing: 15 },
       },
-      // Large screens/Desktops
       "(min-width: 1024px)": {
         slides: { perView: 4, spacing: 15 },
       },
     },
   });
 
-  if (loading) {
+  if (loading || !data || data.length === 0) {
     return null;
   }
 
   return (
     <div ref={ref} className="keen-slider">
-      {data?.map((game, index) => (
+      {data.map((game, index) => (
         <div
-          key={index}
-          className={`keen-slider__slide relative h-48 w-full ${styles.cardImage}`}
+          key={game.id}
+          className={`keen-slider__slide relative h-48 w-full rounded-lg overflow-hidden group cursor-pointer ${styles.cardImage}`}
         >
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent z-10 flex flex-col justify-end p-4">
+            <span className="relative z-10 text-white font-semibold text-lg drop-shadow-md">
+              {game.name || "GTA 5"}
+            </span>
+          </div>
+
           <Image
             src={game?.background_image}
-            alt={`Slide ${index + 1}`}
+            alt={game?.name || `Slide ${index + 1}`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
-            className="object-cover"
+            className="object-cover transform transition-transform duration-500 ease-out group-hover:scale-110"
           />
         </div>
       ))}

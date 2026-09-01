@@ -27,7 +27,6 @@ const fetchTrendingGames = () => {
       dispatch(setTrendingGamesLoading(true));
 
       const gamesRes = await getTrendingGames();
-      // const gamesList = gamesRes?.data?.data || [];
 
       const gamesData: TrendingGameInterface[] = gamesRes?.data?.data?.map(
         (game: Game) => ({
@@ -82,15 +81,6 @@ const fetchLastRecentAnicipetedGames = () => {
 
       const gamesRes = await getGamesLastRecentAnicipeted();
 
-      // const gamesData: LastRecentAnticipatedInterface[] = gamesRes?.data?.map(
-      //   (game: Game) => ({
-      //     id: game.id,
-      //     name: game.name,
-      //     background_image: game.background_image,
-      //     date: game.released
-      //   }),
-      // );
-
       const gameData: GameSectionsState = {
         last60Days: [],
         next60Days: [],
@@ -98,34 +88,38 @@ const fetchLastRecentAnicipetedGames = () => {
       };
 
       const last60Days: LastNextAnticipatedInterface[] =
-        gamesRes?.data?.last60Days?.data?.map((game: Game) => ({
-          id: game.id,
-          name: game.name,
-          background_image: game.background_image,
-          date: game.released,
-        }));
+        gamesRes?.data?.last60Days?.data?.map(
+          (game: Game): LastNextAnticipatedInterface => ({
+            id: game.id,
+            name: game.name,
+            background_image: game.background_image,
+            date: game.released,
+          }),
+        );
 
       const next60Days: LastNextAnticipatedInterface[] =
-        gamesRes?.data?.next60Days?.data?.map((game: Game) => ({
-          id: game.id,
-          name: game.name,
-          background_image: game.background_image,
-          date: game.released,
-        }));
+        gamesRes?.data?.next60Days?.data?.map(
+          (game: Game): LastNextAnticipatedInterface => ({
+            id: game.id,
+            name: game.name,
+            background_image: game.background_image,
+            date: game.released,
+          }),
+        );
 
       const mostAnticipated: LastNextAnticipatedInterface[] =
-        gamesRes?.data?.mostAnticipated?.data?.map((game: Game) => ({
-          id: game.id,
-          name: game.name,
-          background_image: game.background_image,
-          date: game.released,
-        }));
+        gamesRes?.data?.mostAnticipated?.data?.map(
+          (game: Game): LastNextAnticipatedInterface => ({
+            id: game.id,
+            name: game.name,
+            background_image: game.background_image,
+            date: game.released,
+          }),
+        );
 
       gameData.last60Days = last60Days;
       gameData.next60Days = next60Days;
       gameData.mostAnticipated = mostAnticipated;
-
-      // console.log("gameDatagameData", gameData);
 
       dispatch(setlastRecentAnticipetdGames(gameData));
 
