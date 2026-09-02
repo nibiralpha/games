@@ -13,13 +13,13 @@ export default function DetailsPage() {
   return (
     <div className="page-details">
       <HeaderComponent />
-      <div className="container">
+      <div className="container-main">
         <div className="mt-10">
           <div className="">
             <div className="section_title weight-600">Discover</div>
             <div className="flex mt-8">
-              <div className="w-1/4 h-24 bg-[#f6f6f6]"><SearchMenuComponent /></div>
-              <div className="w-3/4 h-24 ml-8"><SearchResultComponent /></div>
+              <div className="w-1/4 h-24 hidden lg:block"><SearchMenuComponent /></div>
+              <div className="w-full lg:w-3/4 h-24 lg:ml-8"><SearchResultComponent /></div>
             </div>
           </div>
         </div>

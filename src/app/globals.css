@@ -9,7 +9,7 @@ body {
   overflow-x: hidden;
 }
 
-.container {
+.container-main {
   padding: 0 80px;
 }
 
@@ -61,14 +61,14 @@ body {
 /* Mobile */
 
 @media screen and (max-width: 440px) {
-  .container {
+  .container-main {
     padding: 0 15px;
   }
 }
 
-/* DESKTOP */
+/* TAB */
 @media (min-width: 768) {
-  .container {
+  .container-main {
     padding: 0 30px;
   }
 }
@@ -76,7 +76,7 @@ body {
 
 /* DESKTOP */
 @media (min-width: 1440px) {
-  .container {
+  .container-main {
     width: 100%;
     max-width: 100%;
   }

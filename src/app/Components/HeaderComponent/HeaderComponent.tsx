@@ -7,7 +7,7 @@ export default function HeaderComponent() {
   return (
     <div className={styles.header}>
       <div className={styles.header_area}>
-        <div className="container">
+        <div className="container-main">
           <div className={styles.logo}>
             <Image
               src="/logo-main.png"
