@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import styles from "./Details.module.css";
 import HeaderComponent from "@/src/app/Components/HeaderComponent/HeaderComponent";
 import SearchMenuComponent from "@/src/app/Components/SearchMenuComponent/SearchMenuComponent";
+import SearchResultComponent from "@/src/app/Components/SearchResultComponent/SearchResultComponent";
 
 export default function DetailsPage() {
   // useEffect(() => {
@@ -18,7 +19,7 @@ export default function DetailsPage() {
             <div className="section_title weight-600">Discover</div>
             <div className="flex mt-8">
               <div className="w-1/4 h-24 bg-[#f6f6f6]"><SearchMenuComponent /></div>
-              <div className="w-3/4 h-24">Second Div (75%)</div>
+              <div className="w-3/4 h-24 ml-10"><SearchResultComponent /></div>
             </div>
           </div>
         </div>

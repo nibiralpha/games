@@ -61,7 +61,7 @@ export default function SearchMenuComponent() {
           </svg>
         </div>
 
-        <div className="flex justify-between items-center py-3 font-bold">
+        <div className="flex justify-between items-center py-3 font-semibold">
           <span>Feature</span>
           <svg
             className="w-4 h-4 text-[#a9a9a9]"
