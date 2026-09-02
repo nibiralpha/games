@@ -29,7 +29,7 @@ export default function HomePage() {
     <div className="">
       <HeaderComponent />
 
-      <div className="container">
+      <div className="container-main">
         <div className="mt-10">
           <div className="section">
             <div className="section_title weight-600">Trending Games</div>
