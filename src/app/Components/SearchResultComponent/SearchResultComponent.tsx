@@ -27,6 +27,8 @@ export default function SearchResultComponent() {
           {/* ↑ */}
         </div>
       </div>
+
+      <div className="mt-5 text-sm text-[#626262]">26,393 games found</div>
     </div>
   );
 }
