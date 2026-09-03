@@ -3,18 +3,7 @@
 // import Image from "next/image";
 import { useState } from "react";
 import styles from "./SearchMenu.module.css";
-
-interface ChildMenu {
-  id: number;
-  name: string;
-}
-interface SearchMenu {
-  id: number;
-  name: string;
-  value: string;
-  expand: boolean;
-  childmenus: ChildMenu[];
-}
+import { SearchMenu } from "@app-types/Menu";
 
 const menus: SearchMenu[] = [
   {
@@ -114,18 +103,18 @@ export default function SearchMenuComponent() {
 
             {menu.expand && (
               <div className="pr-2 pb-3 pt-1">
-                <div className="space-y-2.5 max-h-48">
+                <div className="space-y-2.5">
                   {menu.childmenus?.map((childMenu, index) => (
                     <label
                       key={childMenu.id}
-                      className="flex items-center gap-3 cursor-pointer group text-sm font-medium text-[#626262] hover:text-black select-none"
+                      className="flex w-fit items-center gap-3 cursor-pointer group text-sm font-medium text-[#626262] hover:text-black"
                     >
                       <input
                         type="checkbox"
                         onChange={() =>
                           console.log(`${childMenu}, ${menu.name}`)
                         }
-                        className="w-4 h-4 rounded border-gray-300 text-black-600 bg-white checked:border-black focus:ring-black-500 cursor-pointer accent-black-600"
+                        className="w-4 h-4 rounded border-gray-300 bg-white cursor-pointer accent-black focus:ring-0"
                       />
                       <span>{childMenu.name}</span>
                     </label>
