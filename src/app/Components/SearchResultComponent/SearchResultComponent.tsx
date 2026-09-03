@@ -23,7 +23,7 @@ export default function SearchResultComponent() {
             placeholder="Search..."
           />
         </div>
-        <div className="hidden md:block 1/5">
+        <div className="hidden lg:block 1/5">
           <div className="ml-2 ascDesc p-2 border border-black w-10 flex justify-center cursor-pointer">
             ↓
           </div>
@@ -31,8 +31,8 @@ export default function SearchResultComponent() {
         </div>
       </div>
 
-      {/* MOBILE */}
-      <div className="flex md:hidden mt-4">
+      {/* MOBILE AND  TAB */}
+      <div className="flex lg:hidden mt-4">
         <SearchMenuMobileComponent>
           <div className="flex justify-center items-center border p-2 w-30">
             <svg
@@ -60,7 +60,7 @@ export default function SearchResultComponent() {
           {/* ↑ */}
         </div>
       </div>
-      {/* MOBILE END */}
+      {/* MOBILE AND TAB END */}
 
       <div className="mt-5 mb-5 text-sm text-[#626262]">26,393 games found</div>
 
