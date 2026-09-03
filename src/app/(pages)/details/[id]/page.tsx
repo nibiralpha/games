@@ -4,6 +4,7 @@ import styles from "./Details.module.css";
 import HeaderComponent from "@/src/app/Components/HeaderComponent/HeaderComponent";
 import SearchMenuComponent from "@/src/app/Components/SearchMenuComponent/SearchMenuComponent";
 import SearchResultComponent from "@/src/app/Components/SearchResultComponent/SearchResultComponent";
+import SearchMenuMobileComponent from "@/src/app/Components/SearchMenuComponent/SearchMenuMobileComponent";
 
 export default function DetailsPage() {
   // useEffect(() => {
@@ -18,8 +19,26 @@ export default function DetailsPage() {
           <div className="">
             <div className="section_title weight-600">Discover</div>
             <div className="flex mt-8">
-              <div className="w-1/4 h-24 hidden lg:block"><SearchMenuComponent /></div>
-              <div className="w-full lg:w-3/4 h-24 lg:ml-8"><SearchResultComponent /></div>
+              {/* <div className="w-1/4 h-24 hidden lg:block"><SearchMenuComponent /></div> */}
+
+              {/* Mobile Sidebar Menu */}
+              <div className="block md:hidden mt-4">
+                {/* <SearchMenuComponent /> */}
+              </div>
+
+              {/* Tablet Sidebar Menu */}
+              <div className="hidden md:block lg:hidden mt-4">
+                {/* <SearchMenuComponent /> */}
+              </div>
+
+              {/* Laptop/Desktop Sidebar Menu */}
+              <div className="hidden lg:block w-1/4">
+                <SearchMenuComponent />
+              </div>
+
+              <div className="w-full lg:w-3/4 h-24 lg:ml-8">
+                <SearchResultComponent />
+              </div>
             </div>
           </div>
         </div>

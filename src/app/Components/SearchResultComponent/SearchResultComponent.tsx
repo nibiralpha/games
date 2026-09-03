@@ -12,7 +12,7 @@ export default function SearchResultComponent() {
   return (
     <div className={styles.search_component}>
       <div className="search_haed flex items-center">
-        <div className="w-4/5">
+        <div className="w-full md:w-4/5">
           <input
             type="text"
             name="search"
@@ -21,6 +21,33 @@ export default function SearchResultComponent() {
             onChange={(e) => setSearchValue(e.target.value)}
             placeholder="Search..."
           />
+        </div>
+        <div className="hidden md:block 1/5">
+          <div className="ml-2 ascDesc p-2 border border-black w-10 flex justify-center cursor-pointer">
+            ↓
+          </div>
+          {/* ↑ */}
+        </div>
+      </div>
+
+      {/* MOBILE */}
+      <div className="flex md:hidden mt-4">
+        <div className="flex justify-center items-center border p-2 w-30">
+          <svg
+            className="w-5 h-5 text-gray-500 mr-2"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            xmlns="http://w3.org"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
+            />
+          </svg>
+          Filters
         </div>
         <div className="1/5">
           <div className="ml-2 ascDesc p-2 border border-black w-10 flex justify-center cursor-pointer">
