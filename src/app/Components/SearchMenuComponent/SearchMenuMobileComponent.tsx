@@ -41,6 +41,37 @@ const menus: SearchMenu[] = [
     childmenus: [
       { id: 1, name: "2012" },
       { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
+      { id: 2, name: "2020" },
     ],
   },
 ];
@@ -66,7 +97,7 @@ export default function SearchMenuMobileComponent({
         <Drawer.Overlay className="fixed inset-0 bg-black/40 z-50 transition-opacity duration-300" />
 
         <Drawer.Content className="bg-white flex flex-col rounded-t-[20px] h-[95vh] fixed bottom-0 left-0 right-0 z-50 outline-none shadow-2xl p-6">
-          <div className="bg-white flex-1">
+          <div className="bg-white flex-1 overflow-y-auto hide-scrollbar">
             <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-gray-300 mb-6" />
 
             <Drawer.Title className="font-bold text-xl mb-4 text-black">
