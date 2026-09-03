@@ -4,18 +4,53 @@
 import { useState } from "react";
 import styles from "./SearchMenu.module.css";
 
+interface ChildMenu {
+  id: number;
+  name: string;
+}
 interface SearchMenu {
   id: number;
   name: string;
   value: string;
   expand: boolean;
+  childmenus: ChildMenu[];
 }
 
 const menus: SearchMenu[] = [
-  { id: 1, name: "Platform", value: "platform", expand: false },
-  { id: 2, name: "Genra", value: "genra", expand: false },
-  { id: 4, name: "Feature", value: "feature", expand: false },
-  { id: 3, name: "Release Date", value: "release_date", expand: false },
+  {
+    id: 1,
+    name: "Platform",
+    value: "platform",
+    expand: false,
+    childmenus: [{ id: 1, name: "Playstation" }],
+  },
+  {
+    id: 2,
+    name: "Genre",
+    value: "genre",
+    expand: false,
+    childmenus: [{ id: 1, name: "Action" }],
+  },
+  {
+    id: 4,
+    name: "Feature",
+    value: "feature",
+    expand: false,
+    childmenus: [
+      { id: 1, name: "Multiplayer" },
+      { id: 2, name: "Singleplayer" },
+    ],
+  },
+  {
+    id: 3,
+    name: "Release Date",
+    value: "release_date",
+    expand: false,
+    childmenus: [
+      { id: 1, name: "2012" },
+      { id: 2, name: "2020" },
+    ],
+  },
 ];
 export default function SearchMenuComponent() {
   const [menuList, setMenuList] = useState<SearchMenu[]>(menus);
@@ -31,45 +66,72 @@ export default function SearchMenuComponent() {
   console.log(menuList);
 
   return (
-    <div className="bg-[#f6f6f6]">
-      <div className="p-7">
+    <div className="bg-[#f6f6f6] w-full border border-[#e1e1e1] rounded-lg">
+      <div className="p-7 space-y-1">
         {menuList.map((menu) => (
           <div
             key={menu.id}
-            onClick={() => toggleMenu(menu.name)}
-            className="flex justify-between items-center border-b py-3 font-bold border-[#e1e1e1] cursor-pointer"
+            className="border-b border-[#e1e1e1] last:border-none pb-2 last:pb-0"
           >
-            <span>{menu.name}</span>
-            {menu.expand == false ? (
-              <svg
-                className="w-4 h-4 text-[#a9a9a9]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://w3.org"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+            <div
+              onClick={() => toggleMenu(menu.name)}
+              className="flex justify-between items-center py-3 font-bold cursor-pointer select-none text-black"
+            >
+              <div>{menu.name}</div>
+
+              {menu.expand === false ? (
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
                   strokeWidth="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
-              </svg>
-            ) : (
-              <svg
-                className="w-4 h-4 text-[#a9a9a9]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://w3.org"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  viewBox="0 0 24 24"
+                  xmlns="http://w3.org"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  ></path>
+                </svg>
+              ) : (
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
                   strokeWidth="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+                  viewBox="0 0 24 24"
+                  xmlns="http://w3.org"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              )}
+            </div>
+
+            {menu.expand && (
+              <div className="pr-2 pb-3 pt-1">
+                <div className="space-y-2.5 max-h-48">
+                  {menu.childmenus?.map((childMenu, index) => (
+                    <label
+                      key={childMenu.id}
+                      className="flex items-center gap-3 cursor-pointer group text-sm font-medium text-[#626262] hover:text-black select-none"
+                    >
+                      <input
+                        type="checkbox"
+                        onChange={() =>
+                          console.log(`${childMenu}, ${menu.name}`)
+                        }
+                        className="w-4 h-4 rounded border-gray-300 text-black-600 bg-white checked:border-black focus:ring-black-500 cursor-pointer accent-black-600"
+                      />
+                      <span>{childMenu.name}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
             )}
           </div>
         ))}
