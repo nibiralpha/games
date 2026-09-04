@@ -33,16 +33,16 @@ const menus: SearchMenu[] = [
       { id: 2, name: "Singleplayer" },
     ],
   },
-  {
-    id: 3,
-    name: "Release Date",
-    value: "release_date",
-    expand: false,
-    childmenus: [
-      { id: 1, name: "2012" },
-      { id: 2, name: "2020" },
-    ],
-  },
+  // {
+  //   id: 3,
+  //   name: "Release Date",
+  //   value: "release_date",
+  //   expand: false,
+  //   childmenus: [
+  //     { id: 1, name: "2012" },
+  //     { id: 2, name: "2020" },
+  //   ],
+  // },
 ];
 
 export default function SearchMenuMobileComponent({

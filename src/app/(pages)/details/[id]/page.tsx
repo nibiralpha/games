@@ -31,7 +31,6 @@ export default function SearchPage() {
             <div className="section_title weight-600">Discover</div>
             <div className="flex mt-8">
 
-              {/* Laptop/Desktop Sidebar Menu */}
               <div className="hidden lg:block w-1/4">
                 <SearchMenuComponent />
               </div>
