@@ -30,17 +30,6 @@ export default function SearchPage() {
           <div className="">
             <div className="section_title weight-600">Discover</div>
             <div className="flex mt-8">
-              {/* <div className="w-1/4 h-24 hidden lg:block"><SearchMenuComponent /></div> */}
-
-              {/* Mobile Sidebar Menu */}
-              <div className="block md:hidden mt-4">
-                {/* <SearchMenuComponent /> */}
-              </div>
-
-              {/* Tablet Sidebar Menu */}
-              <div className="hidden md:block lg:hidden mt-4">
-                {/* <SearchMenuComponent /> */}
-              </div>
 
               {/* Laptop/Desktop Sidebar Menu */}
               <div className="hidden lg:block w-1/4">

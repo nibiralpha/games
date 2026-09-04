@@ -19,7 +19,7 @@ export default function GameCardComponent({ data, loading }: Readonly<Props>) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 lg:grid-cols-5 gap-4 w-full">
+    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
       {data.map((game, index) => (
         <div
           key={game.id}

@@ -22,6 +22,7 @@ export default function SearchResultComponent({
 
   return (
     <div className={styles.search_component}>
+      {/* LAPTOP AND DESKTOP */}
       <div className="search_haed flex items-center">
         <div className="w-full md:w-4/5">
           <input
@@ -40,6 +41,7 @@ export default function SearchResultComponent({
           {/* ↑ */}
         </div>
       </div>
+      {/* LAPTOP AND DESKTOP END */}
 
       {/* MOBILE AND  TAB */}
       <div className="flex lg:hidden mt-4">
@@ -74,9 +76,7 @@ export default function SearchResultComponent({
 
       <div className="mt-5 mb-5 text-sm text-[#626262]">26,393 games found</div>
 
-      {/* {data?.map((game) => ( */}
-        <GameCardComponent data={data} loading={loading} />
-      {/* ))} */}
+      <GameCardComponent data={data} loading={loading} />
     </div>
   );
 }
