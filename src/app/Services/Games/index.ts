@@ -4,12 +4,15 @@ import {
   setlastRecentAnticipetdGamesLoading,
   setMonthlyGames,
   setMonthlyGamesLoading,
+  setSearchResult,
+  setSearchResultLoadding,
   setTrendingGames,
   setTrendingGamesLoading,
 } from "@/src/redux/GameSlice";
 import {
   getGamesLastRecentAnicipeted,
   getMonthlyGames,
+  getSearchResults,
   getTrendingGames,
 } from "@Api/Games";
 import {
@@ -131,8 +134,35 @@ const fetchLastRecentAnicipetedGames = () => {
   };
 };
 
+const fetchSearcheddGames = () => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(setSearchResultLoadding(true));
+
+      const gamesRes = await getSearchResults();
+
+      const gamesData: TrendingGameInterface[] = gamesRes?.data?.map(
+        (game: Game) => ({
+          id: game.id,
+          name: game.name,
+          background_image: game.background_image,
+        }),
+      );
+
+      dispatch(setSearchResult(gamesData));
+
+      dispatch(setSearchResultLoadding(false));
+    } catch (error: unknown) {
+      console.log(error);
+      dispatch(setSearchResultLoadding(false));
+      throw error;
+    }
+  };
+};
+
 export {
   fetchTrendingGames,
   fetchMonthlyGames,
   fetchLastRecentAnicipetedGames,
+  fetchSearcheddGames
 };

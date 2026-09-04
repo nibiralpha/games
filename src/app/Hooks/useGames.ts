@@ -13,11 +13,16 @@ const useGames = () => {
   const lastComingAnticipatedGames = useSelector(
     (state: RootState) => state.games.lastRecentAnticipetdGames,
   );
+  
+  const searchedGames = useSelector(
+    (state: RootState) => state.games.serachResults,
+  );
 
   return {
     trendingGames,
     monthlyGames,
-    lastComingAnticipatedGames
+    lastComingAnticipatedGames,
+    searchedGames
   };
 };
 

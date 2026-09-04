@@ -33,8 +33,13 @@ const getGamesLastRecentAnicipeted =
     return response.data;
   };
 
-export {
-  getTrendingGames,
-  getMonthlyGames,
-  getGamesLastRecentAnicipeted,
-};
+  const getSearchResults =
+  async (): Promise<TrendingGameResponse> => {
+    const response = await axios.get<TrendingGameResponse>(
+      `${BASEURL}/api/search`,
+    );
+
+    return response.data;
+  };
+
+export { getTrendingGames, getMonthlyGames, getGamesLastRecentAnicipeted, getSearchResults };
