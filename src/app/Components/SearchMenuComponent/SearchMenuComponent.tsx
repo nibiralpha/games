@@ -67,43 +67,6 @@ const menus: Menus[] = [
   }
 ];
 
-// const menus: SearchMenu[] = [
-//   {
-//     id: 1,
-//     name: "Platform",
-//     value: "platform",
-//     expand: false,
-//     // childMenus: [{ id: 1, name: "Playstation" }],
-//     childMenus: [{ id: 1, name: "Playstation" }],
-//   },
-//   {
-//     id: 2,
-//     name: "Genre",
-//     value: "genre",
-//     expand: false,
-//     childMenus: [{ id: 1, name: "Action" }],
-//   },
-//   {
-//     id: 4,
-//     name: "Feature",
-//     value: "feature",
-//     expand: false,
-//     childMenus: [
-//       { id: 1, name: "Multiplayer" },
-//       { id: 2, name: "Singleplayer" },
-//     ],
-//   },
-//   // {
-//   //   id: 3,
-//   //   name: "Release Date",
-//   //   value: "release_date",
-//   //   expand: false,
-//   //   childmenus: [
-//   //     { id: 1, name: "2012" },
-//   //     { id: 2, name: "2020" },
-//   //   ],
-//   // },
-// ];
 export default function SearchMenuComponent() {
   const [menuList, setMenuList] = useState<SearchMenu[]>(menus);
 
