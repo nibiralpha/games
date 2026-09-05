@@ -4,43 +4,106 @@
 import { useState } from "react";
 import styles from "./SearchMenu.module.css";
 import { SearchMenu } from "@app-types/Menu";
+import { platform, genre, feature, Menus } from "@Constant/DataTypes";
 
-const menus: SearchMenu[] = [
+const menus: Menus[] = [
   {
     id: 1,
     name: "Platform",
     value: "platform",
     expand: false,
-    childmenus: [{ id: 1, name: "Playstation" }],
+    childMenus: [
+      platform.pc,
+      platform.playStation,
+      platform.xbox,
+      platform.ios,
+      platform.mac,
+      platform.linux,
+      platform.nintendo,
+      platform.android,
+      platform.atari,
+      platform.commodore,
+      platform.sega,
+      platform.threeDfx,
+      platform.neoGeo
+    ]
   },
   {
     id: 2,
     name: "Genre",
     value: "genre",
     expand: false,
-    childmenus: [{ id: 1, name: "Action" }],
+    childMenus: [
+      genre.action,
+      genre.adventure,
+      genre.arcade,
+      genre.boardGames,
+      genre.card,
+      genre.casual,
+      genre.educational,
+      genre.family,
+      genre.fighting,
+      genre.indie,
+      genre.massivelyMultiplier,
+      genre.platformer,
+      genre.puzzle,
+      genre.racing,
+      genre.rpg,
+      genre.shooter,
+      genre.simulation,
+      genre.sports,
+      genre.strategy
+    ]
   },
   {
     id: 4,
     name: "Feature",
     value: "feature",
     expand: false,
-    childmenus: [
-      { id: 1, name: "Multiplayer" },
-      { id: 2, name: "Singleplayer" },
-    ],
-  },
-  // {
-  //   id: 3,
-  //   name: "Release Date",
-  //   value: "release_date",
-  //   expand: false,
-  //   childmenus: [
-  //     { id: 1, name: "2012" },
-  //     { id: 2, name: "2020" },
-  //   ],
-  // },
+    childMenus: [
+      feature.singlePlayer,
+      feature.multiPlayer
+    ]
+  }
 ];
+
+// const menus: SearchMenu[] = [
+//   {
+//     id: 1,
+//     name: "Platform",
+//     value: "platform",
+//     expand: false,
+//     // childMenus: [{ id: 1, name: "Playstation" }],
+//     childMenus: [{ id: 1, name: "Playstation" }],
+//   },
+//   {
+//     id: 2,
+//     name: "Genre",
+//     value: "genre",
+//     expand: false,
+//     childMenus: [{ id: 1, name: "Action" }],
+//   },
+//   {
+//     id: 4,
+//     name: "Feature",
+//     value: "feature",
+//     expand: false,
+//     childMenus: [
+//       { id: 1, name: "Multiplayer" },
+//       { id: 2, name: "Singleplayer" },
+//     ],
+//   },
+//   // {
+//   //   id: 3,
+//   //   name: "Release Date",
+//   //   value: "release_date",
+//   //   expand: false,
+//   //   childmenus: [
+//   //     { id: 1, name: "2012" },
+//   //     { id: 2, name: "2020" },
+//   //   ],
+//   // },
+// ];
 export default function SearchMenuComponent() {
   const [menuList, setMenuList] = useState<SearchMenu[]>(menus);
 
@@ -104,7 +167,7 @@ export default function SearchMenuComponent() {
             {menu.expand && (
               <div className="pr-2 pb-3 pt-1">
                 <div className="space-y-2.5">
-                  {menu.childmenus?.map((childMenu, index) => (
+                  {menu.childMenus?.map((childMenu, index) => (
                     <label
                       key={childMenu.id}
                       className="flex w-fit items-center gap-3 cursor-pointer group text-sm font-medium text-[#626262] hover:text-black"
