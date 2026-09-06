@@ -5,6 +5,9 @@ import { useState } from "react";
 import styles from "./SearchMenu.module.css";
 import { SearchMenu } from "@app-types/Menu";
 import { platform, genre, feature, Menus } from "@Constant/DataTypes";
+import { setSearch } from "@/src/redux/SearchSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/src/redux/Store";
 
 const menus: Menus[] = [
   {
@@ -25,8 +28,8 @@ const menus: Menus[] = [
       platform.commodore,
       platform.sega,
       platform.threeDfx,
-      platform.neoGeo
-    ]
+      platform.neoGeo,
+    ],
   },
   {
     id: 2,
@@ -52,29 +55,37 @@ const menus: Menus[] = [
       genre.shooter,
       genre.simulation,
       genre.sports,
-      genre.strategy
-    ]
+      genre.strategy,
+    ],
   },
   {
     id: 4,
     name: "Feature",
     value: "feature",
     expand: false,
-    childMenus: [
-      feature.singlePlayer,
-      feature.multiPlayer
-    ]
-  }
+    childMenus: [feature.singlePlayer, feature.multiPlayer],
+  },
 ];
 
 export default function SearchMenuComponent() {
   const [menuList, setMenuList] = useState<SearchMenu[]>(menus);
+  const dispatch = useDispatch<AppDispatch>();
 
   const toggleMenu = (menuName: string) => {
     setMenuList((prev) =>
       prev.map((menu) =>
         menu.name === menuName ? { ...menu, expand: !menu.expand } : menu,
       ),
+    );
+  };
+
+  const updateToggleStatus = (childMenu, menuName, status) => {
+    console.log("blaaaaaaaa", childMenu, menuName, status);
+    dispatch(
+      setSearch({
+        childMenu: childMenu,
+        status: status,
+      }),
     );
   };
 
@@ -137,9 +148,14 @@ export default function SearchMenuComponent() {
                     >
                       <input
                         type="checkbox"
-                        onChange={() =>
-                          console.log(`${childMenu}, ${menu.name}`)
-                        }
+                        onChange={(e) => {
+                          // console.log(`${childMenu}, ${menu.name}`);
+                          updateToggleStatus(
+                            childMenu,
+                            menu.name,
+                            e.target.checked,
+                          );
+                        }}
                         className="w-4 h-4 rounded border-gray-300 bg-white cursor-pointer accent-black focus:ring-0"
                       />
                       <span>{childMenu.name}</span>

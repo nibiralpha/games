@@ -6,7 +6,10 @@ import {
 } from "./Games";
 
 export interface SearchStateInterface {
-  search: SearchedDataStateInterface;
+  // search: SearchedDataStateInterface;
+  platform: PlatformInterface;
+  genre: GenraInterface;
+  feature: FeatureInterface;
 }
 export interface SearchedDataStateInterface {
   platform: PlatformInterface;
@@ -35,19 +38,19 @@ export interface FeatureInterface {
   singlePlayer: PlatformStateDetail;
 }
 export interface UpdateSearchPayload {
-  category: "platform";
+  category: "Platform";
   key: keyof PlatformInterface;
   value: boolean;
 }
 
 export interface GenreUpdatePayload {
-  category: "genre";
+  category: "Genre";
   key: keyof GenraInterface;
   value: boolean;
 }
 
 export interface FeatureUpdatePayload {
-  category: "feature";
+  category: "Feature";
   key: keyof FeatureInterface;
   value: boolean;
 }
