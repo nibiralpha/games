@@ -85,6 +85,7 @@ export default function SearchMenuComponent() {
       setSearch({
         childMenu: childMenu,
         status: status,
+        menuName: menuName
       }),
     );
   };

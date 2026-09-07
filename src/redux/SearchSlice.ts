@@ -4,21 +4,19 @@ import { GameSectionsState, TrendingGameInterface } from "@app-types/Games";
 import {
   SearchStateInterface,
   SearchUpdatePayload,
-  UpdateSearchPayload,
 } from "@app-types/SearchState";
 import { platform, genre, feature } from "@Constant/DataTypes";
 
 export interface SearchUpdatePayloadInterface {
   childMenu: SearchUpdatePayload;
-  status: boolean;      
+  status: boolean;
+  menuName: string
 }
 
 const initialState: SearchStateInterface = {
-  // search: {
-    platform: platform,
-    genre: genre,
-    feature: feature,
-  // },
+  platform: platform,
+  genre: genre,
+  feature: feature,
 };
 
 export const SearchSlice = createSlice({
@@ -28,12 +26,12 @@ export const SearchSlice = createSlice({
     setSearch: (state, action: PayloadAction<SearchUpdatePayloadInterface>) => {
       const { category, key, value } = action.payload.childMenu;
       console.log("action", action);
-      
+
       console.log("calling state", "category", category);
-      
+
       if (category === "Platform") {
         console.log("condition platform", platform, "key", key, "value", value);
-        
+
         state.platform[key].isChecked = value;
       }
 

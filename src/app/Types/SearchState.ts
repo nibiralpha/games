@@ -37,7 +37,7 @@ export interface FeatureInterface {
   multiPlayer: PlatformStateDetail;
   singlePlayer: PlatformStateDetail;
 }
-export interface UpdateSearchPayload {
+export interface PlatformUpdatePayload {
   category: "Platform";
   key: keyof PlatformInterface;
   value: boolean;
@@ -56,6 +56,6 @@ export interface FeatureUpdatePayload {
 }
 
 export type SearchUpdatePayload =
-  | UpdateSearchPayload
+  | PlatformUpdatePayload
   | GenreUpdatePayload
   | FeatureUpdatePayload;
