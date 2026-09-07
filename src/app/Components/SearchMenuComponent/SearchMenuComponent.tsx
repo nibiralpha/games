@@ -4,7 +4,7 @@
 import { useState } from "react";
 import styles from "./SearchMenu.module.css";
 import { SearchMenu } from "@app-types/Menu";
-import { Menus, FilterItem } from "@Constant/DataTypes";
+import { Menus, FilterItem, platform, genre, feature } from "@Constant/DataTypes";
 import { setSearch } from "@/src/redux/SearchSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/src/redux/Store";
@@ -16,21 +16,21 @@ const menus: Menus[] = [
     name: "Platform",
     value: "platform",
     expand: false,
-    childMenus: [],
+    childMenus: platform,
   },
   {
     id: 2,
     name: "Genre",
     value: "genre",
     expand: false,
-    childMenus: [],
+    childMenus: genre,
   },
   {
     id: 4,
     name: "Feature",
     value: "feature",
     expand: false,
-    childMenus: [],
+    childMenus: feature,
   },
 ];
 
@@ -53,7 +53,7 @@ export default function SearchMenuComponent() {
   ) => {
     dispatch(
       setSearch({
-        parentCategory: menuName, 
+        parentCategory: menuName,
         childCategory: childMenu,
         status: status,
       }),
@@ -118,7 +118,6 @@ export default function SearchMenuComponent() {
                       <input
                         type="checkbox"
                         onChange={(e) => {
-                          // console.log(`${childMenu}, ${menu.name}`);
                           updateToggleStatus(
                             childMenu,
                             menu.name as FilterCategory,
