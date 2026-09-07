@@ -4,11 +4,11 @@
 import { useState } from "react";
 import styles from "./SearchMenu.module.css";
 import { SearchMenu } from "@app-types/Menu";
-import { Menus, FilterItem, platform, genre, feature } from "@Constant/DataTypes";
+import { Menus, platform, genre, feature, ChildMenu } from "@Constant/DataTypes";
 import { setSearch } from "@/src/redux/SearchSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/src/redux/Store";
-import { FilterCategory } from "@app-types/SearchState";
+import { MenuName } from "@app-types/SearchState";
 
 const menus: Menus[] = [
   {
@@ -47,8 +47,8 @@ export default function SearchMenuComponent() {
   };
 
   const updateToggleStatus = (
-    childMenu: FilterItem,
-    menuName: FilterCategory,
+    childMenu: ChildMenu,
+    menuName: MenuName,
     status: boolean,
   ) => {
     dispatch(
@@ -110,17 +110,18 @@ export default function SearchMenuComponent() {
             {menu.expand && (
               <div className="pr-2 pb-3 pt-1">
                 <div className="space-y-2.5">
-                  {menu.childMenus?.map((childMenu, index) => (
+                  {menu.childMenus?.map((childMenu) => (
                     <label
                       key={childMenu.id}
                       className="flex w-fit items-center gap-3 cursor-pointer group text-sm font-medium text-[#626262] hover:text-black"
                     >
                       <input
                         type="checkbox"
+                        // checked={}
                         onChange={(e) => {
                           updateToggleStatus(
                             childMenu,
-                            menu.name as FilterCategory,
+                            menu.name as MenuName,
                             e.target.checked,
                           );
                         }}

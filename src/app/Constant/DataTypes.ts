@@ -3,22 +3,22 @@ export interface Menus {
   name: name;
   value: value;
   expand: boolean;
-  childMenus: FilterItem[];
+  childMenus: ChildMenu[];
 }
 
 type name = "Platform" | "Genre" | "Feature" | "Release Date";
 type value = "platform" | "genre" | "feature" | "release_date";
 
-export interface FilterItem {
+export interface ChildMenu {
   isChecked: boolean;
   id: number;
   name: string;
   alias: string;
 }
 
-export type PlatformInterface = FilterItem[];
-export type GenreInterface = FilterItem[];
-export type FeatureInterface = FilterItem[];
+export type PlatformInterface = ChildMenu[];
+export type GenreInterface = ChildMenu[];
+export type FeatureInterface = ChildMenu[];
 
 export const platform: PlatformInterface = [
   { isChecked: false, id: 1, name: "PC", alias: "pc" },

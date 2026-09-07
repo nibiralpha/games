@@ -2,15 +2,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GameStateInterface } from "@app-types/GamesState";
 import { GameSectionsState, TrendingGameInterface } from "@app-types/Games";
 import {
-  FilterCategory,
+  MenuName,
   SearchStateInterface,
   // SearchUpdatePayload,
 } from "@app-types/SearchState";
-import { platform, genre, feature, FilterItem } from "@Constant/DataTypes";
+import { platform, genre, feature, ChildMenu } from "@Constant/DataTypes";
 
 export interface SearchUpdatePayloadInterface {
-  parentCategory: FilterCategory;
-  childCategory: FilterItem;
+  parentCategory: MenuName;
+  childCategory: ChildMenu;
   status: boolean;
 }
 
@@ -31,7 +31,7 @@ export const SearchSlice = createSlice({
         const item = state.platform.find(
           (p) => p.id === action.payload.childCategory.id,
         );
-        if (item) {                    
+        if (item) {
           item.isChecked = action.payload.status;
         }
       }
