@@ -31,8 +31,8 @@ export const SearchSlice = createSlice({
         const item = state.platform.find(
           (p) => p.id === action.payload.childCategory.id,
         );
-        if (item) {
-          item.isChecked = action.payload.childCategory.isChecked;
+        if (item) {                    
+          item.isChecked = action.payload.status;
         }
       }
 
@@ -41,7 +41,7 @@ export const SearchSlice = createSlice({
           (g) => g.id === action.payload.childCategory.id,
         );
         if (item) {
-          item.isChecked = action.payload.childCategory.isChecked;
+          item.isChecked = action.payload.status;
         }
       }
 
@@ -50,7 +50,7 @@ export const SearchSlice = createSlice({
           (f) => f.id === action.payload.childCategory.id,
         );
         if (item) {
-          item.isChecked = action.payload.childCategory.isChecked;
+          item.isChecked = action.payload.status;
         }
       }
     },
