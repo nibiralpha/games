@@ -4,10 +4,11 @@
 import { useState } from "react";
 import styles from "./SearchMenu.module.css";
 import { SearchMenu } from "@app-types/Menu";
-import { platform, genre, feature, Menus } from "@Constant/DataTypes";
+import { Menus, FilterItem } from "@Constant/DataTypes";
 import { setSearch } from "@/src/redux/SearchSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/src/redux/Store";
+import { FilterCategory } from "@app-types/SearchState";
 
 const menus: Menus[] = [
   {
@@ -15,55 +16,21 @@ const menus: Menus[] = [
     name: "Platform",
     value: "platform",
     expand: false,
-    childMenus: [
-      platform.pc,
-      platform.playStation,
-      platform.xbox,
-      platform.ios,
-      platform.mac,
-      platform.linux,
-      platform.nintendo,
-      platform.android,
-      platform.atari,
-      platform.commodore,
-      platform.sega,
-      platform.threeDfx,
-      platform.neoGeo,
-    ],
+    childMenus: [],
   },
   {
     id: 2,
     name: "Genre",
     value: "genre",
     expand: false,
-    childMenus: [
-      genre.action,
-      genre.adventure,
-      genre.arcade,
-      genre.boardGames,
-      genre.card,
-      genre.casual,
-      genre.educational,
-      genre.family,
-      genre.fighting,
-      genre.indie,
-      genre.massivelyMultiplier,
-      genre.platformer,
-      genre.puzzle,
-      genre.racing,
-      genre.rpg,
-      genre.shooter,
-      genre.simulation,
-      genre.sports,
-      genre.strategy,
-    ],
+    childMenus: [],
   },
   {
     id: 4,
     name: "Feature",
     value: "feature",
     expand: false,
-    childMenus: [feature.singlePlayer, feature.multiPlayer],
+    childMenus: [],
   },
 ];
 
@@ -79,18 +46,19 @@ export default function SearchMenuComponent() {
     );
   };
 
-  const updateToggleStatus = (childMenu, menuName, status) => {
-    console.log("blaaaaaaaa", childMenu, menuName, status);
+  const updateToggleStatus = (
+    childMenu: FilterItem,
+    menuName: FilterCategory,
+    status: boolean,
+  ) => {
     dispatch(
       setSearch({
-        childMenu: childMenu,
+        parentCategory: menuName, 
+        childCategory: childMenu,
         status: status,
-        menuName: menuName
       }),
     );
   };
-
-  console.log(menuList);
 
   return (
     <div className="bg-[#f6f6f6] w-full border border-[#e1e1e1] rounded-lg">
@@ -153,7 +121,7 @@ export default function SearchMenuComponent() {
                           // console.log(`${childMenu}, ${menu.name}`);
                           updateToggleStatus(
                             childMenu,
-                            menu.name,
+                            menu.name as FilterCategory,
                             e.target.checked,
                           );
                         }}

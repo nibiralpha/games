@@ -15,59 +15,22 @@ const menus: Menus[] = [
     name: "Platform",
     value: "platform",
     expand: false,
-    childMenus: [
-      platform.pc,
-      platform.playStation,
-      platform.xbox,
-      platform.ios,
-      platform.mac,
-      platform.linux,
-      platform.nintendo,
-      platform.android,
-      platform.atari,
-      platform.commodore,
-      platform.sega,
-      platform.threeDfx,
-      platform.neoGeo
-    ]
+    childMenus: [],
   },
   {
     id: 2,
     name: "Genre",
     value: "genre",
     expand: false,
-    childMenus: [
-      genre.action,
-      genre.adventure,
-      genre.arcade,
-      genre.boardGames,
-      genre.card,
-      genre.casual,
-      genre.educational,
-      genre.family,
-      genre.fighting,
-      genre.indie,
-      genre.massivelyMultiplier,
-      genre.platformer,
-      genre.puzzle,
-      genre.racing,
-      genre.rpg,
-      genre.shooter,
-      genre.simulation,
-      genre.sports,
-      genre.strategy
-    ]
+    childMenus: [],
   },
   {
     id: 4,
     name: "Feature",
     value: "feature",
     expand: false,
-    childMenus: [
-      feature.singlePlayer,
-      feature.multiPlayer
-    ]
-  }
+    childMenus: [],
+  },
 ];
 
 export default function SearchMenuMobileComponent({

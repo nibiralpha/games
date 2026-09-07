@@ -2,15 +2,16 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GameStateInterface } from "@app-types/GamesState";
 import { GameSectionsState, TrendingGameInterface } from "@app-types/Games";
 import {
+  FilterCategory,
   SearchStateInterface,
-  SearchUpdatePayload,
+  // SearchUpdatePayload,
 } from "@app-types/SearchState";
-import { platform, genre, feature } from "@Constant/DataTypes";
+import { platform, genre, feature, FilterItem } from "@Constant/DataTypes";
 
 export interface SearchUpdatePayloadInterface {
-  childMenu: SearchUpdatePayload;
+  parentCategory: FilterCategory;
+  childCategory: FilterItem;
   status: boolean;
-  menuName: string
 }
 
 const initialState: SearchStateInterface = {
@@ -24,23 +25,33 @@ export const SearchSlice = createSlice({
   initialState,
   reducers: {
     setSearch: (state, action: PayloadAction<SearchUpdatePayloadInterface>) => {
-      const { category, key, value } = action.payload.childMenu;
-      console.log("action", action);
+      const { parentCategory } = action.payload;
 
-      console.log("calling state", "category", category);
-
-      if (category === "Platform") {
-        console.log("condition platform", platform, "key", key, "value", value);
-
-        state.platform[key].isChecked = value;
+      if (parentCategory === "Platform") {
+        const item = state.platform.find(
+          (p) => p.id === action.payload.childCategory.id,
+        );
+        if (item) {
+          item.isChecked = action.payload.childCategory.isChecked;
+        }
       }
 
-      if (category === "Genre") {
-        state.genre[key].isChecked = value;
+      if (parentCategory === "Genre") {
+        const item = state.genre.find(
+          (g) => g.id === action.payload.childCategory.id,
+        );
+        if (item) {
+          item.isChecked = action.payload.childCategory.isChecked;
+        }
       }
 
-      if (category === "Feature") {
-        state.feature[key].isChecked = value;
+      if (parentCategory === "Feature") {
+        const item = state.feature.find(
+          (f) => f.id === action.payload.childCategory.id,
+        );
+        if (item) {
+          item.isChecked = action.payload.childCategory.isChecked;
+        }
       }
     },
   },
