@@ -1,34 +1,34 @@
-"use client";
+'use client';
 
 // import Image from "next/image";
-import { useState } from "react";
-import styles from "./SearchMenu.module.css";
-import { SearchMenu } from "@app-types/Menu";
-import { Menus, platform, genre, feature, ChildMenu } from "@Constant/DataTypes";
-import { setSearch } from "@/src/redux/SearchSlice";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/src/redux/Store";
-import { MenuName } from "@app-types/SearchState";
+import { useState } from 'react';
+import styles from './SearchMenu.module.css';
+import { SearchMenu } from '@app-types/Menu';
+import { Menus, platform, genre, feature, ChildMenu } from '@Constant/DataTypes';
+import { setSearch } from '@/src/redux/SearchSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/src/redux/Store';
+import { MenuName } from '@app-types/SearchState';
 
 const menus: Menus[] = [
   {
     id: 1,
-    name: "Platform",
-    value: "platform",
+    name: 'Platform',
+    value: 'platform',
     expand: false,
     childMenus: platform,
   },
   {
     id: 2,
-    name: "Genre",
-    value: "genre",
+    name: 'Genre',
+    value: 'genre',
     expand: false,
     childMenus: genre,
   },
   {
     id: 4,
-    name: "Feature",
-    value: "feature",
+    name: 'Feature',
+    value: 'feature',
     expand: false,
     childMenus: feature,
   },
@@ -39,19 +39,11 @@ export default function SearchMenuComponent() {
   const dispatch = useDispatch<AppDispatch>();
 
   const toggleMenu = (menuName: string) => {
-    setMenuList((prev) =>
-      prev.map((menu) =>
-        menu.name === menuName ? { ...menu, expand: !menu.expand } : menu,
-      ),
-    );
+    setMenuList((prev) => prev.map((menu) => (menu.name === menuName ? { ...menu, expand: !menu.expand } : menu)));
   };
 
-  const updateToggleStatus = (
-    childMenu: ChildMenu,
-    menuName: MenuName,
-    status: boolean,
-  ) => {
-    dispatch(
+  const updateToggleStatus = async (childMenu: ChildMenu, menuName: MenuName, status: boolean) => {
+    await dispatch(
       setSearch({
         parentCategory: menuName,
         childCategory: childMenu,
@@ -64,10 +56,7 @@ export default function SearchMenuComponent() {
     <div className="bg-[#f6f6f6] w-full border border-[#e1e1e1] rounded-lg">
       <div className="p-7 space-y-1">
         {menuList.map((menu) => (
-          <div
-            key={menu.id}
-            className="border-b border-[#e1e1e1] last:border-none pb-2 last:pb-0"
-          >
+          <div key={menu.id} className="border-b border-[#e1e1e1] last:border-none pb-2 last:pb-0">
             <div
               onClick={() => toggleMenu(menu.name)}
               className="flex justify-between items-center py-3 font-bold cursor-pointer select-none text-black"
@@ -83,11 +72,7 @@ export default function SearchMenuComponent() {
                   viewBox="0 0 24 24"
                   xmlns="http://w3.org"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 5l7 7-7 7"
-                  ></path>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"></path>
                 </svg>
               ) : (
                 <svg
@@ -98,11 +83,7 @@ export default function SearchMenuComponent() {
                   viewBox="0 0 24 24"
                   xmlns="http://w3.org"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19 9l-7 7-7-7"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               )}
             </div>
@@ -119,11 +100,7 @@ export default function SearchMenuComponent() {
                         type="checkbox"
                         // checked={}
                         onChange={(e) => {
-                          updateToggleStatus(
-                            childMenu,
-                            menu.name as MenuName,
-                            e.target.checked,
-                          );
+                          updateToggleStatus(childMenu, menu.name as MenuName, e.target.checked);
                         }}
                         className="w-4 h-4 rounded border-gray-300 bg-white cursor-pointer accent-black focus:ring-0"
                       />

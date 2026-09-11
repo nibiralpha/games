@@ -1,24 +1,21 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 // import Image from "next/image";
 
-import styles from "./SearchResult.module.css";
-import CardComponent from "@Components/CardComponent/CardComponent";
-import GameCardComponent from "@Components/GameCardComponent/GameCardComponent";
-import SearchMenuMobileComponent from "@Components/SearchMenuComponent/SearchMenuMobileComponent";
-import { TrendingGameInterface } from "@app-types/Games";
+import styles from './SearchResult.module.css';
+import CardComponent from '@Components/CardComponent/CardComponent';
+import GameCardComponent from '@Components/GameCardComponent/GameCardComponent';
+import SearchMenuMobileComponent from '@Components/SearchMenuComponent/SearchMenuMobileComponent';
+import { TrendingGameInterface } from '@app-types/Games';
 
 interface Props {
   data: TrendingGameInterface[];
   loading: boolean;
 }
 
-export default function SearchResultComponent({
-  data,
-  loading,
-}: Readonly<Props>) {
-  const [searchValue, setSearchValue] = useState("");
+export default function SearchResultComponent({ data, loading }: Readonly<Props>) {
+  const [searchValue, setSearchValue] = useState('');
 
   return (
     <div className={styles.search_component}>
@@ -35,9 +32,7 @@ export default function SearchResultComponent({
           />
         </div>
         <div className="hidden lg:block 1/5">
-          <div className="ml-2 ascDesc p-2 border border-black w-10 flex justify-center cursor-pointer">
-            ↓
-          </div>
+          <div className="ml-2 ascDesc p-2 border border-black w-10 flex justify-center cursor-pointer">↓</div>
           {/* ↑ */}
         </div>
       </div>
@@ -66,9 +61,7 @@ export default function SearchResultComponent({
         </SearchMenuMobileComponent>
 
         <div className="1/5">
-          <div className="ml-2 ascDesc p-2 border border-black w-10 flex justify-center cursor-pointer">
-            ↓
-          </div>
+          <div className="ml-2 ascDesc p-2 border border-black w-10 flex justify-center cursor-pointer">↓</div>
           {/* ↑ */}
         </div>
       </div>

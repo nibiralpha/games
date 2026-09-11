@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Drawer } from "vaul";
-import { platform, genre, feature, Menus } from "@Constant/DataTypes";
-import { SearchMenu } from "../../Types/Menu";
+import React, { useState } from 'react';
+import { Drawer } from 'vaul';
+import { platform, genre, feature, Menus } from '@Constant/DataTypes';
+import { SearchMenu } from '../../Types/Menu';
 
 interface MobileFilterDrawerProps {
   children: React.ReactNode;
@@ -12,38 +12,32 @@ interface MobileFilterDrawerProps {
 const menus: Menus[] = [
   {
     id: 1,
-    name: "Platform",
-    value: "platform",
+    name: 'Platform',
+    value: 'platform',
     expand: false,
     childMenus: [],
   },
   {
     id: 2,
-    name: "Genre",
-    value: "genre",
+    name: 'Genre',
+    value: 'genre',
     expand: false,
     childMenus: [],
   },
   {
     id: 4,
-    name: "Feature",
-    value: "feature",
+    name: 'Feature',
+    value: 'feature',
     expand: false,
     childMenus: [],
   },
 ];
 
-export default function SearchMenuMobileComponent({
-  children,
-}: MobileFilterDrawerProps) {
+export default function SearchMenuMobileComponent({ children }: MobileFilterDrawerProps) {
   const [menuList, setMenuList] = useState<SearchMenu[]>(menus);
 
   const toggleMenu = (menuId: number) => {
-    setMenuList((prev) =>
-      prev.map((menu) =>
-        menu.id === menuId ? { ...menu, expand: !menu.expand } : menu
-      )
-    );
+    setMenuList((prev) => prev.map((menu) => (menu.id === menuId ? { ...menu, expand: !menu.expand } : menu)));
   };
 
   return (
@@ -57,15 +51,10 @@ export default function SearchMenuMobileComponent({
           <div className="bg-white flex-1 overflow-y-auto hide-scrollbar">
             <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-gray-300 mb-6" />
 
-            <Drawer.Title className="font-bold text-xl mb-4 text-black">
-              Filter
-            </Drawer.Title>
+            <Drawer.Title className="font-bold text-xl mb-4 text-black">Filter</Drawer.Title>
 
             {menuList.map((menu) => (
-              <div
-                key={menu.id}
-                className="border-b border-[#e1e1e1] last:border-none pb-2 last:pb-0"
-              >
+              <div key={menu.id} className="border-b border-[#e1e1e1] last:border-none pb-2 last:pb-0">
                 <div
                   onClick={() => toggleMenu(menu.id)}
                   className="flex justify-between items-center py-3 font-bold cursor-pointer select-none text-black"
@@ -73,20 +62,14 @@ export default function SearchMenuMobileComponent({
                   <div>{menu.name}</div>
 
                   <svg
-                    className={`w-4 h-4 transform transition-transform duration-200 ${
-                      menu.expand ? "rotate-90" : ""
-                    }`}
+                    className={`w-4 h-4 transform transition-transform duration-200 ${menu.expand ? 'rotate-90' : ''}`}
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
                     viewBox="0 0 24 24"
                     xmlns="http://w3.org"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 5l7 7-7 7"
-                    ></path>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"></path>
                   </svg>
                 </div>
 
@@ -101,9 +84,7 @@ export default function SearchMenuMobileComponent({
                           <input
                             type="checkbox"
                             checked={childMenu.isChecked}
-                            onChange={() =>
-                              console.log(`${childMenu.name}, ${menu.name}`)
-                            }
+                            onChange={() => console.log(`${childMenu.name}, ${menu.name}`)}
                             className="w-4 h-4 rounded border-gray-300 bg-white cursor-pointer accent-black focus:ring-0"
                           />
                           <span>{childMenu.name}</span>

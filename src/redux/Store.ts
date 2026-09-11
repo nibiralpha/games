@@ -1,6 +1,6 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import GameSlice from "./GameSlice";
-import SearchSlice from "./SearchSlice";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import GameSlice from './GameSlice';
+import SearchSlice from './SearchSlice';
 
 const rootReducer = combineReducers({
   games: GameSlice,
