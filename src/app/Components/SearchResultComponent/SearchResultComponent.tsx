@@ -38,8 +38,6 @@ export default function SearchResultComponent({ data, loading }: Readonly<Props>
   };
 
   const setOrder = () => {
-    console.log('zzzzzz');
-
     dispatch(setOrderBy({ orderBy: searchedOption?.orderBy === 'asc' ? 'desc' : 'asc' }));
   };
 
