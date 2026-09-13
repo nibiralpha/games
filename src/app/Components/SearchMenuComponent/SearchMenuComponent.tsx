@@ -9,6 +9,7 @@ import { setSearch } from '@/src/redux/SearchSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/src/redux/Store';
 import { MenuName } from '@app-types/SearchState';
+import useGames from '@Hooks/useGames';
 
 const menus: Menus[] = [
   {
@@ -35,8 +36,13 @@ const menus: Menus[] = [
 ];
 
 export default function SearchMenuComponent() {
-  const [menuList, setMenuList] = useState<SearchMenu[]>(menus);
   const dispatch = useDispatch<AppDispatch>();
+  const { searchedOption } = useGames();
+
+  console.log("menus", menus);
+  console.log("searchedOption", searchedOption);
+
+  const [menuList, setMenuList] = useState<SearchMenu[]>(menus);
 
   const toggleMenu = (menuName: string) => {
     setMenuList((prev) => prev.map((menu) => (menu.name === menuName ? { ...menu, expand: !menu.expand } : menu)));
@@ -50,6 +56,13 @@ export default function SearchMenuComponent() {
         status: status,
       }),
     );
+  };
+
+  const isChecked = (parentMenu: Menus): boolean => {
+    const checkedItems = parentMenu.childMenus.find((child) => child.isChecked);
+    const checked = checkedItems === undefined ? false : true;
+
+    return checked;
   };
 
   return (
@@ -98,7 +111,7 @@ export default function SearchMenuComponent() {
                     >
                       <input
                         type="checkbox"
-                        // checked={}
+                        checked={isChecked(menu as Menus)}
                         onChange={(e) => {
                           updateToggleStatus(childMenu, menu.name as MenuName, e.target.checked);
                         }}

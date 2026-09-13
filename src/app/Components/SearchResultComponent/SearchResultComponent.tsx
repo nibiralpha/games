@@ -38,7 +38,7 @@ export default function SearchResultComponent({ data, loading }: Readonly<Props>
       </div>
       {/* LAPTOP AND DESKTOP END */}
 
-      {/* MOBILE AND  TAB */}
+      {/* MOBILE AND TAB */}
       <div className="flex lg:hidden mt-4">
         <SearchMenuMobileComponent>
           <div className="flex justify-center items-center border p-2 w-30">

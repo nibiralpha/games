@@ -18,11 +18,14 @@ const useGames = () => {
     (state: RootState) => state.games.serachResults,
   );
 
+  const searchedOption = useSelector((state: RootState) => state.search)
+
   return {
     trendingGames,
     monthlyGames,
     lastComingAnticipatedGames,
-    searchedGames
+    searchedGames,
+    searchedOption
   };
 };
 
