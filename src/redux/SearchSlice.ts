@@ -25,26 +25,29 @@ export const SearchSlice = createSlice({
   initialState,
   reducers: {
     setSearch: (state, action: PayloadAction<SearchUpdatePayloadInterface>) => {
-      const { parentCategory } = action.payload;
+      const { parentCategory, childCategory, status } = action.payload;
 
       if (parentCategory === 'Platform') {
-        const item = state.platform.find((p) => p.id === action.payload.childCategory.id);
+        const item = state.platform.find((p) => p.id === childCategory.id);
+
         if (item) {
-          item.isChecked = action.payload.status;
+          item.isChecked = status;
         }
       }
 
       if (parentCategory === 'Genre') {
-        const item = state.genre.find((g) => g.id === action.payload.childCategory.id);
+        const item = state.genre.find((g) => g.id === childCategory.id);
+
         if (item) {
-          item.isChecked = action.payload.status;
+          item.isChecked = status;
         }
       }
 
       if (parentCategory === 'Feature') {
-        const item = state.feature.find((f) => f.id === action.payload.childCategory.id);
+        const item = state.feature.find((f) => f.id === childCategory.id);
+
         if (item) {
-          item.isChecked = action.payload.status;
+          item.isChecked = status;
         }
       }
     },

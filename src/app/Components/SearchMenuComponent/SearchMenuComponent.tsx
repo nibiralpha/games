@@ -39,8 +39,8 @@ export default function SearchMenuComponent() {
   const dispatch = useDispatch<AppDispatch>();
   const { searchedOption } = useGames();
 
-  console.log("menus", menus);
-  console.log("searchedOption", searchedOption);
+  console.log('menus', menus);
+  console.log('searchedOption', searchedOption);
 
   const [menuList, setMenuList] = useState<SearchMenu[]>(menus);
 
@@ -58,11 +58,10 @@ export default function SearchMenuComponent() {
     );
   };
 
-  const isChecked = (parentMenu: Menus): boolean => {
-    const checkedItems = parentMenu.childMenus.find((child) => child.isChecked);
-    const checked = checkedItems === undefined ? false : true;
+  const isChecked = (childMenu: ChildMenu, parentMenu: Menus): boolean => {
+    const items = searchedOption[parentMenu.value as MenuName];
 
-    return checked;
+    return items?.some((item) => item.id === childMenu.id && item.isChecked) ?? false;
   };
 
   return (
@@ -111,11 +110,10 @@ export default function SearchMenuComponent() {
                     >
                       <input
                         type="checkbox"
-                        checked={isChecked(menu as Menus)}
+                        checked={isChecked(childMenu, menu)}
                         onChange={(e) => {
                           updateToggleStatus(childMenu, menu.name as MenuName, e.target.checked);
                         }}
-                        className="w-4 h-4 rounded border-gray-300 bg-white cursor-pointer accent-black focus:ring-0"
                       />
                       <span>{childMenu.name}</span>
                     </label>
