@@ -10,7 +10,8 @@ import SearchMenuMobileComponent from '@Components/SearchMenuComponent/SearchMen
 import { TrendingGameInterface } from '@app-types/Games';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/src/redux/Store';
-import { setSearch } from '@/src/redux/SearchSlice';
+import { OrderBy, setOrderBy, setSearch } from '@/src/redux/SearchSlice';
+import useGames from '@Hooks/useGames';
 
 interface Props {
   data: TrendingGameInterface[];
@@ -19,6 +20,8 @@ interface Props {
 
 export default function SearchResultComponent({ data, loading }: Readonly<Props>) {
   const dispatch = useDispatch<AppDispatch>();
+  const { searchedOption } = useGames();
+
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [searchValue, setSearchValue] = useState('');
 
@@ -32,6 +35,12 @@ export default function SearchResultComponent({ data, loading }: Readonly<Props>
     timeoutRef.current = setTimeout(() => {
       dispatch(setSearch({ search: text }));
     }, 500);
+  };
+
+  const setOrder = () => {
+    console.log('zzzzzz');
+
+    dispatch(setOrderBy({ orderBy: searchedOption?.orderBy === 'asc' ? 'desc' : 'asc' }));
   };
 
   useEffect(() => {
@@ -55,8 +64,21 @@ export default function SearchResultComponent({ data, loading }: Readonly<Props>
           />
         </div>
         <div className="hidden lg:block 1/5">
-          <div className="ml-2 ascDesc p-2 border border-black w-10 flex justify-center cursor-pointer">↓</div>
-          {/* ↑ */}
+          {searchedOption?.orderBy === 'asc' ? (
+            <div
+              onClick={() => setOrder()}
+              className="ml-2 ascDesc p-2 border border-black w-10 flex justify-center cursor-pointer"
+            >
+              ↓
+            </div>
+          ) : (
+            <div
+              onClick={() => setOrder()}
+              className="ml-2 ascDesc p-2 border border-black w-10 flex justify-center cursor-pointer"
+            >
+              ↑
+            </div>
+          )}
         </div>
       </div>
       {/* LAPTOP AND DESKTOP END */}

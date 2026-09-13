@@ -12,8 +12,12 @@ export interface SearchUpdatePayloadInterface {
   status: boolean;
 }
 
-export interface searchText {
+export interface SearchText {
   search: string;
+}
+
+export interface OrderBy {
+  orderBy: 'asc' | 'desc'
 }
 
 const initialState: SearchStateInterface = {
@@ -21,14 +25,18 @@ const initialState: SearchStateInterface = {
   genre: genre,
   feature: feature,
   search: '',
+  orderBy: "asc"
 };
 
 export const SearchSlice = createSlice({
   name: 'Search',
   initialState,
   reducers: {
-    setSearch: (state, action: PayloadAction<searchText>) => {
+    setSearch: (state, action: PayloadAction<SearchText>) => {
       return { ...state, search: action.payload.search };
+    },
+    setOrderBy: (state, action: PayloadAction<OrderBy>) => {
+      return { ...state, orderBy: action.payload.orderBy };
     },
     setCategory: (state, action: PayloadAction<SearchUpdatePayloadInterface>) => {
       const { parentCategory, childCategory, status } = action.payload;
@@ -60,5 +68,5 @@ export const SearchSlice = createSlice({
   },
 });
 
-export const { setCategory, setSearch } = SearchSlice.actions;
+export const { setCategory, setSearch, setOrderBy } = SearchSlice.actions;
 export default SearchSlice.reducer;

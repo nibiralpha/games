@@ -1,8 +1,4 @@
-import {
-  FeatureInterface,
-  GenreInterface,
-  PlatformInterface,
-} from "@Constant/DataTypes";
+import { FeatureInterface, GenreInterface, PlatformInterface } from '@Constant/DataTypes';
 
 export interface SearchStateInterface {
   // search: SearchedDataStateInterface;
@@ -10,6 +6,7 @@ export interface SearchStateInterface {
   genre: GenreInterface;
   feature: FeatureInterface;
   search: string;
+  orderBy: 'asc' | 'desc';
 }
 
 export interface PlatformStateDetail {
@@ -17,5 +14,6 @@ export interface PlatformStateDetail {
   id: number;
 }
 
-export type MenuName = "Platform" | "Genre" | "Feature";
-export type FilterParentMenu = "platform" | "genre" | "feature";
+export type MenuName = 'Platform' | 'Genre' | 'Feature';
+export type FilterParentMenu = 'platform' | 'genre' | 'feature';
+export type orderBy = 'asc' | 'desc';
