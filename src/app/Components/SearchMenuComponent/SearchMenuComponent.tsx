@@ -5,10 +5,10 @@ import { useState } from 'react';
 import styles from './SearchMenu.module.css';
 import { SearchMenu } from '@app-types/Menu';
 import { Menus, platform, genre, feature, ChildMenu } from '@Constant/DataTypes';
-import { setSearch } from '@/src/redux/SearchSlice';
+import { setCategory } from '@/src/redux/SearchSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/src/redux/Store';
-import { MenuName } from '@app-types/SearchState';
+import { FilterParentMenu, MenuName } from '@app-types/SearchState';
 import useGames from '@Hooks/useGames';
 
 const menus: Menus[] = [
@@ -39,10 +39,7 @@ export default function SearchMenuComponent() {
   const dispatch = useDispatch<AppDispatch>();
   const { searchedOption } = useGames();
 
-  console.log('menus', menus);
-  console.log('searchedOption', searchedOption);
-
-  const [menuList, setMenuList] = useState<SearchMenu[]>(menus);
+  const [menuList, setMenuList] = useState<Menus[]>(menus);
 
   const toggleMenu = (menuName: string) => {
     setMenuList((prev) => prev.map((menu) => (menu.name === menuName ? { ...menu, expand: !menu.expand } : menu)));
@@ -50,7 +47,7 @@ export default function SearchMenuComponent() {
 
   const updateToggleStatus = async (childMenu: ChildMenu, menuName: MenuName, status: boolean) => {
     await dispatch(
-      setSearch({
+      setCategory({
         parentCategory: menuName,
         childCategory: childMenu,
         status: status,
@@ -59,7 +56,7 @@ export default function SearchMenuComponent() {
   };
 
   const isChecked = (childMenu: ChildMenu, parentMenu: Menus): boolean => {
-    const items = searchedOption[parentMenu.value as MenuName];
+    const items = searchedOption[parentMenu.value as FilterParentMenu];
 
     return items?.some((item) => item.id === childMenu.id && item.isChecked) ?? false;
   };

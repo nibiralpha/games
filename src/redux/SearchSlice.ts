@@ -1,10 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { GameStateInterface } from '@app-types/GamesState';
-import { GameSectionsState, TrendingGameInterface } from '@app-types/Games';
+
 import {
   MenuName,
   SearchStateInterface,
-  // SearchUpdatePayload,
 } from '@app-types/SearchState';
 import { platform, genre, feature, ChildMenu } from '@Constant/DataTypes';
 
@@ -14,17 +12,25 @@ export interface SearchUpdatePayloadInterface {
   status: boolean;
 }
 
+export interface searchText {
+  search: string;
+}
+
 const initialState: SearchStateInterface = {
   platform: platform,
   genre: genre,
   feature: feature,
+  search: '',
 };
 
 export const SearchSlice = createSlice({
   name: 'Search',
   initialState,
   reducers: {
-    setSearch: (state, action: PayloadAction<SearchUpdatePayloadInterface>) => {
+    setSearch: (state, action: PayloadAction<searchText>) => {
+      return { ...state, search: action.payload.search };
+    },
+    setCategory: (state, action: PayloadAction<SearchUpdatePayloadInterface>) => {
       const { parentCategory, childCategory, status } = action.payload;
 
       if (parentCategory === 'Platform') {
@@ -54,5 +60,5 @@ export const SearchSlice = createSlice({
   },
 });
 
-export const { setSearch } = SearchSlice.actions;
+export const { setCategory, setSearch } = SearchSlice.actions;
 export default SearchSlice.reducer;

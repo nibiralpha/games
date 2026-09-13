@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 // import Image from "next/image";
 
 import styles from './SearchResult.module.css';
@@ -8,6 +8,9 @@ import CardComponent from '@Components/CardComponent/CardComponent';
 import GameCardComponent from '@Components/GameCardComponent/GameCardComponent';
 import SearchMenuMobileComponent from '@Components/SearchMenuComponent/SearchMenuMobileComponent';
 import { TrendingGameInterface } from '@app-types/Games';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/src/redux/Store';
+import { setSearch } from '@/src/redux/SearchSlice';
 
 interface Props {
   data: TrendingGameInterface[];
@@ -15,7 +18,27 @@ interface Props {
 }
 
 export default function SearchResultComponent({ data, loading }: Readonly<Props>) {
+  const dispatch = useDispatch<AppDispatch>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [searchValue, setSearchValue] = useState('');
+
+  const searchData = async (text: string) => {
+    setSearchValue(text);
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      dispatch(setSearch({ search: text }));
+    }, 500);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   return (
     <div className={styles.search_component}>
@@ -27,7 +50,7 @@ export default function SearchResultComponent({ data, loading }: Readonly<Props>
             name="search"
             className={styles.search_input}
             value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
+            onChange={(e) => searchData(e.target.value)}
             placeholder="Search..."
           />
         </div>

@@ -9,6 +9,7 @@ export interface SearchStateInterface {
   platform: PlatformInterface;
   genre: GenreInterface;
   feature: FeatureInterface;
+  search: string;
 }
 
 export interface PlatformStateDetail {
