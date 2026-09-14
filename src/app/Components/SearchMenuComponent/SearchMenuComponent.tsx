@@ -94,6 +94,10 @@ export default function SearchMenuComponent() {
     if (search.search) {
       params.set('search', search.search);
     }
+    
+    if (search.orderBy) {
+      params.set('order', search.orderBy);
+    }
 
     const queryString = params.toString();
 
