@@ -1,7 +1,7 @@
 'use client';
 
 // import Image from "next/image";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './SearchMenu.module.css';
 import { SearchMenu } from '@app-types/Menu';
 import { Menus, platform, genre, feature, ChildMenu } from '@Constant/DataTypes';
@@ -46,7 +46,7 @@ export default function SearchMenuComponent() {
   };
 
   const updateToggleStatus = async (childMenu: ChildMenu, menuName: MenuName, status: boolean) => {
-    await dispatch(
+    dispatch(
       setCategory({
         parentCategory: menuName,
         childCategory: childMenu,
@@ -60,6 +60,45 @@ export default function SearchMenuComponent() {
 
     return items?.some((item) => item.id === childMenu.id && item.isChecked) ?? false;
   };
+
+  const updateUrl = (search: typeof searchedOption) => {
+    const params = new URLSearchParams();
+
+    const selectedPlatforms = search.platform
+      .filter((item) => item.isChecked)
+      .map((item) => item.alias)
+      .join(',');
+
+    const selectedGenres = search.genre
+      .filter((item) => item.isChecked)
+      .map((item) => item.alias)
+      .join(',');
+
+    const selectedFeatures = search.feature
+      .filter((item) => item.isChecked)
+      .map((item) => item.alias)
+      .join(',');
+
+    if (selectedPlatforms) {
+      params.set('platform', selectedPlatforms);
+    }
+
+    if (selectedGenres) {
+      params.set('genre', selectedGenres);
+    }
+
+    if (selectedFeatures) {
+      params.set('feature', selectedFeatures);
+    }
+
+    const queryString = params.toString();
+
+    window.history.replaceState(null, '', queryString ? `?${queryString}` : window.location.pathname);
+  };
+
+  useEffect(() => {
+    updateUrl(searchedOption);
+  }, [searchedOption]);
 
   return (
     <div className="bg-[#f6f6f6] w-full border border-[#e1e1e1] rounded-lg">
