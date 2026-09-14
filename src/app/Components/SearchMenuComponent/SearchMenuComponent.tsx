@@ -63,7 +63,7 @@ export default function SearchMenuComponent() {
 
   const updateUrl = (search: typeof searchedOption) => {
     const params = new URLSearchParams();
-
+    
     const selectedPlatforms = search.platform
       .filter((item) => item.isChecked)
       .map((item) => item.alias)
@@ -89,6 +89,10 @@ export default function SearchMenuComponent() {
 
     if (selectedFeatures) {
       params.set('feature', selectedFeatures);
+    }
+   
+    if (search.search) {
+      params.set('search', search.search);
     }
 
     const queryString = params.toString();
