@@ -1,9 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import {
-  MenuName,
-  SearchStateInterface,
-} from '@app-types/SearchState';
+import { MenuName, SearchStateInterface } from '@app-types/SearchState';
 import { platform, genre, feature, ChildMenu } from '@Constant/DataTypes';
 
 export interface SearchUpdatePayloadInterface {
@@ -17,7 +14,7 @@ export interface SearchText {
 }
 
 export interface OrderBy {
-  orderBy: 'asc' | 'desc'
+  orderBy: 'asc' | 'desc';
 }
 
 const initialState: SearchStateInterface = {
@@ -25,7 +22,7 @@ const initialState: SearchStateInterface = {
   genre: genre,
   feature: feature,
   search: '',
-  orderBy: "asc"
+  orderBy: 'asc',
 };
 
 export const SearchSlice = createSlice({
@@ -65,8 +62,39 @@ export const SearchSlice = createSlice({
         }
       }
     },
+    hydrateFiltersFromUrl: (
+      state,
+      action: PayloadAction<{
+        platform?: string[];
+        genre?: string[];
+        feature?: string[];
+        search?: string;
+        order?: 'asc' | 'desc';
+      }>,
+    ) => {
+      const { platform, genre, feature, search, order } = action.payload;
+
+      if (search !== undefined) state.search = search;
+      if (order !== undefined) state.orderBy = order;
+
+      if (platform) {
+        state.platform.forEach((item) => {
+          item.isChecked = platform.includes(item.alias);
+        });
+      }
+      if (genre) {
+        state.genre.forEach((item) => {
+          item.isChecked = genre.includes(item.alias);
+        });
+      }
+      if (feature) {
+        state.feature.forEach((item) => {
+          item.isChecked = feature.includes(item.alias);
+        });
+      }
+    },
   },
 });
 
-export const { setCategory, setSearch, setOrderBy } = SearchSlice.actions;
+export const { setCategory, setSearch, setOrderBy, hydrateFiltersFromUrl } = SearchSlice.actions;
 export default SearchSlice.reducer;

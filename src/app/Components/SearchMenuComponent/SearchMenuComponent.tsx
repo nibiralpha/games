@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import styles from './SearchMenu.module.css';
 import { SearchMenu } from '@app-types/Menu';
 import { Menus, platform, genre, feature, ChildMenu } from '@Constant/DataTypes';
-import { setCategory } from '@/src/redux/SearchSlice';
+import { hydrateFiltersFromUrl, setCategory } from '@/src/redux/SearchSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/src/redux/Store';
 import { FilterParentMenu, MenuName } from '@app-types/SearchState';
@@ -40,12 +40,13 @@ export default function SearchMenuComponent() {
   const { searchedOption } = useGames();
 
   const [menuList, setMenuList] = useState<Menus[]>(menus);
+  const [isReady, setIsReady] = useState(false);
 
   const toggleMenu = (menuName: string) => {
     setMenuList((prev) => prev.map((menu) => (menu.name === menuName ? { ...menu, expand: !menu.expand } : menu)));
   };
 
-  const updateToggleStatus = async (childMenu: ChildMenu, menuName: MenuName, status: boolean) => {
+  const updateToggleStatus = (childMenu: ChildMenu, menuName: MenuName, status: boolean) => {
     dispatch(
       setCategory({
         parentCategory: menuName,
@@ -63,7 +64,7 @@ export default function SearchMenuComponent() {
 
   const updateUrl = (search: typeof searchedOption) => {
     const params = new URLSearchParams();
-    
+
     const selectedPlatforms = search.platform
       .filter((item) => item.isChecked)
       .map((item) => item.alias)
@@ -90,11 +91,11 @@ export default function SearchMenuComponent() {
     if (selectedFeatures) {
       params.set('feature', selectedFeatures);
     }
-   
+
     if (search.search) {
       params.set('search', search.search);
     }
-    
+
     if (search.orderBy) {
       params.set('order', search.orderBy);
     }
@@ -105,8 +106,32 @@ export default function SearchMenuComponent() {
   };
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    const urlPlatform = params.get('platform')?.split(',').filter(Boolean);
+    const urlGenre = params.get('genre')?.split(',').filter(Boolean);
+    const urlFeature = params.get('feature')?.split(',').filter(Boolean);
+    const urlSearch = params.get('search') || '';
+    const urlOrder = params.get('order') as 'asc' | 'desc' | null;
+
+    dispatch(
+      hydrateFiltersFromUrl({
+        platform: urlPlatform,
+        genre: urlGenre,
+        feature: urlFeature,
+        search: urlSearch,
+        order: urlOrder || undefined,
+      }),
+    );
+    /* eslint-disable-next-line react-hooks/set-state-in-effect */
+    setIsReady(true);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!isReady) return;
+
     updateUrl(searchedOption);
-  }, [searchedOption]);
+  }, [searchedOption, isReady]);
 
   return (
     <div className="bg-[#f6f6f6] w-full border border-[#e1e1e1] rounded-lg">
