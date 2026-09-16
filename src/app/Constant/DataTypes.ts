@@ -64,6 +64,6 @@ export const genre: GenreInterface = [
 ];
 
 export const feature: FeatureInterface = [
-  { isChecked: false, id: 31, name: "Single Player", alias: "single_player" },
-  { isChecked: false, id: 7, name: "Multiplayer", alias: "multi_player" },
+  { isChecked: false, id: 31, name: "Single Player", alias: "singleplayer" },
+  { isChecked: false, id: 7, name: "Multiplayer", alias: "multiplayer" },
 ];

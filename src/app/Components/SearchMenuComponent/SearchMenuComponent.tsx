@@ -85,7 +85,7 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
       .join(',');
 
     if (selectedPlatforms) {
-      params.set('platform', selectedPlatforms);
+      params.set('platforms', selectedPlatforms);
     }
 
     if (selectedGenres) {
@@ -93,7 +93,7 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
     }
 
     if (selectedFeatures) {
-      params.set('feature', selectedFeatures);
+      params.set('mode', selectedFeatures);
     }
 
     if (search.search) {
@@ -120,14 +120,14 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
 
     const urlPlatform = params.get('platform')?.split(',').filter(Boolean);
     const urlGenre = params.get('genre')?.split(',').filter(Boolean);
-    const urlFeature = params.get('feature')?.split(',').filter(Boolean);
+    const urlMode = params.get('mode')?.split(',').filter(Boolean);
     const urlSearch = params.get('search') || '';
     const urlOrder = params.get('order') as 'asc' | 'desc' | null;
 
     const searchOj = {
       platform: urlPlatform,
       genre: urlGenre,
-      feature: urlFeature,
+      mode: urlMode,
       search: urlSearch,
       order: urlOrder || undefined,
     };    
