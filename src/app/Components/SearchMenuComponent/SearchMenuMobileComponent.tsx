@@ -27,7 +27,7 @@ const menus: Menus[] = [
   {
     id: 4,
     name: 'Feature',
-    value: 'feature',
+    value: 'mode',
     expand: false,
     childMenus: [],
   },
