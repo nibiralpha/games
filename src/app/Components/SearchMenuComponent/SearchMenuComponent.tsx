@@ -61,7 +61,7 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
   };
 
   const isChecked = (childMenu: ChildMenu, parentMenu: Menus): boolean => {
-    const items = searchedOption[parentMenu.value as FilterParentMenu];    
+    const items = searchedOption[parentMenu.value as FilterParentMenu];
 
     return items?.some((item) => item.id === childMenu.id && item.isChecked) ?? false;
   };
@@ -83,6 +83,8 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
       .filter((item) => item.isChecked)
       .map((item) => item.alias)
       .join(',');
+
+    console.log('selectedPlatforms', selectedPlatforms);
 
     if (selectedPlatforms) {
       params.set('platforms', selectedPlatforms);
@@ -111,14 +113,14 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
     const rawQueryString = params.toString();
     const cleanQueryString = decodeURIComponent(rawQueryString);
     // console.log("search string", cleanQueryString);
-    
-   onChange(cleanQueryString);
+
+    onChange(cleanQueryString);
   };
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
 
-    const urlPlatform = params.get('platform')?.split(',').filter(Boolean);
+    const urlPlatform: number[] = params.get('platforms')?.split(',').filter(Boolean).map(Number) || [];
     const urlGenre = params.get('genre')?.split(',').filter(Boolean);
     const urlMode = params.get('mode')?.split(',').filter(Boolean);
     const urlSearch = params.get('search') || '';
@@ -130,7 +132,7 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
       mode: urlMode,
       search: urlSearch,
       order: urlOrder || undefined,
-    };    
+    };
 
     dispatch(hydrateFiltersFromUrl(searchOj));
     // onChange(searchOj);

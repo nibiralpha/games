@@ -40,7 +40,7 @@ export const SearchSlice = createSlice({
 
       if (parentCategory === 'Platform') {
         const item = state.platform.find((p) => p.id === childCategory.id);
-
+        
         if (item) {
           item.isChecked = status;
         }
@@ -65,7 +65,7 @@ export const SearchSlice = createSlice({
     hydrateFiltersFromUrl: (
       state,
       action: PayloadAction<{
-        platform?: string[];
+        platform?: number[];
         genre?: string[];
         mode?: string[];
         search?: string;
@@ -79,7 +79,7 @@ export const SearchSlice = createSlice({
 
       if (platform) {
         state.platform.forEach((item) => {
-          item.isChecked = platform.includes(item.alias);
+          item.isChecked = platform.includes(item.id);
         });
       }
       if (genre) {
