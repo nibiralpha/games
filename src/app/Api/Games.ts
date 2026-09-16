@@ -21,7 +21,7 @@ const getGamesLastRecentAnicipeted = async (): Promise<ReleaseCalendarResponse> 
 };
 
 const getSearchResults = async (data: string = ''): Promise<TrendingGameResponse> => {
-  const response = await axios.get<TrendingGameResponse>(`${BASEURL}/api/search/${data}`);
+  const response = await axios.get<TrendingGameResponse>(`${BASEURL}/api/search?${data}`);
 
   return response.data;
 };

@@ -97,7 +97,7 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
     }
 
     if (search.search) {
-      params.set('search', search.search);
+      params.set('name', search.search);
     }
 
     if (search.orderBy) {
