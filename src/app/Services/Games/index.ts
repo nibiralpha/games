@@ -22,6 +22,7 @@ import {
   TrendingGameInterface,
 } from "@app-types/Games";
 import { getCurrentMonthDateRange } from "@Helper/Functions";
+import { SearchStateInterface } from "@app-types/SearchState";
 
 const fetchTrendingGames = () => {
   return async (dispatch: Dispatch) => {
@@ -134,12 +135,12 @@ const fetchLastRecentAnicipetedGames = () => {
   };
 };
 
-const fetchSearcheddGames = () => {
+const fetchSearcheddGames = (data: string) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(setSearchResultLoadding(true));
 
-      const gamesRes = await getSearchResults();
+      const gamesRes = await getSearchResults(data);
 
       const gamesData: TrendingGameInterface[] = gamesRes?.data?.map(
         (game: Game) => ({

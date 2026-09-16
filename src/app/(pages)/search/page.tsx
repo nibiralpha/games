@@ -1,21 +1,26 @@
-"use client";
-import React, { useEffect } from "react";
-import styles from "./Search.module.css";
-import HeaderComponent from "@/src/app/Components/HeaderComponent/HeaderComponent";
-import SearchMenuComponent from "@/src/app/Components/SearchMenuComponent/SearchMenuComponent";
-import SearchResultComponent from "@/src/app/Components/SearchResultComponent/SearchResultComponent";
-import SearchMenuMobileComponent from "@/src/app/Components/SearchMenuComponent/SearchMenuMobileComponent";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/src/redux/Store";
-import { fetchSearcheddGames } from "@/src/app/Services/Games";
-import useGames from "@/src/app/Hooks/useGames";
+'use client';
+import React, { useEffect } from 'react';
+import styles from './Search.module.css';
+import HeaderComponent from '@/src/app/Components/HeaderComponent/HeaderComponent';
+import SearchMenuComponent from '@/src/app/Components/SearchMenuComponent/SearchMenuComponent';
+import SearchResultComponent from '@/src/app/Components/SearchResultComponent/SearchResultComponent';
+import SearchMenuMobileComponent from '@/src/app/Components/SearchMenuComponent/SearchMenuMobileComponent';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/src/redux/Store';
+import { fetchSearcheddGames } from '@/src/app/Services/Games';
+import useGames from '@/src/app/Hooks/useGames';
 
 export default function SearchPage() {
   const dispatch = useDispatch<AppDispatch>();
   const { searchedGames } = useGames();
 
-  const fetchData = () => {
-    dispatch(fetchSearcheddGames());
+  const fetchData = (data: string = '') => {
+    dispatch(fetchSearcheddGames(data));
+  };
+
+  const updateSearch = (data: string) => {
+    // console.log('log data from page', data);
+    fetchData(data);
   };
 
   useEffect(() => {
@@ -30,9 +35,8 @@ export default function SearchPage() {
           <div className="">
             <div className="section_title weight-600">Discover</div>
             <div className="flex mt-8">
-
               <div className="hidden lg:block w-1/4">
-                <SearchMenuComponent />
+                <SearchMenuComponent onChange={(data: string) => updateSearch(data)} />
               </div>
 
               <div className="w-full lg:w-3/4 h-24 lg:ml-8">

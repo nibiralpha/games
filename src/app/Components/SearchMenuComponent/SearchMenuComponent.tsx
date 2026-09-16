@@ -11,6 +11,10 @@ import { AppDispatch } from '@/src/redux/Store';
 import { FilterParentMenu, MenuName } from '@app-types/SearchState';
 import useGames from '@Hooks/useGames';
 
+interface SearchMenuComponentProps {
+  onChange: (data: string) => void;
+}
+
 const menus: Menus[] = [
   {
     id: 1,
@@ -35,7 +39,7 @@ const menus: Menus[] = [
   },
 ];
 
-export default function SearchMenuComponent() {
+export default function SearchMenuComponent({ onChange }: SearchMenuComponentProps) {
   const dispatch = useDispatch<AppDispatch>();
   const { searchedOption } = useGames();
 
@@ -67,7 +71,7 @@ export default function SearchMenuComponent() {
 
     const selectedPlatforms = search.platform
       .filter((item) => item.isChecked)
-      .map((item) => item.alias)
+      .map((item) => item.id)
       .join(',');
 
     const selectedGenres = search.genre
@@ -103,6 +107,12 @@ export default function SearchMenuComponent() {
     const queryString = params.toString();
 
     window.history.replaceState(null, '', queryString ? `?${queryString}` : window.location.pathname);
+
+    const rawQueryString = params.toString();
+    const cleanQueryString = decodeURIComponent(rawQueryString);
+    // console.log("search string", cleanQueryString);
+    
+   onChange(cleanQueryString);
   };
 
   useEffect(() => {
@@ -114,15 +124,16 @@ export default function SearchMenuComponent() {
     const urlSearch = params.get('search') || '';
     const urlOrder = params.get('order') as 'asc' | 'desc' | null;
 
-    dispatch(
-      hydrateFiltersFromUrl({
-        platform: urlPlatform,
-        genre: urlGenre,
-        feature: urlFeature,
-        search: urlSearch,
-        order: urlOrder || undefined,
-      }),
-    );
+    const searchOj = {
+      platform: urlPlatform,
+      genre: urlGenre,
+      feature: urlFeature,
+      search: urlSearch,
+      order: urlOrder || undefined,
+    };    
+
+    dispatch(hydrateFiltersFromUrl(searchOj));
+    // onChange(searchOj);
     /* eslint-disable-next-line react-hooks/set-state-in-effect */
     setIsReady(true);
   }, [dispatch]);
