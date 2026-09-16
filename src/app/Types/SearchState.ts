@@ -4,7 +4,7 @@ export interface SearchStateInterface {
   // search: SearchedDataStateInterface;
   platform: PlatformInterface;
   genre: GenreInterface;
-  feature: FeatureInterface;
+  mode: FeatureInterface;
   search: string;
   orderBy: 'asc' | 'desc';
 }
@@ -15,5 +15,5 @@ export interface PlatformStateDetail {
 }
 
 export type MenuName = 'Platform' | 'Genre' | 'Feature';
-export type FilterParentMenu = 'platform' | 'genre' | 'feature';
+export type FilterParentMenu = 'platform' | 'genre' | 'mode';
 export type orderBy = 'asc' | 'desc';

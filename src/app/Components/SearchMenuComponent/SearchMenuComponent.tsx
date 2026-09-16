@@ -33,7 +33,7 @@ const menus: Menus[] = [
   {
     id: 4,
     name: 'Feature',
-    value: 'feature',
+    value: 'mode',
     expand: false,
     childMenus: feature,
   },
@@ -61,7 +61,7 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
   };
 
   const isChecked = (childMenu: ChildMenu, parentMenu: Menus): boolean => {
-    const items = searchedOption[parentMenu.value as FilterParentMenu];
+    const items = searchedOption[parentMenu.value as FilterParentMenu];    
 
     return items?.some((item) => item.id === childMenu.id && item.isChecked) ?? false;
   };
@@ -79,7 +79,7 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
       .map((item) => item.alias)
       .join(',');
 
-    const selectedFeatures = search.feature
+    const selectedFeatures = search.mode
       .filter((item) => item.isChecked)
       .map((item) => item.alias)
       .join(',');

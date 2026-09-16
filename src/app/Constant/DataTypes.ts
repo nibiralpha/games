@@ -7,7 +7,7 @@ export interface Menus {
 }
 
 type name = "Platform" | "Genre" | "Feature" | "Release Date";
-type value = "platform" | "genre" | "feature" | "release_date";
+type value = "platform" | "genre" | "mode" | "release_date";
 
 export interface ChildMenu {
   isChecked: boolean;
