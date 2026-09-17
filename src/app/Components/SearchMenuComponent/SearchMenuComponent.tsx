@@ -84,8 +84,6 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
       .map((item) => item.alias)
       .join(',');
 
-    console.log('selectedPlatforms', selectedPlatforms);
-
     if (selectedPlatforms) {
       params.set('platforms', selectedPlatforms);
     }
@@ -120,23 +118,35 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
 
-    const urlPlatform: number[] = params.get('platforms')?.split(',').filter(Boolean).map(Number) || [];
-    const urlGenre = params.get('genre')?.split(',').filter(Boolean);
-    const urlMode = params.get('mode')?.split(',').filter(Boolean);
+    const urlPlatform = params.get('platforms')?.split(',').filter(Boolean).map(Number) ?? [];
+    const urlGenre = params.get('genre')?.split(',').filter(Boolean) ?? [];
+    const urlMode = params.get('mode')?.split(',').filter(Boolean) ?? [];
     const urlSearch = params.get('search') || '';
     const urlOrder = params.get('order') as 'asc' | 'desc' | null;
 
-    const searchOj = {
-      platform: urlPlatform,
-      genre: urlGenre,
-      mode: urlMode,
-      search: urlSearch,
-      order: urlOrder || undefined,
-    };
+    dispatch(
+      hydrateFiltersFromUrl({
+        platform: urlPlatform,
+        genre: urlGenre,
+        mode: urlMode,
+        search: urlSearch,
+        order: urlOrder || undefined,
+      }),
+    );
 
-    dispatch(hydrateFiltersFromUrl(searchOj));
-    // onChange(searchOj);
+    //keep open the previously selected menu on page refresh
     /* eslint-disable-next-line react-hooks/set-state-in-effect */
+    setMenuList((prev) =>
+      prev.map((menu) => ({
+        ...menu,
+        expand:
+          (menu.name === 'Platform' && urlPlatform.length > 0) ||
+          (menu.name === 'Genre' && urlGenre.length > 0) ||
+          (menu.name === 'Feature' && urlMode.length > 0),
+      })),
+    );
+    //end
+
     setIsReady(true);
   }, [dispatch]);
 
