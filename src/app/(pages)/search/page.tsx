@@ -19,12 +19,15 @@ export default function SearchPage() {
   };
 
   const updateSearch = (data: string) => {
-    // console.log('log data from page', data);
     fetchData(data);
   };
 
   useEffect(() => {
-    fetchData();
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.size < 1) {
+      fetchData();
+    }
   }, []);
 
   return (
