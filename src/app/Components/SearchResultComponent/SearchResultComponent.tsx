@@ -10,7 +10,7 @@ import SearchMenuMobileComponent from '@Components/SearchMenuComponent/SearchMen
 import { TrendingGameInterface } from '@app-types/Games';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/src/redux/Store';
-import { OrderBy, setOrderBy, setSearch } from '@/src/redux/SearchSlice';
+import { hydrateFiltersFromUrl, OrderBy, setOrderBy, setSearch } from '@/src/redux/SearchSlice';
 import useGames from '@Hooks/useGames';
 
 interface Props {
@@ -45,6 +45,21 @@ export default function SearchResultComponent({ data, loading }: Readonly<Props>
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    const urlSearch = params.get('name') || '';
+
+    dispatch(
+      hydrateFiltersFromUrl({
+        search: urlSearch,
+      }),
+    );
+
+    /* eslint-disable-next-line react-hooks/set-state-in-effect */
+    setSearchValue(urlSearch);
   }, []);
 
   return (
