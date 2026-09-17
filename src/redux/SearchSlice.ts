@@ -68,13 +68,13 @@ export const SearchSlice = createSlice({
         platform?: number[];
         genre?: string[];
         mode?: string[];
-        search?: string;
+        name?: string;
         order?: 'asc' | 'desc';
       }>,
     ) => {
-      const { platform, genre, mode, search, order } = action.payload;
+      const { platform, genre, mode, name, order } = action.payload;
 
-      if (search !== undefined) state.search = search;
+      if (name !== undefined) state.search = name;
       if (order !== undefined) state.orderBy = order;
 
       if (platform) {

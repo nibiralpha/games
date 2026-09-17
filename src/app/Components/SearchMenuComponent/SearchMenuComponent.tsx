@@ -100,9 +100,9 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
       params.set('name', search.search);
     }
 
-    if (search.orderBy) {
-      params.set('order', search.orderBy);
-    }
+    // if (search.orderBy) {
+    //   params.set('order', search.orderBy);
+    // }
 
     const queryString = params.toString();
 
@@ -121,7 +121,7 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
     const urlPlatform = params.get('platforms')?.split(',').filter(Boolean).map(Number) ?? [];
     const urlGenre = params.get('genre')?.split(',').filter(Boolean) ?? [];
     const urlMode = params.get('mode')?.split(',').filter(Boolean) ?? [];
-    const urlSearch = params.get('search') || '';
+    const urlSearchByName = params.get('name') || '';
     const urlOrder = params.get('order') as 'asc' | 'desc' | null;
 
     dispatch(
@@ -129,7 +129,7 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
         platform: urlPlatform,
         genre: urlGenre,
         mode: urlMode,
-        search: urlSearch,
+        name: urlSearchByName,
         order: urlOrder || undefined,
       }),
     );

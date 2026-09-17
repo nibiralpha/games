@@ -54,7 +54,7 @@ export default function SearchResultComponent({ data, loading }: Readonly<Props>
 
     dispatch(
       hydrateFiltersFromUrl({
-        search: urlSearch,
+        name: urlSearch,
       }),
     );
 
@@ -76,7 +76,7 @@ export default function SearchResultComponent({ data, loading }: Readonly<Props>
             placeholder="Search..."
           />
         </div>
-        <div className="hidden lg:block 1/5">
+        {/* <div className="hidden lg:block 1/5">
           {searchedOption?.orderBy === 'asc' ? (
             <div
               onClick={() => setOrder()}
@@ -92,7 +92,7 @@ export default function SearchResultComponent({ data, loading }: Readonly<Props>
               ↑
             </div>
           )}
-        </div>
+        </div> */}
       </div>
       {/* LAPTOP AND DESKTOP END */}
 
