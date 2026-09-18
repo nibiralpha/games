@@ -19,7 +19,7 @@ export interface OrderBy {
 
 const initialState: SearchStateInterface = {
   platform: platform,
-  genre: genre,
+  genres: genre,
   mode: feature,
   search: '',
   orderBy: 'asc',
@@ -47,7 +47,7 @@ export const SearchSlice = createSlice({
       }
 
       if (parentCategory === 'Genre') {
-        const item = state.genre.find((g) => g.id === childCategory.id);
+        const item = state.genres.find((g) => g.id === childCategory.id);
 
         if (item) {
           item.isChecked = status;
@@ -66,13 +66,13 @@ export const SearchSlice = createSlice({
       state,
       action: PayloadAction<{
         platform?: number[];
-        genre?: string[];
+        genres?: number[];
         mode?: string[];
         name?: string;
         order?: 'asc' | 'desc';
       }>,
     ) => {
-      const { platform, genre, mode, name, order } = action.payload;
+      const { platform, genres, mode, name, order } = action.payload;
 
       if (name !== undefined) state.search = name;
       if (order !== undefined) state.orderBy = order;
@@ -82,9 +82,9 @@ export const SearchSlice = createSlice({
           item.isChecked = platform.includes(item.id);
         });
       }
-      if (genre) {
-        state.genre.forEach((item) => {
-          item.isChecked = genre.includes(item.alias);
+      if (genres) {
+        state.genres.forEach((item) => {
+          item.isChecked = genres.includes(item.id);
         });
       }
       if (mode) {

@@ -26,7 +26,7 @@ const menus: Menus[] = [
   {
     id: 2,
     name: 'Genre',
-    value: 'genre',
+    value: 'genres',
     expand: false,
     childMenus: genre,
   },
@@ -74,9 +74,9 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
       .map((item) => item.id)
       .join(',');
 
-    const selectedGenres = search.genre
+    const selectedGenres = search.genres
       .filter((item) => item.isChecked)
-      .map((item) => item.alias)
+      .map((item) => item.id)
       .join(',');
 
     const selectedFeatures = search.mode
@@ -89,7 +89,7 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
     }
 
     if (selectedGenres) {
-      params.set('genre', selectedGenres);
+      params.set('genres', selectedGenres);
     }
 
     if (selectedFeatures) {
@@ -119,15 +119,15 @@ export default function SearchMenuComponent({ onChange }: SearchMenuComponentPro
     const params = new URLSearchParams(window.location.search);
 
     const urlPlatform = params.get('platforms')?.split(',').filter(Boolean).map(Number) ?? [];
-    const urlGenre = params.get('genre')?.split(',').filter(Boolean) ?? [];
+    const urlGenre = params.get('genres')?.split(',').filter(Boolean).map(Number) ?? [];
     const urlMode = params.get('mode')?.split(',').filter(Boolean) ?? [];
     const urlSearchByName = params.get('name') || '';
-    const urlOrder = params.get('order') as 'asc' | 'desc' | null;
+    const urlOrder = params.get('order') as 'asc' | 'desc' | null;    
 
     dispatch(
       hydrateFiltersFromUrl({
         platform: urlPlatform,
-        genre: urlGenre,
+        genres: urlGenre,
         mode: urlMode,
         name: urlSearchByName,
         order: urlOrder || undefined,

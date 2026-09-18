@@ -3,7 +3,7 @@ import { FeatureInterface, GenreInterface, PlatformInterface } from '@Constant/D
 export interface SearchStateInterface {
   // search: SearchedDataStateInterface;
   platform: PlatformInterface;
-  genre: GenreInterface;
+  genres: GenreInterface;
   mode: FeatureInterface;
   search: string;
   orderBy: 'asc' | 'desc';
@@ -15,5 +15,5 @@ export interface PlatformStateDetail {
 }
 
 export type MenuName = 'Platform' | 'Genre' | 'Feature';
-export type FilterParentMenu = 'platform' | 'genre' | 'mode';
+export type FilterParentMenu = 'platform' | 'genres' | 'mode';
 export type orderBy = 'asc' | 'desc';
