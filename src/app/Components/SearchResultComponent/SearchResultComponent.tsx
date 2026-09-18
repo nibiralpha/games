@@ -35,7 +35,7 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
 
     timeoutRef.current = setTimeout(() => {
       dispatch(setSearch({ search: text }));
-    }, 500);
+    }, 1000);
   };
 
   const setOrder = () => {
