@@ -1,160 +1,17 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
 import { Drawer } from 'vaul';
-import { platform, genre, feature, Menus, ChildMenu } from '@Constant/DataTypes';
-import { SearchMenu } from '@app-types/Menu';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/src/redux/Store';
-import useGames from '@Hooks/useGames';
-import { FilterParentMenu, MenuName } from '@app-types/SearchState';
-import { hydrateFiltersFromUrl, setCategory } from '@/src/redux/SearchSlice';
+import { MenuName } from '@app-types/SearchState';
+import useSearchFilters from '@Hooks/useSearchFilters';
 
 interface MobileFilterDrawerProps {
   children: React.ReactNode;
   onChange: (data: string) => void;
 }
 
-const menus: Menus[] = [
-  {
-    id: 1,
-    name: 'Platform',
-    value: 'platform',
-    expand: false,
-    childMenus: platform,
-  },
-  {
-    id: 2,
-    name: 'Genre',
-    value: 'genres',
-    expand: false,
-    childMenus: genre,
-  },
-  {
-    id: 4,
-    name: 'Feature',
-    value: 'mode',
-    expand: false,
-    childMenus: feature,
-  },
-];
-
 export default function SearchMenuMobileComponent({ onChange, children }: MobileFilterDrawerProps) {
-  const dispatch = useDispatch<AppDispatch>();
-  const { searchedOption } = useGames();
-
-  const [menuList, setMenuList] = useState<Menus[]>(menus);
-  const [isReady, setIsReady] = useState(false);
-
-  const toggleMenu = (menuName: string) => {
-    setMenuList((prev) => prev.map((menu) => (menu.name === menuName ? { ...menu, expand: !menu.expand } : menu)));
-  };
-
-  const updateToggleStatus = (childMenu: ChildMenu, menuName: MenuName, status: boolean) => {
-    dispatch(
-      setCategory({
-        parentCategory: menuName,
-        childCategory: childMenu,
-        status: status,
-      }),
-    );
-  };
-
-  const isChecked = (childMenu: ChildMenu, parentMenu: Menus): boolean => {
-    const items = searchedOption[parentMenu.value as FilterParentMenu];
-
-    return items?.some((item) => item.id === childMenu.id && item.isChecked) ?? false;
-  };
-
-  const updateUrl = (search: typeof searchedOption) => {
-    const params = new URLSearchParams();
-
-    const selectedPlatforms = search.platform
-      .filter((item) => item.isChecked)
-      .map((item) => item.id)
-      .join(',');
-
-    const selectedGenres = search.genres
-      .filter((item) => item.isChecked)
-      .map((item) => item.id)
-      .join(',');
-
-    const selectedFeatures = search.mode
-      .filter((item) => item.isChecked)
-      .map((item) => item.alias)
-      .join(',');
-
-    if (selectedPlatforms) {
-      params.set('platforms', selectedPlatforms);
-    }
-
-    if (selectedGenres) {
-      params.set('genres', selectedGenres);
-    }
-
-    if (selectedFeatures) {
-      params.set('mode', selectedFeatures);
-    }
-
-    if (search.search) {
-      params.set('name', search.search);
-    }
-
-    // if (search.orderBy) {
-    //   params.set('order', search.orderBy);
-    // }
-
-    const queryString = params.toString();
-
-    window.history.replaceState(null, '', queryString ? `?${queryString}` : window.location.pathname);
-
-    const rawQueryString = params.toString();
-    const cleanQueryString = decodeURIComponent(rawQueryString);
-    // console.log("search string", cleanQueryString);
-
-    onChange(cleanQueryString);
-  };
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-
-    const urlPlatform = params.get('platforms')?.split(',').filter(Boolean).map(Number) ?? [];
-    const urlGenre = params.get('genres')?.split(',').filter(Boolean).map(Number) ?? [];
-    const urlMode = params.get('mode')?.split(',').filter(Boolean) ?? [];
-    const urlSearchByName = params.get('name') || '';
-    const urlOrder = params.get('order') as 'asc' | 'desc' | null;
-
-    dispatch(
-      hydrateFiltersFromUrl({
-        platform: urlPlatform,
-        genres: urlGenre,
-        mode: urlMode,
-        name: urlSearchByName,
-        order: urlOrder || undefined,
-      }),
-    );
-
-    //keep open the previously selected menu on page refresh
-    /* eslint-disable-next-line react-hooks/set-state-in-effect */
-    setMenuList((prev) =>
-      prev.map((menu) => ({
-        ...menu,
-        expand:
-          (menu.name === 'Platform' && urlPlatform.length > 0) ||
-          (menu.name === 'Genre' && urlGenre.length > 0) ||
-          (menu.name === 'Feature' && urlMode.length > 0),
-      })),
-    );
-    //end
-
-    setIsReady(true);
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (!isReady) return;
-
-    updateUrl(searchedOption);
-  }, [searchedOption, isReady]);
+  const { menuList, toggleMenu, updateToggleStatus, isChecked } = useSearchFilters(onChange);
 
   return (
     <Drawer.Root dismissible={true}>

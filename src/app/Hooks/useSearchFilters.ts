@@ -2,13 +2,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { hydrateFiltersFromUrl, setCategory } from '@/src/redux/SearchSlice';
-
 import { AppDispatch } from '@/src/redux/Store';
-
 import { Menus, platform, genre, feature, ChildMenu } from '@Constant/DataTypes';
-
 import { FilterParentMenu, MenuName } from '@app-types/SearchState';
-
 import useGames from '@Hooks/useGames';
 
 const menus: Menus[] = [
@@ -141,7 +137,7 @@ export default function useSearchFilters(onChange: (data: string) => void) {
       }),
     );
 
-    //keep open the previously selected menu on page refresh
+    // keep open the previously selected menu on page refresh
     /* eslint-disable-next-line react-hooks/set-state-in-effect */
     setMenuList((prev) =>
       prev.map((menu) => ({
