@@ -43,7 +43,7 @@ export default function SearchPage() {
               </div>
 
               <div className="w-full lg:w-3/4 h-24 lg:ml-8">
-                <SearchResultComponent data={searchedGames?.list} loading={searchedGames?.loading} />
+                <SearchResultComponent onChange={(data: string) => updateSearch(data)} data={searchedGames?.list} loading={searchedGames?.loading} />
               </div>
             </div>
           </div>

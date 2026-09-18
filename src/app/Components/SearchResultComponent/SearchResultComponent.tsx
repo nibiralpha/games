@@ -16,9 +16,10 @@ import useGames from '@Hooks/useGames';
 interface Props {
   data: TrendingGameInterface[];
   loading: boolean;
+  onChange: (data: string) => void;
 }
 
-export default function SearchResultComponent({ data, loading }: Readonly<Props>) {
+export default function SearchResultComponent({ data, loading, onChange }: Readonly<Props>) {
   const dispatch = useDispatch<AppDispatch>();
   const { searchedOption } = useGames();
 
@@ -98,7 +99,11 @@ export default function SearchResultComponent({ data, loading }: Readonly<Props>
 
       {/* MOBILE AND TAB */}
       <div className="flex lg:hidden mt-4">
-        <SearchMenuMobileComponent>
+        <SearchMenuMobileComponent
+          onChange={(data) => {
+            onChange(data);
+          }}
+        >
           <div className="flex justify-center items-center border p-2 w-30">
             <svg
               className="w-5 h-5 text-gray-500 mr-2"
@@ -118,10 +123,10 @@ export default function SearchResultComponent({ data, loading }: Readonly<Props>
           </div>
         </SearchMenuMobileComponent>
 
-        <div className="1/5">
+        {/* <div className="1/5">
           <div className="ml-2 ascDesc p-2 border border-black w-10 flex justify-center cursor-pointer">↓</div>
-          {/* ↑ */}
-        </div>
+          ↑
+        </div> */}
       </div>
       {/* MOBILE AND TAB END */}
 

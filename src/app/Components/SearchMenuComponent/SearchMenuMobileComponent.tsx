@@ -1,12 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Drawer } from 'vaul';
-import { platform, genre, feature, Menus } from '@Constant/DataTypes';
-import { SearchMenu } from '../../Types/Menu';
+import { platform, genre, feature, Menus, ChildMenu } from '@Constant/DataTypes';
+import { SearchMenu } from '@app-types/Menu';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/src/redux/Store';
+import useGames from '@Hooks/useGames';
+import { FilterParentMenu, MenuName } from '@app-types/SearchState';
+import { hydrateFiltersFromUrl, setCategory } from '@/src/redux/SearchSlice';
 
 interface MobileFilterDrawerProps {
   children: React.ReactNode;
+  onChange: (data: string) => void;
 }
 
 const menus: Menus[] = [
@@ -15,30 +21,140 @@ const menus: Menus[] = [
     name: 'Platform',
     value: 'platform',
     expand: false,
-    childMenus: [],
+    childMenus: platform,
   },
   {
     id: 2,
     name: 'Genre',
-    value: 'genre',
+    value: 'genres',
     expand: false,
-    childMenus: [],
+    childMenus: genre,
   },
   {
     id: 4,
     name: 'Feature',
     value: 'mode',
     expand: false,
-    childMenus: [],
+    childMenus: feature,
   },
 ];
 
-export default function SearchMenuMobileComponent({ children }: MobileFilterDrawerProps) {
-  const [menuList, setMenuList] = useState<SearchMenu[]>(menus);
+export default function SearchMenuMobileComponent({ onChange, children }: MobileFilterDrawerProps) {
+  const dispatch = useDispatch<AppDispatch>();
+  const { searchedOption } = useGames();
 
-  const toggleMenu = (menuId: number) => {
-    setMenuList((prev) => prev.map((menu) => (menu.id === menuId ? { ...menu, expand: !menu.expand } : menu)));
+  const [menuList, setMenuList] = useState<Menus[]>(menus);
+  const [isReady, setIsReady] = useState(false);
+
+  const toggleMenu = (menuName: string) => {
+    setMenuList((prev) => prev.map((menu) => (menu.name === menuName ? { ...menu, expand: !menu.expand } : menu)));
   };
+
+  const updateToggleStatus = (childMenu: ChildMenu, menuName: MenuName, status: boolean) => {
+    dispatch(
+      setCategory({
+        parentCategory: menuName,
+        childCategory: childMenu,
+        status: status,
+      }),
+    );
+  };
+
+  const isChecked = (childMenu: ChildMenu, parentMenu: Menus): boolean => {
+    const items = searchedOption[parentMenu.value as FilterParentMenu];
+
+    return items?.some((item) => item.id === childMenu.id && item.isChecked) ?? false;
+  };
+
+  const updateUrl = (search: typeof searchedOption) => {
+    const params = new URLSearchParams();
+
+    const selectedPlatforms = search.platform
+      .filter((item) => item.isChecked)
+      .map((item) => item.id)
+      .join(',');
+
+    const selectedGenres = search.genres
+      .filter((item) => item.isChecked)
+      .map((item) => item.id)
+      .join(',');
+
+    const selectedFeatures = search.mode
+      .filter((item) => item.isChecked)
+      .map((item) => item.alias)
+      .join(',');
+
+    if (selectedPlatforms) {
+      params.set('platforms', selectedPlatforms);
+    }
+
+    if (selectedGenres) {
+      params.set('genres', selectedGenres);
+    }
+
+    if (selectedFeatures) {
+      params.set('mode', selectedFeatures);
+    }
+
+    if (search.search) {
+      params.set('name', search.search);
+    }
+
+    // if (search.orderBy) {
+    //   params.set('order', search.orderBy);
+    // }
+
+    const queryString = params.toString();
+
+    window.history.replaceState(null, '', queryString ? `?${queryString}` : window.location.pathname);
+
+    const rawQueryString = params.toString();
+    const cleanQueryString = decodeURIComponent(rawQueryString);
+    // console.log("search string", cleanQueryString);
+
+    onChange(cleanQueryString);
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    const urlPlatform = params.get('platforms')?.split(',').filter(Boolean).map(Number) ?? [];
+    const urlGenre = params.get('genres')?.split(',').filter(Boolean).map(Number) ?? [];
+    const urlMode = params.get('mode')?.split(',').filter(Boolean) ?? [];
+    const urlSearchByName = params.get('name') || '';
+    const urlOrder = params.get('order') as 'asc' | 'desc' | null;
+
+    dispatch(
+      hydrateFiltersFromUrl({
+        platform: urlPlatform,
+        genres: urlGenre,
+        mode: urlMode,
+        name: urlSearchByName,
+        order: urlOrder || undefined,
+      }),
+    );
+
+    //keep open the previously selected menu on page refresh
+    /* eslint-disable-next-line react-hooks/set-state-in-effect */
+    setMenuList((prev) =>
+      prev.map((menu) => ({
+        ...menu,
+        expand:
+          (menu.name === 'Platform' && urlPlatform.length > 0) ||
+          (menu.name === 'Genre' && urlGenre.length > 0) ||
+          (menu.name === 'Feature' && urlMode.length > 0),
+      })),
+    );
+    //end
+
+    setIsReady(true);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!isReady) return;
+
+    updateUrl(searchedOption);
+  }, [searchedOption, isReady]);
 
   return (
     <Drawer.Root dismissible={true}>
@@ -56,7 +172,7 @@ export default function SearchMenuMobileComponent({ children }: MobileFilterDraw
             {menuList.map((menu) => (
               <div key={menu.id} className="border-b border-[#e1e1e1] last:border-none pb-2 last:pb-0">
                 <div
-                  onClick={() => toggleMenu(menu.id)}
+                  onClick={() => toggleMenu(menu.name)}
                   className="flex justify-between items-center py-3 font-bold cursor-pointer select-none text-black"
                 >
                   <div>{menu.name}</div>
@@ -83,8 +199,10 @@ export default function SearchMenuMobileComponent({ children }: MobileFilterDraw
                         >
                           <input
                             type="checkbox"
-                            checked={childMenu.isChecked}
-                            onChange={() => console.log(`${childMenu.name}, ${menu.name}`)}
+                            checked={isChecked(childMenu, menu)}
+                            onChange={(e) => {
+                              updateToggleStatus(childMenu, menu.name as MenuName, e.target.checked);
+                            }}
                             className="w-4 h-4 rounded border-gray-300 bg-white cursor-pointer accent-black focus:ring-0"
                           />
                           <span>{childMenu.name}</span>
