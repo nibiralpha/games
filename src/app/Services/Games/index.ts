@@ -1,4 +1,4 @@
-import { Dispatch } from "@reduxjs/toolkit";
+import { Dispatch } from '@reduxjs/toolkit';
 import {
   setlastRecentAnticipetdGames,
   setlastRecentAnticipetdGamesLoading,
@@ -8,21 +8,11 @@ import {
   setSearchResultLoadding,
   setTrendingGames,
   setTrendingGamesLoading,
-} from "@/src/redux/GameSlice";
-import {
-  getGamesLastRecentAnicipeted,
-  getMonthlyGames,
-  getSearchResults,
-  getTrendingGames,
-} from "@Api/Games";
-import {
-  Game,
-  GameSectionsState,
-  LastNextAnticipatedInterface,
-  TrendingGameInterface,
-} from "@app-types/Games";
-import { getCurrentMonthDateRange } from "@Helper/Functions";
-import { SearchStateInterface } from "@app-types/SearchState";
+} from '@/src/redux/GameSlice';
+import { getGamesLastRecentAnicipeted, getMonthlyGames, getSearchResults, getTrendingGames } from '@Api/Games';
+import { Game, GameSectionsState, LastNextAnticipatedInterface, TrendingGameInterface } from '@app-types/Games';
+import { getCurrentMonthDateRange } from '@Helper/Functions';
+import { SearchStateInterface } from '@app-types/SearchState';
 
 const fetchTrendingGames = () => {
   return async (dispatch: Dispatch) => {
@@ -31,13 +21,11 @@ const fetchTrendingGames = () => {
 
       const gamesRes = await getTrendingGames();
 
-      const gamesData: TrendingGameInterface[] = gamesRes?.data?.map(
-        (game: Game) => ({
-          id: game.id,
-          name: game.name,
-          background_image: game.background_image,
-        }),
-      );
+      const gamesData: TrendingGameInterface[] = gamesRes?.data?.map((game: Game) => ({
+        id: game.id,
+        name: game.name,
+        background_image: game.background_image,
+      }));
 
       dispatch(setTrendingGames(gamesData));
 
@@ -58,13 +46,11 @@ const fetchMonthlyGames = () => {
 
       const gamesRes = await getMonthlyGames(fromDate, endDate);
 
-      const gamesData: TrendingGameInterface[] = gamesRes?.data?.map(
-        (game: Game) => ({
-          id: game.id,
-          name: game.name,
-          background_image: game.background_image,
-        }),
-      );
+      const gamesData: TrendingGameInterface[] = gamesRes?.data?.map((game: Game) => ({
+        id: game.id,
+        name: game.name,
+        background_image: game.background_image,
+      }));
 
       dispatch(setMonthlyGames(gamesData));
 
@@ -90,35 +76,32 @@ const fetchLastRecentAnicipetedGames = () => {
         mostAnticipated: [],
       };
 
-      const last60Days: LastNextAnticipatedInterface[] =
-        gamesRes?.last60Days?.data?.map(
-          (game: Game): LastNextAnticipatedInterface => ({
-            id: game.id,
-            name: game.name,
-            background_image: game.background_image,
-            date: game.released,
-          }),
-        );
+      const last60Days: LastNextAnticipatedInterface[] = gamesRes?.last60Days?.data?.map(
+        (game: Game): LastNextAnticipatedInterface => ({
+          id: game.id,
+          name: game.name,
+          background_image: game.background_image,
+          date: game.released,
+        }),
+      );
 
-      const next60Days: LastNextAnticipatedInterface[] =
-        gamesRes?.next60Days?.data?.map(
-          (game: Game): LastNextAnticipatedInterface => ({
-            id: game.id,
-            name: game.name,
-            background_image: game.background_image,
-            date: game.released,
-          }),
-        );
+      const next60Days: LastNextAnticipatedInterface[] = gamesRes?.next60Days?.data?.map(
+        (game: Game): LastNextAnticipatedInterface => ({
+          id: game.id,
+          name: game.name,
+          background_image: game.background_image,
+          date: game.released,
+        }),
+      );
 
-      const mostAnticipated: LastNextAnticipatedInterface[] =
-        gamesRes?.mostAnticipated?.data?.map(
-          (game: Game): LastNextAnticipatedInterface => ({
-            id: game.id,
-            name: game.name,
-            background_image: game.background_image,
-            date: game.released,
-          }),
-        );
+      const mostAnticipated: LastNextAnticipatedInterface[] = gamesRes?.mostAnticipated?.data?.map(
+        (game: Game): LastNextAnticipatedInterface => ({
+          id: game.id,
+          name: game.name,
+          background_image: game.background_image,
+          date: game.released,
+        }),
+      );
 
       gameData.last60Days = last60Days;
       gameData.next60Days = next60Days;
@@ -142,15 +125,33 @@ const fetchSearcheddGames = (data: string) => {
 
       const gamesRes = await getSearchResults(data);
 
-      const gamesData: TrendingGameInterface[] = gamesRes?.data?.map(
-        (game: Game) => ({
-          id: game.id,
-          name: game.name,
-          background_image: game.background_image,
+      const gamesData: TrendingGameInterface[] = gamesRes?.data?.map((game: Game) => ({
+        id: game.id,
+        name: game.name,
+        background_image: game.background_image,
+      }));
+
+      dispatch(
+        setSearchResult({
+          data: {
+            list: gamesData,
+            count: 1,
+            hasMore: gamesRes.hasMore,
+            page: gamesRes.page,
+            pageSize: gamesRes.pageSize
+          },
+          loading: true,
         }),
       );
 
-      dispatch(setSearchResult(gamesData));
+      // dispatch(setSearchResult({
+      //   data: gamesData,
+      //   // loading: true,
+      //   count: 100,
+      //   hasMore: true,
+      //   page: 1,
+      //   pageSize: 1
+      // }));
 
       dispatch(setSearchResultLoadding(false));
     } catch (error: unknown) {
@@ -161,9 +162,4 @@ const fetchSearcheddGames = (data: string) => {
   };
 };
 
-export {
-  fetchTrendingGames,
-  fetchMonthlyGames,
-  fetchLastRecentAnicipetedGames,
-  fetchSearcheddGames
-};
+export { fetchTrendingGames, fetchMonthlyGames, fetchLastRecentAnicipetedGames, fetchSearcheddGames };

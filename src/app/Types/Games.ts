@@ -1,3 +1,10 @@
+export interface SearchGameResponse {
+  data: Game[];
+  count: number;
+  hasMore: boolean;
+  page: number;
+  pageSize: number;
+}
 export interface TrendingGameResponse {
   data: Game[];
 }

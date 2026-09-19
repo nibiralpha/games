@@ -1,32 +1,37 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-// import Image from "next/image";
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import styles from './SearchResult.module.css';
-import CardComponent from '@Components/CardComponent/CardComponent';
 import GameCardComponent from '@Components/GameCardComponent/GameCardComponent';
 import SearchMenuMobileComponent from '@Components/SearchMenuComponent/SearchMenuMobileComponent';
 import { TrendingGameInterface } from '@app-types/Games';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/src/redux/Store';
-import { hydrateFiltersFromUrl, OrderBy, setOrderBy, setSearch } from '@/src/redux/SearchSlice';
+import { hydrateFiltersFromUrl, setSearch } from '@/src/redux/SearchSlice';
 import useGames from '@Hooks/useGames';
 
 interface Props {
   data: TrendingGameInterface[];
   loading: boolean;
   onChange: (data: string) => void;
+
+  // Function that loads the next page
+  loadMore?: () => void;
+
+  // Whether another page exists
+  hasMore?: boolean;
 }
 
-export default function SearchResultComponent({ data, loading, onChange }: Readonly<Props>) {
+export default function SearchResultComponent({ data, loading, onChange, loadMore, hasMore }: Readonly<Props>) {
   const dispatch = useDispatch<AppDispatch>();
   const { searchedOption } = useGames();
 
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [searchValue, setSearchValue] = useState('');
 
-  const searchData = async (text: string) => {
+  const searchData = (text: string) => {
     setSearchValue(text);
 
     if (timeoutRef.current) {
@@ -38,13 +43,11 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
     }, 1000);
   };
 
-  const setOrder = () => {
-    dispatch(setOrderBy({ orderBy: searchedOption?.orderBy === 'asc' ? 'desc' : 'asc' }));
-  };
-
   useEffect(() => {
     return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
     };
   }, []);
 
@@ -61,11 +64,11 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
 
     /* eslint-disable-next-line react-hooks/set-state-in-effect */
     setSearchValue(urlSearch);
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={styles.search_component}>
-      {/* LAPTOP AND DESKTOP */}
+      {/* SEARCH */}
       <div className="search_haed flex items-center">
         <div className="w-full md:w-4/5">
           <input
@@ -77,27 +80,9 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
             placeholder="Search..."
           />
         </div>
-        {/* <div className="hidden lg:block 1/5">
-          {searchedOption?.orderBy === 'asc' ? (
-            <div
-              onClick={() => setOrder()}
-              className="ml-2 ascDesc p-2 border border-black w-10 flex justify-center cursor-pointer"
-            >
-              ↓
-            </div>
-          ) : (
-            <div
-              onClick={() => setOrder()}
-              className="ml-2 ascDesc p-2 border border-black w-10 flex justify-center cursor-pointer"
-            >
-              ↑
-            </div>
-          )}
-        </div> */}
       </div>
-      {/* LAPTOP AND DESKTOP END */}
 
-      {/* MOBILE AND TAB */}
+      {/* MOBILE FILTER */}
       <div className="flex lg:hidden mt-4">
         <SearchMenuMobileComponent
           onChange={(data) => {
@@ -111,7 +96,6 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
               stroke="currentColor"
               strokeWidth="2"
               viewBox="0 0 24 24"
-              xmlns="http://w3.org"
             >
               <path
                 strokeLinecap="round"
@@ -122,17 +106,22 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
             Filters
           </div>
         </SearchMenuMobileComponent>
-
-        {/* <div className="1/5">
-          <div className="ml-2 ascDesc p-2 border border-black w-10 flex justify-center cursor-pointer">↓</div>
-          ↑
-        </div> */}
       </div>
-      {/* MOBILE AND TAB END */}
 
-      <div className="mt-5 mb-5 text-sm text-[#626262]">26,393 games found</div>
+      <div className="mt-5 mb-5 text-sm text-[#626262]">{data.length} games found</div>
 
-      <GameCardComponent data={data} loading={loading} />
+      {/* INFINITE SCROLL */}
+      <InfiniteScroll
+        dataLength={data.length}
+        next={() => {
+          console.log('NEXT CALLED');
+        }}
+        hasMore={true}
+        loader={<div>Loading...</div>}
+        endMessage={<div>No more games</div>}
+      >
+        <GameCardComponent data={data} loading={loading} />
+      </InfiniteScroll>
     </div>
   );
 }

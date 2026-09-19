@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BASEURL } from '@Constant/Api';
-import { ReleaseCalendarResponse, TrendingGameResponse } from '@app-types/Games';
+import { ReleaseCalendarResponse, SearchGameResponse, TrendingGameResponse } from '@app-types/Games';
 
 const getTrendingGames = async (): Promise<TrendingGameResponse> => {
   const response = await axios.get<TrendingGameResponse>(`${BASEURL}/api/trending`);
@@ -20,8 +20,8 @@ const getGamesLastRecentAnicipeted = async (): Promise<ReleaseCalendarResponse> 
   return response.data;
 };
 
-const getSearchResults = async (data: string = ''): Promise<TrendingGameResponse> => {
-  const response = await axios.get<TrendingGameResponse>(`${BASEURL}/api/search?${data}`);
+const getSearchResults = async (data: string = ''): Promise<SearchGameResponse> => {
+  const response = await axios.get<SearchGameResponse>(`${BASEURL}/api/search?${data}`);
 
   return response.data;
 };
