@@ -5,7 +5,7 @@ import CardComponent from "@Components/CardComponent/CardComponent";
 import ReleaseCalenderComponent from "@Components/ReleaseCalenderComponent/ReleaseCalenderComponent";
 import { AppDispatch } from "@redux/Store";
 import { useDispatch } from "react-redux";
-import useGames from "@Hooks/useGames";
+import useGames from "@Selectors/useGames";
 import { useEffect } from "react";
 import { fetchLastRecentAnicipetedGames, fetchMonthlyGames, fetchTrendingGames } from "@Services/Games";
 import { getCurrentMonthDateRange } from "@Helper/Functions";

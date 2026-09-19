@@ -1,5 +1,5 @@
 import { RecentGameInterface } from './GameByMonth';
-import { GameSectionsState, LastNextAnticipatedInterface, TrendingGameInterface } from './Games';
+import { GameSectionsState, LastNextAnticipatedInterface, SearchedGames, TrendingGameInterface } from './Games';
 export interface GameStateInterface {
   trendingGames: TrendingGameStateInterface;
   monthlyGames: MonthlyGamesStateInterface;
@@ -19,13 +19,6 @@ export interface LastNextAnticipatedStateInterface {
   loading: boolean;
 }
 export interface SerachResultStateInterface {
-  data: {
-    list: TrendingGameInterface[];
-    count: number;
-    hasMore: boolean;
-    page: number;
-    pageSize: number;
-  };
-
+  data: SearchedGames;
   loading: boolean;
 }

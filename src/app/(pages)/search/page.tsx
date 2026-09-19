@@ -8,7 +8,7 @@ import SearchMenuMobileComponent from '@/src/app/Components/SearchMenuComponent/
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/src/redux/Store';
 import { fetchSearcheddGames } from '@/src/app/Services/Games';
-import useGames from '@/src/app/Hooks/useGames';
+import useGames from '@Selectors/useGames';
 
 export default function SearchPage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -43,7 +43,11 @@ export default function SearchPage() {
               </div>
 
               <div className="w-full lg:w-3/4 h-24 lg:ml-8">
-                <SearchResultComponent onChange={(data: string) => updateSearch(data)} data={searchedGames?.data?.list} loading={searchedGames?.loading} />
+                <SearchResultComponent
+                  onChange={(data: string) => updateSearch(data)}
+                  data={searchedGames?.data}
+                  loading={searchedGames?.loading}
+                />
               </div>
             </div>
           </div>

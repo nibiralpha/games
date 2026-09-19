@@ -5,7 +5,7 @@ import { hydrateFiltersFromUrl, setCategory } from '@/src/redux/SearchSlice';
 import { AppDispatch } from '@/src/redux/Store';
 import { Menus, platform, genre, feature, ChildMenu } from '@Constant/DataTypes';
 import { FilterParentMenu, MenuName } from '@app-types/SearchState';
-import useGames from '@Hooks/useGames';
+import useGames from '@Selectors/useGames';
 
 const menus: Menus[] = [
   {

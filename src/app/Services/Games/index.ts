@@ -135,7 +135,7 @@ const fetchSearcheddGames = (data: string) => {
         setSearchResult({
           data: {
             list: gamesData,
-            count: 1,
+            count: gamesRes.count,
             hasMore: gamesRes.hasMore,
             page: gamesRes.page,
             pageSize: gamesRes.pageSize

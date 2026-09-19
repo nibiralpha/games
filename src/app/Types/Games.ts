@@ -36,7 +36,7 @@ export interface Game {
   metacritic: number | null;
   playtime: number;
   suggestions_count: number;
-  updated: string; 
+  updated: string;
   user_game: unknown | null;
   reviews_count: number;
   saturated_color: string;
@@ -163,4 +163,12 @@ export interface GameSectionsState {
   last60Days: LastNextAnticipatedInterface[];
   next60Days: LastNextAnticipatedInterface[];
   mostAnticipated: LastNextAnticipatedInterface[];
+}
+
+export interface SearchedGames {
+  list: TrendingGameInterface[];
+  count: number;
+  hasMore: boolean;
+  page: number;
+  pageSize: number;
 }

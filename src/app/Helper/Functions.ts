@@ -1,4 +1,4 @@
-import { MonthObject } from "@app-types/Games";
+import { MonthObject } from '@app-types/Games';
 
 interface MonthDateRange {
   fromDate: string;
@@ -13,16 +13,16 @@ export function getCurrentMonthDateRange(): MonthDateRange {
   const year = today.getFullYear();
   const month = today.getMonth();
 
-  const monthNumber = String(month + 1).padStart(2, "0");
+  const monthNumber = String(month + 1).padStart(2, '0');
 
   const fromDate = `${year}-${monthNumber}-01`;
 
   const lastDay = new Date(year, month + 1, 0).getDate();
 
-  const endDate = `${year}-${monthNumber}-${String(lastDay).padStart(2, "0")}`;
+  const endDate = `${year}-${monthNumber}-${String(lastDay).padStart(2, '0')}`;
 
-  const formatter = new Intl.DateTimeFormat("en-US", {
-    month: "long",
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    month: 'long',
   });
 
   const monthName = formatter.format(today).toLowerCase();
@@ -36,14 +36,18 @@ export function getCurrentMonthDateRange(): MonthDateRange {
 }
 
 export function formatGameReleaseDate(dateString: string): string {
-  if (!dateString) return "";
+  if (!dateString) return '';
 
   const date = new Date(`${dateString}T00:00:00`);
 
-  const formatter = new Intl.DateTimeFormat("en-US", {
-    month: "long",
-    day: "numeric",
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+    day: 'numeric',
   });
 
   return formatter.format(date);
+}
+
+export function formatWithCommas(value: number): string {
+  return new Intl.NumberFormat('en-US').format(value);
 }

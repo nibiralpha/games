@@ -6,14 +6,15 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import styles from './SearchResult.module.css';
 import GameCardComponent from '@Components/GameCardComponent/GameCardComponent';
 import SearchMenuMobileComponent from '@Components/SearchMenuComponent/SearchMenuMobileComponent';
-import { TrendingGameInterface } from '@app-types/Games';
+import { SearchedGames } from '@app-types/Games';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/src/redux/Store';
 import { hydrateFiltersFromUrl, setSearch } from '@/src/redux/SearchSlice';
-import useGames from '@Hooks/useGames';
+import useGames from '@Selectors/useGames';
+import { formatWithCommas } from '@Helper/Functions';
 
 interface Props {
-  data: TrendingGameInterface[];
+  data: SearchedGames;
   loading: boolean;
   onChange: (data: string) => void;
 
@@ -24,7 +25,7 @@ interface Props {
   hasMore?: boolean;
 }
 
-export default function SearchResultComponent({ data, loading, onChange, loadMore, hasMore }: Readonly<Props>) {
+export default function SearchResultComponent({ data, loading, onChange }: Readonly<Props>) {
   const dispatch = useDispatch<AppDispatch>();
   const { searchedOption } = useGames();
 
@@ -108,11 +109,11 @@ export default function SearchResultComponent({ data, loading, onChange, loadMor
         </SearchMenuMobileComponent>
       </div>
 
-      <div className="mt-5 mb-5 text-sm text-[#626262]">{data.length} games found</div>
+      <div className="mt-5 mb-5 text-sm text-[#626262]">{formatWithCommas(data?.count)} games found</div>
 
       {/* INFINITE SCROLL */}
       <InfiniteScroll
-        dataLength={data.length}
+        dataLength={data?.list?.length}
         next={() => {
           console.log('NEXT CALLED');
         }}
@@ -120,7 +121,7 @@ export default function SearchResultComponent({ data, loading, onChange, loadMor
         loader={<div>Loading...</div>}
         endMessage={<div>No more games</div>}
       >
-        <GameCardComponent data={data} loading={loading} />
+        <GameCardComponent data={data?.list} loading={loading} />
       </InfiniteScroll>
     </div>
   );
