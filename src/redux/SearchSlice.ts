@@ -23,6 +23,8 @@ const initialState: SearchStateInterface = {
   mode: feature,
   search: '',
   orderBy: 'asc',
+  page_size: 20,
+  page: 1,
 };
 
 export const SearchSlice = createSlice({
@@ -40,7 +42,7 @@ export const SearchSlice = createSlice({
 
       if (parentCategory === 'Platform') {
         const item = state.platform.find((p) => p.id === childCategory.id);
-        
+
         if (item) {
           item.isChecked = status;
         }
@@ -92,6 +94,9 @@ export const SearchSlice = createSlice({
           item.isChecked = mode.includes(item.alias);
         });
       }
+    },
+    setPage: (state, action: PayloadAction<number>) => {
+      return { ...state, page: state.page + 1 };
     },
   },
 });

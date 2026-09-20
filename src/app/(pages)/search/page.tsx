@@ -47,6 +47,7 @@ export default function SearchPage() {
                   onChange={(data: string) => updateSearch(data)}
                   data={searchedGames?.data}
                   loading={searchedGames?.loading}
+                  loadMore={(data: string) => updateSearch(data)}
                 />
               </div>
             </div>

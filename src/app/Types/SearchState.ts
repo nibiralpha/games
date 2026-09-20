@@ -7,6 +7,8 @@ export interface SearchStateInterface {
   mode: FeatureInterface;
   search: string;
   orderBy: 'asc' | 'desc';
+  page_size: number;
+  page: number;
 }
 
 export interface PlatformStateDetail {

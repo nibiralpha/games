@@ -12,22 +12,19 @@ import { AppDispatch } from '@/src/redux/Store';
 import { hydrateFiltersFromUrl, setSearch } from '@/src/redux/SearchSlice';
 import useGames from '@Selectors/useGames';
 import { formatWithCommas } from '@Helper/Functions';
-
+import { useSearchParams } from 'next/navigation';
 interface Props {
   data: SearchedGames;
   loading: boolean;
   onChange: (data: string) => void;
-
-  // Function that loads the next page
-  loadMore?: () => void;
-
-  // Whether another page exists
+  loadMore: (data: string) => void;
   hasMore?: boolean;
 }
 
 export default function SearchResultComponent({ data, loading, onChange }: Readonly<Props>) {
   const dispatch = useDispatch<AppDispatch>();
   const { searchedOption } = useGames();
+  const searchParams = useSearchParams();
 
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [searchValue, setSearchValue] = useState('');
@@ -42,6 +39,10 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
     timeoutRef.current = setTimeout(() => {
       dispatch(setSearch({ search: text }));
     }, 1000);
+  };
+
+  const loadMoreData = () => {
+    console.log('NEXT CALLED');
   };
 
   useEffect(() => {
@@ -111,15 +112,14 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
 
       <div className="mt-5 mb-5 text-sm text-[#626262]">{formatWithCommas(data?.count)} games found</div>
 
-      {/* INFINITE SCROLL */}
       <InfiniteScroll
-        dataLength={data?.list?.length}
+        dataLength={data?.list?.length} //should be 20, 40...
         next={() => {
-          console.log('NEXT CALLED');
+          loadMoreData();
         }}
-        hasMore={true}
+        hasMore={data?.hasMore}
         loader={<div>Loading...</div>}
-        endMessage={<div>No more games</div>}
+        // endMessage={<div>No more games</div>}
       >
         <GameCardComponent data={data?.list} loading={loading} />
       </InfiniteScroll>
