@@ -13,6 +13,7 @@ import { hydrateFiltersFromUrl, setSearch } from '@/src/redux/SearchSlice';
 import useGames from '@Selectors/useGames';
 import { formatWithCommas } from '@Helper/Functions';
 import { useSearchParams } from 'next/navigation';
+import useSearchFilters from '../../Hooks/useSearchFilters';
 interface Props {
   data: SearchedGames;
   loading: boolean;
@@ -23,6 +24,8 @@ interface Props {
 
 export default function SearchResultComponent({ data, loading, onChange }: Readonly<Props>) {
   const dispatch = useDispatch<AppDispatch>();
+    const { searchFilter } = useSearchFilters(onChange);
+  
   const { searchedOption } = useGames();
   const searchParams = useSearchParams();
 
@@ -43,6 +46,9 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
 
   const loadMoreData = () => {
     console.log('NEXT CALLED');
+    const searchedStrig = searchFilter();
+    console.log("searchedStrigsearchedStrig", searchedStrig);
+    
   };
 
   useEffect(() => {

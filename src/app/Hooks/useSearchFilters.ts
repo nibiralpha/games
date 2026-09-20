@@ -118,6 +118,42 @@ export default function useSearchFilters(onChange: (data: string) => void) {
     onChange(cleanQueryString);
   };
 
+  const searchFilter = () => {
+    const params = new URLSearchParams();
+    const search = searchedOption;
+
+    const selectedPlatforms = search.platform
+      .filter((item) => item.isChecked)
+      .map((item) => item.id)
+      .join(',');
+
+    const selectedGenres = search.genres
+      .filter((item) => item.isChecked)
+      .map((item) => item.id)
+      .join(',');
+
+    const selectedFeatures = search.mode
+      .filter((item) => item.isChecked)
+      .map((item) => item.alias)
+      .join(',');
+
+    const name = search.search;
+    const pageSize = search.page_size;
+    const page = search.page;
+
+    if (selectedPlatforms) params.append('platforms', selectedPlatforms);
+    if (selectedGenres) params.append('genres', selectedGenres);
+    if (selectedFeatures) params.append('mode', selectedFeatures);
+    if (name) params.append('name', name);
+    if (pageSize) params.append('page_size', pageSize.toString());
+    if (page) params.append('page', page.toString());
+
+    const encodedString = params.toString();
+    const queryString = decodeURIComponent(encodedString);
+
+    return queryString;
+  };
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
 
@@ -164,5 +200,6 @@ export default function useSearchFilters(onChange: (data: string) => void) {
     toggleMenu,
     updateToggleStatus,
     isChecked,
+    searchFilter,
   };
 }
