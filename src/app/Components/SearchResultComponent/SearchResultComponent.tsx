@@ -94,7 +94,9 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
       <div className="flex lg:hidden mt-4">
         <SearchMenuMobileComponent
           onChange={(data) => {
-            onChange(data);
+            if (window.innerWidth < 1024) {
+              onChange(data);
+            }
           }}
         >
           <div className="flex justify-center items-center border p-2 w-30">
