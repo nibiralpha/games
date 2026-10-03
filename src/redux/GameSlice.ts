@@ -78,13 +78,29 @@ export const GameSlice = createSlice({
       };
     },
 
-    // setSearchResult: (state, action: PayloadAction<TrendingGameInterface[]>) => {
+    // setSearchResult: (state, action: PayloadAction<SerachResultStateInterface>) => {
+    //   return {
+    //     ...state,
+    //     serachResults: { ...state.serachResults, data: action.payload.data },
+    //   };
+    // },
+
     setSearchResult: (state, action: PayloadAction<SerachResultStateInterface>) => {
-      return {
-        ...state,
-        serachResults: { ...state.serachResults, data: action.payload.data },
+      const newData = action.payload.data;
+
+      // Page 1 = new search/filter
+      if (newData.page === 1) {
+        state.serachResults.data = newData;
+        return;
+      }
+
+      // Page 2, 3, 4... = append
+      state.serachResults.data = {
+        ...newData,
+        list: [...state.serachResults.data.list, ...newData.list],
       };
     },
+
     setSearchResultLoadding: (state, action: PayloadAction<boolean>) => {
       return {
         ...state,

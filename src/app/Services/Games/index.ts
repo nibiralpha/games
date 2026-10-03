@@ -118,6 +118,50 @@ const fetchLastRecentAnicipetedGames = () => {
   };
 };
 
+// const fetchSearcheddGames = (queryString: string) => {
+//   return async (dispatch: Dispatch) => {
+//     try {
+//       dispatch(setSearchResultLoadding(true));
+
+//       const gamesRes = await getSearchResults(queryString);
+
+//       const gamesData: TrendingGameInterface[] = gamesRes?.data?.map((game: Game) => ({
+//         id: game.id,
+//         name: game.name,
+//         background_image: game.background_image,
+//       }));
+
+//       dispatch(
+//         setSearchResult({
+//           data: {
+//             list: gamesData,
+//             count: gamesRes.count,
+//             hasMore: gamesRes.hasMore,
+//             page: gamesRes.page,
+//             pageSize: gamesRes.pageSize
+//           },
+//           loading: true,
+//         }),
+//       );
+
+//       // dispatch(setSearchResult({
+//       //   data: gamesData,
+//       //   // loading: true,
+//       //   count: 100,
+//       //   hasMore: true,
+//       //   page: 1,
+//       //   pageSize: 1
+//       // }));
+
+//       dispatch(setSearchResultLoadding(false));
+//     } catch (error: unknown) {
+//       console.log(error);
+//       dispatch(setSearchResultLoadding(false));
+//       throw error;
+//     }
+//   };
+// };
+
 const fetchSearcheddGames = (queryString: string) => {
   return async (dispatch: Dispatch) => {
     try {
@@ -138,25 +182,19 @@ const fetchSearcheddGames = (queryString: string) => {
             count: gamesRes.count,
             hasMore: gamesRes.hasMore,
             page: gamesRes.page,
-            pageSize: gamesRes.pageSize
+            pageSize: gamesRes.pageSize,
           },
+
           loading: true,
         }),
       );
 
-      // dispatch(setSearchResult({
-      //   data: gamesData,
-      //   // loading: true,
-      //   count: 100,
-      //   hasMore: true,
-      //   page: 1,
-      //   pageSize: 1
-      // }));
-
       dispatch(setSearchResultLoadding(false));
     } catch (error: unknown) {
       console.log(error);
+
       dispatch(setSearchResultLoadding(false));
+
       throw error;
     }
   };

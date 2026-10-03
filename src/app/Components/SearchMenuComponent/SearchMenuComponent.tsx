@@ -12,7 +12,7 @@ interface SearchMenuComponentProps {
 }
 
 export default function SearchMenuComponent({ onChange }: SearchMenuComponentProps) {
-  const { menuList, toggleMenu, updateToggleStatus, isChecked } = useSearchFilters(onChange);
+  const { menuList, toggleMenu, updateToggleStatus, isChecked } = useSearchFilters(onChange, false);
 
   return (
     <div className="bg-[#f6f6f6] w-full border border-[#e1e1e1] rounded-lg">
