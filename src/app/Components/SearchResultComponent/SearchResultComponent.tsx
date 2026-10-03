@@ -143,8 +143,8 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
         dataLength={data?.list?.length ?? 0}
         next={loadMoreData}
         hasMore={data?.hasMore ?? false}
-        loader={<div className="py-5 text-center">Loading more games...</div>}
-        endMessage={<div className="py-5 text-center">No more games</div>}
+        loader={<div className="py-5 text-center"></div>}
+        endMessage={<div className="py-5 text-center"></div>}
         scrollThreshold="200px"
       >
         <GameCardComponent data={data?.list} loading={loading} />
