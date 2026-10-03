@@ -14,13 +14,13 @@ export default function SearchPage() {
   const dispatch = useDispatch<AppDispatch>();
   const { searchedGames } = useGames();
 
-  const fetchData = (data: string = '') => {
-    dispatch(fetchSearcheddGames(data));
+  const fetchData = (queryString: string = '') => {
+    dispatch(fetchSearcheddGames(queryString));
   };
 
-  const updateSearch = (data: string) => {
-    fetchData(data);
-  };
+  // const updateSearch = (data: string) => {
+  //   fetchData(data);
+  // };
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -39,15 +39,15 @@ export default function SearchPage() {
             <div className="section_title weight-600">Discover</div>
             <div className="flex mt-8">
               <div className="hidden lg:block w-1/4">
-                <SearchMenuComponent onChange={(data: string) => updateSearch(data)} />
+                <SearchMenuComponent onChange={(queryString: string) => fetchData(queryString)} />
               </div>
 
               <div className="w-full lg:w-3/4 h-24 lg:ml-8">
                 <SearchResultComponent
-                  onChange={(data: string) => updateSearch(data)}
+                  onChange={(data: string) => fetchData(data)}
                   data={searchedGames?.data}
                   loading={searchedGames?.loading}
-                  loadMore={(data: string) => updateSearch(data)}
+                  loadMore={(data: string) => fetchData(data)}
                 />
               </div>
             </div>

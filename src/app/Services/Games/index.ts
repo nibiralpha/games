@@ -118,12 +118,12 @@ const fetchLastRecentAnicipetedGames = () => {
   };
 };
 
-const fetchSearcheddGames = (data: string) => {
+const fetchSearcheddGames = (queryString: string) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(setSearchResultLoadding(true));
 
-      const gamesRes = await getSearchResults(data);
+      const gamesRes = await getSearchResults(queryString);
 
       const gamesData: TrendingGameInterface[] = gamesRes?.data?.map((game: Game) => ({
         id: game.id,
