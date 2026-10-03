@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { GameStateInterface, SerachResultStateInterface } from '@app-types/GamesState';
-import { GameSectionsState, SearchGameResponse, TrendingGameInterface } from '@app-types/Games';
+import { GameSectionsState, TrendingGameInterface } from '@app-types/Games';
 
 const initialState: GameStateInterface = {
   trendingGames: {
@@ -88,13 +88,11 @@ export const GameSlice = createSlice({
     setSearchResult: (state, action: PayloadAction<SerachResultStateInterface>) => {
       const newData = action.payload.data;
 
-      // Page 1 = new search/filter
       if (newData.page === 1) {
         state.serachResults.data = newData;
         return;
       }
 
-      // Page 2, 3, 4... = append
       state.serachResults.data = {
         ...newData,
         list: [...state.serachResults.data.list, ...newData.list],

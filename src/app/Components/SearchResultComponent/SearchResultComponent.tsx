@@ -1,141 +1,3 @@
-// 'use client';
-
-// import { useEffect, useRef, useState } from 'react';
-// import InfiniteScroll from 'react-infinite-scroll-component';
-
-// import styles from './SearchResult.module.css';
-// import GameCardComponent from '@Components/GameCardComponent/GameCardComponent';
-// import SearchMenuMobileComponent from '@Components/SearchMenuComponent/SearchMenuMobileComponent';
-// import { SearchedGames } from '@app-types/Games';
-// import { useDispatch } from 'react-redux';
-// import { AppDispatch } from '@/src/redux/Store';
-// import { hydrateFiltersFromUrl, setSearch } from '@/src/redux/SearchSlice';
-// import useGames from '@Selectors/useGames';
-// import { formatWithCommas } from '@Helper/Functions';
-// import { useSearchParams } from 'next/navigation';
-// import useSearchFilters from '@Hooks/useSearchFilters';
-
-// interface Props {
-//   data: SearchedGames;
-//   loading: boolean;
-//   onChange: (data: string) => void;
-//   loadMore: (data: string) => void;
-//   hasMore?: boolean;
-// }
-
-// export default function SearchResultComponent({ data, loading, onChange }: Readonly<Props>) {
-//   const dispatch = useDispatch<AppDispatch>();
-//   const { searchFilter } = useSearchFilters(onChange);
-
-//   const { searchedOption } = useGames();
-//   const searchParams = useSearchParams();
-
-//   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-//   const [searchValue, setSearchValue] = useState('');
-
-//   const searchData = (text: string) => {
-//     setSearchValue(text);
-
-//     if (timeoutRef.current) {
-//       clearTimeout(timeoutRef.current);
-//     }
-
-//     timeoutRef.current = setTimeout(() => {
-//       dispatch(setSearch({ search: text }));
-//     }, 1000);
-//   };
-
-//   const loadMoreData = () => {
-//     console.log('NEXT CALLED');
-//     const searchedStrig = searchFilter();
-//     console.log('searchedStrigsearchedStrig', searchedStrig);
-//   };
-
-//   useEffect(() => {
-//     return () => {
-//       if (timeoutRef.current) {
-//         clearTimeout(timeoutRef.current);
-//       }
-//     };
-//   }, []);
-
-//   useEffect(() => {
-//     const params = new URLSearchParams(window.location.search);
-
-//     const urlSearch = params.get('name') || '';
-
-//     dispatch(
-//       hydrateFiltersFromUrl({
-//         name: urlSearch,
-//       }),
-//     );
-
-//     /* eslint-disable-next-line react-hooks/set-state-in-effect */
-//     setSearchValue(urlSearch);
-//   }, [dispatch]);
-
-//   return (
-//     <div className={styles.search_component}>
-//       {/* SEARCH */}
-//       <div className="search_haed flex items-center">
-//         <div className="w-full md:w-4/5">
-//           <input
-//             type="text"
-//             name="search"
-//             className={styles.search_input}
-//             value={searchValue}
-//             onChange={(e) => searchData(e.target.value)}
-//             placeholder="Search..."
-//           />
-//         </div>
-//       </div>
-
-//       {/* MOBILE FILTER */}
-//       <div className="flex lg:hidden mt-4">
-//         <SearchMenuMobileComponent
-//           onChange={(data) => {
-//             if (window.innerWidth < 1024) {
-//               onChange(data);
-//             }
-//           }}
-//         >
-//           <div className="flex justify-center items-center border p-2 w-30">
-//             <svg
-//               className="w-5 h-5 text-gray-500 mr-2"
-//               fill="none"
-//               stroke="currentColor"
-//               strokeWidth="2"
-//               viewBox="0 0 24 24"
-//             >
-//               <path
-//                 strokeLinecap="round"
-//                 strokeLinejoin="round"
-//                 d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
-//               />
-//             </svg>
-//             Filters
-//           </div>
-//         </SearchMenuMobileComponent>
-//       </div>
-
-//       <div className="mt-5 mb-5 text-sm text-[#626262]">{formatWithCommas(data?.count)} games found</div>
-
-//       <InfiniteScroll
-//         dataLength={data?.list?.length} //should be 20, 40...
-//         next={() => {
-//           loadMoreData();
-//         }}
-//         hasMore={data?.hasMore}
-//         loader={<div className="py-5 text-center">Loading more games...</div>}
-//         endMessage={<div className="py-5 text-center">No more games</div>}
-//         scrollThreshold="200px"
-//       >
-//         <GameCardComponent data={data?.list} loading={loading} />
-//       </InfiniteScroll>
-//     </div>
-//   );
-// }
-
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -151,7 +13,7 @@ import { SearchedGames } from '@app-types/Games';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/src/redux/Store';
 
-import { hydrateFiltersFromUrl, setSearch } from '@/src/redux/SearchSlice';
+import { setSearch } from '@/src/redux/SearchSlice';
 
 import useGames from '@Selectors/useGames';
 import { formatWithCommas } from '@Helper/Functions';
@@ -172,21 +34,8 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
 
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const [searchValue, setSearchValue] = useState('');
-
-  /**
-   * Keep current pagination page here.
-   *
-   * Initial:
-   * 1
-   *
-   * Scroll:
-   * 2
-   *
-   * Scroll:
-   * 3
-   */
-  const [currentPage, setCurrentPage] = useState(1);
+  const [searchValue, setSearchValue] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const searchData = (text: string) => {
     setSearchValue(text);
@@ -202,14 +51,10 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
         }),
       );
 
-      // New search starts from page 1
       setCurrentPage(1);
     }, 1000);
   };
 
-  /**
-   * Called by InfiniteScroll.
-   */
   const loadMoreData = () => {
     if (loading) {
       return;
@@ -220,15 +65,8 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
     }
 
     const nextPage = currentPage + 1;
-
-    console.log('Loading next page:', nextPage);
-
     const queryString = searchFilter(nextPage);
-
-    console.log('API query:', queryString);
-
     setCurrentPage(nextPage);
-
     onChange(queryString);
   };
 
@@ -240,27 +78,14 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
     };
   }, []);
 
-  /**
-   * URL search value.
-   *
-   * We don't need to make the API call here.
-   * useSearchFilters handles URL hydration.
-   */
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
 
     const urlSearch = params.get('name') || '';
-
     /* eslint-disable-next-line react-hooks/set-state-in-effect */
     setSearchValue(urlSearch);
   }, []);
 
-  /**
-   * Whenever a normal filter/search changes,
-   * useSearchFilters calls onChange(page=1).
-   *
-   * Reset local pagination.
-   */
   useEffect(() => {
     /* eslint-disable-next-line react-hooks/set-state-in-effect */
     setCurrentPage(searchedOption.page || 1);
