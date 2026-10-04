@@ -2,16 +2,20 @@
 import Image from 'next/image';
 
 interface Props {
-  data: number;
+  data: string;
+  imgSrc?: string;
 }
 
-export default function RatingComponent({ data }: Readonly<Props>) {
+export default function RatingComponent({ data, imgSrc }: Readonly<Props>) {
   return (
-    <div className="flex items-center rounded-[50px] bg-slate-100 border border-slate-300 p-2 border-slate-700">
-      <div className='ml-2'>
-        <Image src="/star.svg" alt="star" height={20} width={20} />
-      </div>
-      <div className="flex items-center ml-2 mr-4 text-lg font-semibold">4.5</div>
+    <div className="flex items-center justify-center gap-2 rounded-[50px] bg-slate-100 border border-slate-700 p-2 px-4 w-max">
+      {imgSrc && (
+        <div>
+          <Image src={imgSrc} alt="icon" height={20} width={20} />
+        </div>
+      )}
+
+      <div className="text-sm font-semibold whitespace-nowrap">{data}</div>
     </div>
   );
 }

@@ -44,8 +44,38 @@ export default function SearchPage() {
             </div>
           </div>
           <div className="w-3/4 mt-5">
-            <div className='text-4xl font-semibold'>Witcher 3: The wild hunt</div>
-            <div className='rating mt-5 w-max'><RatingComponent data={4.5} /></div>
+            <div className="text-4xl font-semibold">Witcher 3: The wild hunt</div>
+            <div className="flex items-center gap-2 rating mt-10 w-max">
+              <RatingComponent data="4.5" imgSrc="/star.svg" />
+              <RatingComponent data="Metacritic 92" imgSrc="/metacritics.svg" />
+            </div>
+            <div className="flex items-center gap-2 rating mt-4 w-max">
+              <RatingComponent data="Action" />
+              <RatingComponent data="RPG" />
+              <RatingComponent data="Open World" />
+              <RatingComponent data="Fantasy" />
+            </div>
+            <div className="mt-15">
+              <div className="flex items-center">
+                <div className="">
+                  <Image src={'/calender.svg'} alt="icon" height={20} width={20} />
+                </div>
+                <div className="ml-2 flex">
+                  <div className='mr-2 font-semibold'>Released: </div>
+                  <div> May 18, 2015</div>
+                </div>
+              </div>
+
+              <div className="flex mt-2">
+                <div className="">
+                  <Image src={'/user_group.svg'} alt="icon" height={20} width={20} />
+                </div>
+                <div className="ml-2 flex">
+                  <div className='mr-2 font-semibold'>Developer: </div>
+                  <div> CD PROJECT RED</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <circle cx="50" cy="50" r="46" fill="#1e293b"/>
+  <circle cx="50" cy="50" r="34" fill="none" stroke="#22c55e" stroke-width="7"/>
+  <text x="50" y="61" 
+        font-family="system-ui, -apple-system, sans-serif" 
+        font-weight="900" 
+        font-size="44" 
+        fill="#ffffff" 
+        text-anchor="middle"
+        transform="rotate(-28 50 50)">m</text>
+</svg>
