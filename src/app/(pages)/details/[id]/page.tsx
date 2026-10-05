@@ -11,6 +11,7 @@ import { fetchSearcheddGames } from '@/src/app/Services/Games';
 import Image from 'next/image';
 import RatingComponent from '@/src/app/Components/RatingComponent/RatingComponent';
 import DetailHeaderComponent from '@/src/app/Components/DetailHeaderComponent/DetailHeaderComponent';
+import DetailBodyComponent from '@/src/app/Components/DetailBodyComponent/DetailBodyComponent';
 
 // import useGames from "@/src/app/Hooks/useGames";
 
@@ -31,6 +32,7 @@ export default function SearchPage() {
       <HeaderComponent />
       <div className="container-main">
         <DetailHeaderComponent />
+        <DetailBodyComponent />
       </div>
     </div>
   );
