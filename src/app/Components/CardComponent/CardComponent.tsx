@@ -43,11 +43,7 @@ export default function CardComponent({ data, loading }: Readonly<Props>) {
   return (
     <div ref={ref} className="keen-slider">
       {data.map((game, index) => (
-        <Link
-          key={game.id}
-          href={`/details/${game.id}`}
-          // className={`keen-slider__slide relative h-48 w-full rounded-lg overflow-hidden group cursor-pointer ${styles.cardImage}`}
-        >
+        <Link key={game.id} href={`/details/${game.id}`}>
           <div
             key={game.id}
             className={`keen-slider__slide relative h-48 w-full rounded-lg overflow-hidden group cursor-pointer ${styles.cardImage}`}
