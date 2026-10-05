@@ -58,6 +58,21 @@ export default function DetailBodyComponent() {
             <PlatformComponent img="/windows.svg" name="PC" alias="pc" />
           </div>
         </div>
+
+         <div className="flex items-center mb-2">
+          <div className="mr-2">
+            <Image src={'/genra.svg'} alt="icon" height={40} width={40} />
+          </div>
+          <div className="text-xl font-semibold">Genra</div>
+        </div>
+        <div className="flex mb-10">
+          <div className='mr-3'>
+            <PlatformComponent name="Action" alias="action" />
+          </div>
+          <div className='mr-3'>
+            <PlatformComponent name="Adventure" alias="adventure" />
+          </div>
+        </div>
       </div>
     </div>
   );
