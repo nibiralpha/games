@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect } from 'react';
-import styles from './Search.module.css';
+import styles from './DetailHeader.module.css';
 import HeaderComponent from '@/src/app/Components/HeaderComponent/HeaderComponent';
 import SearchMenuComponent from '@/src/app/Components/SearchMenuComponent/SearchMenuComponent';
 import SearchResultComponent from '@/src/app/Components/SearchResultComponent/SearchResultComponent';
@@ -26,19 +26,21 @@ export default function DetailHeaderComponent() {
   }, []);
 
   return (
-    <div className="flex mt-8">
-      <div className="w-1/4">
+    <div className={`flex mt-8 ${styles.page_detail}`}>
+      <div className={`w-1/4 ${styles.image}`}>
         <div className="relative w-[250px] h-[350px] overflow-hidden group">
           <Image src={'/co7n02.jpg'} alt={'test'} fill />
         </div>
       </div>
-      <div className="w-3/4 mt-5">
+      <div className={`w-3/4 mt-5 ${styles.detail_content}`}>
         <div className="text-4xl font-semibold">Witcher 3: The wild hunt</div>
-        <div className="flex items-center gap-2 rating mt-10 w-max">
+
+        <div className="flex flex-wrap items-center gap-2 rating mt-10">
           <RatingComponent data="4.5" imgSrc="/star.svg" />
           <RatingComponent data="Metacritic 92" imgSrc="/metacritics.svg" />
         </div>
-        <div className="flex items-center gap-2 rating mt-4 w-max">
+
+        <div className="flex flex-wrap items-center gap-2 rating mt-4">
           <RatingComponent data="Action" />
           <RatingComponent data="RPG" />
           <RatingComponent data="Open World" />

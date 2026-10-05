@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect } from 'react';
-import styles from './Search.module.css';
+import styles from './DetailBody.module.css';
 import HeaderComponent from '@/src/app/Components/HeaderComponent/HeaderComponent';
 import SearchMenuComponent from '@/src/app/Components/SearchMenuComponent/SearchMenuComponent';
 import SearchResultComponent from '@/src/app/Components/SearchResultComponent/SearchResultComponent';
@@ -40,7 +40,7 @@ export default function DetailBodyComponent() {
       <div>
         <div className="text-3xl font-semibold">About this Game</div>
         <div className="mt-5 w-[80px] h-[7px] bg-[lab(75_-4.48_-40.84)] rounded-lg"></div>
-        <div className="mt-5 w-2/3 mb-10 whitespace-pre-line">{description}</div>
+        <div className={`${styles.desc} ${'mt-5 w-2/3 mb-10 whitespace-pre-line'}`}>{description}</div>
       </div>
 
       <div className="">
@@ -50,28 +50,30 @@ export default function DetailBodyComponent() {
           </div>
           <div className="text-xl font-semibold">Platforms</div>
         </div>
-        <div className="flex mb-10">
-          <div className='mr-3'>
-            <PlatformComponent img="/apple.svg" name="PC" alias="pc" />
-          </div>
-          <div className='mr-3'>
-            <PlatformComponent img="/windows.svg" name="PC" alias="pc" />
-          </div>
+        {/* <div className="flex mb-10"> */}
+        <div className="flex flex-wrap gap-2 mb-10">
+          <PlatformComponent img="/apple.svg" name="PC" alias="pc" />
+          <PlatformComponent img="/windows.svg" name="PC" alias="pc" />
+          <PlatformComponent img="/apple.svg" name="PC" alias="pc" />
+          <PlatformComponent img="/windows.svg" name="PC" alias="pc" />
+          <PlatformComponent img="/apple.svg" name="PC" alias="pc" />
+          <PlatformComponent img="/windows.svg" name="PC" alias="pc" />
         </div>
 
-         <div className="flex items-center mb-2">
+        <div className="flex items-center mb-2">
           <div className="mr-2">
             <Image src={'/genra.svg'} alt="icon" height={40} width={40} />
           </div>
           <div className="text-xl font-semibold">Genra</div>
         </div>
-        <div className="flex mb-10">
-          <div className='mr-3'>
-            <PlatformComponent name="Action" alias="action" />
-          </div>
-          <div className='mr-3'>
-            <PlatformComponent name="Adventure" alias="adventure" />
-          </div>
+
+        <div className="flex flex-wrap gap-2 mb-10">
+          <PlatformComponent name="Action" alias="action" />
+          <PlatformComponent name="Adventure" alias="adventure" />
+          <PlatformComponent name="Action" alias="action" />
+          <PlatformComponent name="Adventure" alias="adventure" />
+          <PlatformComponent name="Action" alias="action" />
+          <PlatformComponent name="Adventure" alias="adventure" />
         </div>
       </div>
     </div>
