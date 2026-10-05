@@ -1,19 +1,9 @@
 'use client';
 import React, { useEffect } from 'react';
 import styles from './DetailHeader.module.css';
-import HeaderComponent from '@/src/app/Components/HeaderComponent/HeaderComponent';
-import SearchMenuComponent from '@/src/app/Components/SearchMenuComponent/SearchMenuComponent';
-import SearchResultComponent from '@/src/app/Components/SearchResultComponent/SearchResultComponent';
-import SearchMenuMobileComponent from '@/src/app/Components/SearchMenuComponent/SearchMenuMobileComponent';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/src/redux/Store';
-import { fetchSearcheddGames } from '@/src/app/Services/Games';
 import Image from 'next/image';
 import RatingComponent from '@/src/app/Components/RatingComponent/RatingComponent';
-import { Game } from '../../Types/Games';
-
-// import useGames from "@/src/app/Hooks/useGames";
-
+import { Game } from '@app-types/Games';
 interface Props {
   data: Game;
   loading: boolean;

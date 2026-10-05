@@ -50,6 +50,8 @@ export interface Game {
   esrb_rating: EsrbRating | null;
   short_screenshots: ShortScreenshot[];
   developers: Developer[];
+  description: string;
+  description_raw: string;
 }
 
 export interface Developer {
