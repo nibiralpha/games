@@ -4,29 +4,34 @@ import styles from './DetailHeader.module.css';
 import Image from 'next/image';
 import RatingComponent from '@/src/app/Components/RatingComponent/RatingComponent';
 import { Game } from '@app-types/Games';
+import DetailHeaderSkeletonComponent from '../SkeletonComponent/DetailHeaderSkeletonComponent';
 interface Props {
   data: Game;
   loading: boolean;
 }
 
 export default function DetailHeaderComponent({ data, loading }: Readonly<Props>) {
+  if (loading) {
+    return <DetailHeaderSkeletonComponent />;
+  }
+
   return (
     <div className={`flex mt-8 ${styles.page_detail}`}>
       <div className={`w-1/4 ${styles.image}`}>
         <div className="relative w-[250px] h-[350px] overflow-hidden group">
-          <Image src={data?.background_image} alt={'test'} fill />
+          <Image src={data?.background_image || '/no-img.png'} alt={"no img found"} fill />
         </div>
       </div>
       <div className={`w-3/4 mt-5 ${styles.detail_content}`}>
         <div className="text-4xl font-semibold">{data?.name}</div>
 
         <div className="flex flex-wrap items-center gap-2 rating mt-10">
-          <RatingComponent data={data?.rating.toFixed(1)} imgSrc="/star.svg" />
+          <RatingComponent data={data?.rating?.toFixed(1)} imgSrc="/star.svg" />
           <RatingComponent data={`Metacritic ${data?.metacritic}`} imgSrc="/metacritics.svg" />
         </div>
 
         <div className="flex flex-wrap items-center gap-2 rating mt-4">
-          {data?.genres.map((genra) => (
+          {data?.genres?.map((genra) => (
             <RatingComponent key={genra.id} data={genra?.name} />
           ))}
         </div>
@@ -56,7 +61,7 @@ export default function DetailHeaderComponent({ data, loading }: Readonly<Props>
             <div className="ml-2 flex">
               <div className="mr-2 font-semibold">Developer: </div>
               <div>
-                {data?.developers.map((developer) => (
+                {data?.developers?.map((developer) => (
                   <span key={developer.id}> {data?.developers?.map((developer) => developer.name).join(', ')}</span>
                 ))}
               </div>

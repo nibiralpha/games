@@ -30,6 +30,7 @@
       "@Constant/*": ["./src/app/Constant/*"],
       "@Helper/*": ["./src/app/Helper/*"],
       "@Selectors/*": ["./src/app/Selectors/*"],
+      "@Skeleton/*": ["./src/app/Components/Skeleton/*"],
     }
   },
   "include": [
