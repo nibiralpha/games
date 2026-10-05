@@ -12,19 +12,15 @@ export const DetailSlice = createSlice({
   initialState,
   reducers: {
     setGameDetails: (state, action: PayloadAction<Game>) => {
-      return {
-        ...state,
-        data: { ...state.data, data: action.payload },
-      };
+      state.data = action.payload;
     },
+
     setGameDetailsLoading: (state, action: PayloadAction<boolean>) => {
-      return {
-        ...state,
-        data: { ...state.data, loading: action.payload },
-      };
+      state.loading = action.payload;
     },
   },
 });
 
 export const { setGameDetails, setGameDetailsLoading } = DetailSlice.actions;
+
 export default DetailSlice.reducer;

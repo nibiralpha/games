@@ -10,42 +10,37 @@ import { AppDispatch } from '@/src/redux/Store';
 import { fetchSearcheddGames } from '@/src/app/Services/Games';
 import Image from 'next/image';
 import RatingComponent from '@/src/app/Components/RatingComponent/RatingComponent';
+import { Game } from '../../Types/Games';
 
 // import useGames from "@/src/app/Hooks/useGames";
 
-export default function DetailHeaderComponent() {
-  const dispatch = useDispatch<AppDispatch>();
-  // const { searchedGames } = useGames();
+interface Props {
+  data: Game;
+  loading: boolean;
+}
 
-  const fetchData = () => {
-    // dispatch(fetchSearcheddGames());
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
+export default function DetailHeaderComponent({ data, loading }: Readonly<Props>) {
   return (
     <div className={`flex mt-8 ${styles.page_detail}`}>
       <div className={`w-1/4 ${styles.image}`}>
         <div className="relative w-[250px] h-[350px] overflow-hidden group">
-          <Image src={'/co7n02.jpg'} alt={'test'} fill />
+          <Image src={data?.background_image} alt={'test'} fill />
         </div>
       </div>
       <div className={`w-3/4 mt-5 ${styles.detail_content}`}>
-        <div className="text-4xl font-semibold">Witcher 3: The wild hunt</div>
+        <div className="text-4xl font-semibold">{data?.name}</div>
 
         <div className="flex flex-wrap items-center gap-2 rating mt-10">
-          <RatingComponent data="4.5" imgSrc="/star.svg" />
-          <RatingComponent data="Metacritic 92" imgSrc="/metacritics.svg" />
+          <RatingComponent data={data?.rating.toFixed(1)} imgSrc="/star.svg" />
+          <RatingComponent data={`Metacritic ${data?.metacritic}`} imgSrc="/metacritics.svg" />
         </div>
 
         <div className="flex flex-wrap items-center gap-2 rating mt-4">
-          <RatingComponent data="Action" />
-          <RatingComponent data="RPG" />
-          <RatingComponent data="Open World" />
-          <RatingComponent data="Fantasy" />
+          {data?.genres.map((genra) => (
+            <RatingComponent key={genra.id} data={genra?.name} />
+          ))}
         </div>
+
         <div className="mt-15">
           <div className="flex items-center">
             <div className="">
@@ -53,7 +48,14 @@ export default function DetailHeaderComponent() {
             </div>
             <div className="ml-2 flex">
               <div className="mr-2 font-semibold">Released: </div>
-              <div> May 18, 2015</div>
+              <div>
+                {data?.released &&
+                  new Date(data.released).toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric',
+                  })}
+              </div>
             </div>
           </div>
 
@@ -63,7 +65,11 @@ export default function DetailHeaderComponent() {
             </div>
             <div className="ml-2 flex">
               <div className="mr-2 font-semibold">Developer: </div>
-              <div> CD PROJECT RED</div>
+              <div>
+                {data?.developers.map((developer) => (
+                  <span key={developer.id}> {data?.developers?.map((developer) => developer.name).join(', ')}</span>
+                ))}
+              </div>
             </div>
           </div>
         </div>

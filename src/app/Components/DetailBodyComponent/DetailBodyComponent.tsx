@@ -11,10 +11,14 @@ import { fetchSearcheddGames } from '@/src/app/Services/Games';
 import Image from 'next/image';
 import RatingComponent from '@/src/app/Components/RatingComponent/RatingComponent';
 import PlatformComponent from '@Components/PlatformComponent/PlatformComponent';
+import { Game } from '@app-types/Games';
 
 // import useGames from "@/src/app/Hooks/useGames";
-
-export default function DetailBodyComponent() {
+interface Props {
+  data: Game;
+  loading: boolean;
+}
+export default function DetailBodyComponent({ data, loading }: Readonly<Props>) {
   const dispatch = useDispatch<AppDispatch>();
   // const { searchedGames } = useGames();
 

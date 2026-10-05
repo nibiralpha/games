@@ -49,6 +49,15 @@ export interface Game {
   tags: Tag[];
   esrb_rating: EsrbRating | null;
   short_screenshots: ShortScreenshot[];
+  developers: Developer[];
+}
+
+export interface Developer {
+  games_count: number;
+  id: number;
+  image_background: string;
+  name: string;
+  slug: string;
 }
 
 export interface Rating {

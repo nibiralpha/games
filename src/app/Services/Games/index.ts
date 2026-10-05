@@ -9,10 +9,17 @@ import {
   setTrendingGames,
   setTrendingGamesLoading,
 } from '@/src/redux/GameSlice';
-import { getGamesLastRecentAnicipeted, getMonthlyGames, getSearchResults, getTrendingGames } from '@Api/Games';
+import {
+  getGamesDetail,
+  getGamesLastRecentAnicipeted,
+  getMonthlyGames,
+  getSearchResults,
+  getTrendingGames,
+} from '@Api/Games';
 import { Game, GameSectionsState, LastNextAnticipatedInterface, TrendingGameInterface } from '@app-types/Games';
 import { getCurrentMonthDateRange } from '@Helper/Functions';
 import { SearchStateInterface } from '@app-types/SearchState';
+import { setGameDetails, setGameDetailsLoading } from '@/src/redux/DetailSlice';
 
 const fetchTrendingGames = () => {
   return async (dispatch: Dispatch) => {
@@ -156,4 +163,23 @@ const fetchSearcheddGames = (queryString: string) => {
   };
 };
 
-export { fetchTrendingGames, fetchMonthlyGames, fetchLastRecentAnicipetedGames, fetchSearcheddGames };
+const fetchGameDetail = (id: number) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(setGameDetailsLoading(true));
+
+      const gamesRes = await getGamesDetail(id);
+
+      dispatch(setGameDetails(gamesRes));
+      dispatch(setGameDetailsLoading(false));
+    } catch (error: unknown) {
+      console.log(error);
+
+      dispatch(setGameDetailsLoading(false));
+
+      throw error;
+    }
+  };
+};
+
+export { fetchTrendingGames, fetchMonthlyGames, fetchLastRecentAnicipetedGames, fetchSearcheddGames, fetchGameDetail };
