@@ -35,14 +35,14 @@ export default function DetailBodyComponent({ data, loading }: Readonly<Props>) 
           {data?.platforms?.map((platform) => (
             <PlatformComponent
               key={platform.platform.id}
-              img="/windows.svg"
+              // img="/windows.svg"
               name={platform.platform.name}
               alias={platform.platform.name}
             />
           ))}
         </div>
 
-        <div className="flex items-center mb-2">
+        {/* <div className="flex items-center mb-2">
           <div className="mr-2">
             <Image src={'/genra.svg'} alt="icon" height={40} width={40} />
           </div>
@@ -53,7 +53,7 @@ export default function DetailBodyComponent({ data, loading }: Readonly<Props>) 
           {data?.genres?.map((genra) => (
             <PlatformComponent key={genra.id} name={genra.name} alias={genra.name} />
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );
