@@ -21,16 +21,20 @@ export default function HeaderComponent() {
           <nav className="flex items-center gap-8">
             <Link
               href="/"
-              className={`text-white font-semibold hover:text-gray-300 transition-colors pb-1
-                ${pathname === '/' ? 'border-b-2 border-white text-white' : 'border-b-2 border-transparent'}`}
+              className={`text-white hover:text-gray-300 transition-colors pb-1 ${
+                pathname === '/' ? 'font-semibold border-b-2 border-white' : 'font-medium border-b-2 border-transparent'
+              }`}
             >
               Home
             </Link>
 
             <Link
               href="/search"
-              className={`text-white font-semibold hover:text-gray-300 transition-colors pb-1
-                ${pathname === '/search' ? 'border-b-2 border-white text-white' : 'border-b-2 border-transparent'}`}
+              className={`text-white hover:text-gray-300 transition-colors pb-1 ${
+                pathname === '/search'
+                  ? 'font-semibold border-b-2 border-white'
+                  : 'font-medium border-b-2 border-transparent'
+              }`}
             >
               Search
             </Link>
