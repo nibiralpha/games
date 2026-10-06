@@ -3,8 +3,11 @@
 import Image from 'next/image';
 import styles from './Header.module.css';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function HeaderComponent() {
+  const pathname = usePathname();
+
   return (
     <div className={styles.header}>
       <div className={styles.header_area}>
@@ -16,11 +19,19 @@ export default function HeaderComponent() {
           </div>
 
           <nav className="flex items-center gap-8">
-            <Link href="/" className="text-white font-medium hover:text-gray-300 transition-colors font-semibold">
+            <Link
+              href="/"
+              className={`text-white font-semibold hover:text-gray-300 transition-colors pb-1
+                ${pathname === '/' ? 'border-b-2 border-white text-white' : 'border-b-2 border-transparent'}`}
+            >
               Home
             </Link>
 
-            <Link href="/search" className="text-white font-light hover:text-gray-300 transition-colors font-semibold">
+            <Link
+              href="/search"
+              className={`text-white font-semibold hover:text-gray-300 transition-colors pb-1
+                ${pathname === '/search' ? 'border-b-2 border-white text-white' : 'border-b-2 border-transparent'}`}
+            >
               Search
             </Link>
           </nav>
