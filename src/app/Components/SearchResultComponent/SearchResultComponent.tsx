@@ -95,7 +95,7 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
     <div className={styles.search_component}>
       {/* SEARCH */}
 
-      <div className="search_haed flex items-center">
+      <div className="search_haed flex items-center mb-5">
         <div className="w-full md:w-4/5">
           <input
             type="text"
@@ -110,7 +110,7 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
 
       {/* MOBILE FILTER */}
 
-      <div className="flex lg:hidden mt-4">
+      <div className="flex lg:hidden mt-4 mb-5">
         <SearchMenuMobileComponent
           onChange={(data) => {
             if (window.innerWidth < 1024) {
@@ -137,7 +137,7 @@ export default function SearchResultComponent({ data, loading, onChange }: Reado
         </SearchMenuMobileComponent>
       </div>
 
-      <div className="mt-5 mb-5 text-sm text-[#626262]">{formatWithCommas(data?.count)} games found</div>
+      {/* <div className="mt-5 mb-5 text-sm text-[#626262]">{formatWithCommas(data?.count)} games found</div> */}
 
       <InfiniteScroll
         dataLength={data?.list?.length ?? 0}
