@@ -19,7 +19,15 @@ export default function DetailHeaderComponent({ data, loading }: Readonly<Props>
     <div className={`flex mt-8 ${styles.page_detail}`}>
       <div className={`w-1/4 ${styles.image}`}>
         <div className="relative w-[250px] h-[350px] overflow-hidden group">
-          <Image src={data?.background_image || '/no-img.png'} alt={"no img found"} fill />
+          <div className="relative w-[250px] h-[350px] overflow-hidden group">
+            <Image
+              src={data?.background_image || '/no-img.png'}
+              alt={data?.name || 'Game cover'}
+              fill
+              sizes="250px"
+              className="object-cover"
+            />
+          </div>
         </div>
       </div>
       <div className={`w-3/4 mt-5 ${styles.detail_content}`}>
